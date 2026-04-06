@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found | Brandvakt</title>
+  <meta name="description" content="The page you're looking for could not be found.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#080c18">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="css/design-system.css">
+  <style>
+
+    .page-404 {
+      min-height: 100vh;
+      background: var(--midnight);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--nav-height) var(--space-md) var(--space-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-404::before {
+      content: '404';
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: clamp(20rem, 35vw, 40rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.02);
+      line-height: 1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      white-space: nowrap;
+      letter-spacing: -0.04em;
+    }
+
+    .page-404__inner {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      max-width: 560px;
+    }
+
+    .page-404__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1.5rem;
+    }
+
+    .page-404__eyebrow::before,
+    .page-404__eyebrow::after {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--teal);
+      opacity: 0.5;
+    }
+
+    .page-404__heading {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 300;
+      color: var(--warm-white);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .page-404__heading span {
+      color: var(--copper);
+    }
+
+    .page-404__text {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    .page-404__actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .page-404__links {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .page-404__links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    .page-404__links a:hover {
+      color: var(--teal);
+    }
+
+    .page-404__glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(62,219,198,0.04) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    @media (max-width: 900px) {
+    @media (max-width: 768px) {
+      .page-404__actions { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <div id="page-progress"></div>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">
+        <img src="assets/logo-white.png" alt="Brandvakt">
+      </a>
+      <div class="nav__links">
+        <a href="pages/about.html">About</a>
+        <a href="pages/services.html">Services</a>
+        <a href="pages/soc.html">SOC</a>
+        <a href="pages/bygrc.html">byGRC</a>
+        <a href="pages/homodeus-partnership.html">Brandvakt × HomoDeus</a>
+        <a href="https://homodeus.me" target="_blank" class="nav__link-highlight">Homo Deus</a>
+        <a href="pages/academy.html">Academy</a>
+        <a href="pages/partners.html">Partners</a>
+        <a href="pages/careers.html">Careers</a>
+        <a href="pages/contact.html" class="nav__cta">Contact</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="page-404">
+    <div class="page-404__glow"></div>
+    <div class="page-404__inner">
+      <div class="page-404__eyebrow">Page not found</div>
+      <h1 class="page-404__heading">This page has<br>gone <span>dark</span>.</h1>
+      <p class="page-404__text">The URL you followed doesn't exist or has been moved. Even the best Firewatchers lose a trail sometimes — let's get you back on track.</p>
+      <div class="page-404__actions">
+        <a href="/" class="btn btn--teal">Back to Home</a>
+        <a href="pages/contact.html" class="btn btn--outline">Contact Us</a>
+      </div>
+      <div class="page-404__links">
+        <a href="pages/about.html">About</a>
+        <a href="pages/services.html">Services</a>
+        <a href="pages/soc.html">SOC</a>
+        <a href="pages/bygrc.html">byGRC</a>
+        <a href="pages/careers.html">Careers</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    var progressBar = document.getElementById('page-progress');
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY || document.documentElement.scrollTop;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+    }, { passive: true });
+
+    (function() {
+      var hamburger = document.querySelector('.nav__hamburger');
+      var navLinks = document.querySelector('.nav__links');
+      if (hamburger) {
+        hamburger.addEventListener('click', function() {
+          hamburger.classList.toggle('active');
+          navLinks.classList.toggle('open');
+          document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+          hamburger.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+        });
+        navLinks.querySelectorAll('a').forEach(function(link) {
+          link.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('open');
+            document.body.style.overflow = '';
+            hamburger.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+    })();
+  </script>
+  <script src="js/global.js"></script>
+</body>
+</html>

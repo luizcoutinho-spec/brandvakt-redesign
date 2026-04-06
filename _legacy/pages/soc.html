@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Operations Center | Brandvakt</title>
+  <meta name="description" content="24/7 Security Operations Center. Continuous threat monitoring, incident detection, and rapid response to protect your enterprise.">
+  <meta property="og:title" content="24/7 Security Operations Center — Brandvakt SOC">
+  <meta property="og:description" content="Continuous threat monitoring, detection, and incident response. Our SOC never sleeps.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://brandvakt-redesign.vercel.app/pages/soc">
+  <meta property="og:image" content="https://brandvakt-redesign.vercel.app/assets/logo-black-full.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://brandvakt-redesign.vercel.app/assets/logo-black-full.png">
+  <link rel="canonical" href="https://brandvakt-redesign.vercel.app/pages/soc">
+  <meta name="keywords" content="SOC, security operations center, threat monitoring, incident response, SIEM">
+  <meta name="theme-color" content="#080c18">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    .hero {
+      position: relative;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      background:
+        radial-gradient(ellipse at 70% 50%, rgba(62, 219, 198, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 30% 80%, rgba(200, 150, 90, 0.04) 0%, transparent 50%),
+        var(--midnight);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: 'SOC';
+      position: absolute;
+      right: -1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(8rem, 22vw, 22rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: rgba(255,255,255,0.025);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+      z-index: 1;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    }
+
+    .hero__grid-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background-image:
+        linear-gradient(rgba(200, 150, 90, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200, 150, 90, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero__radial {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: radial-gradient(ellipse at 70% 50%, rgba(62, 219, 198, 0.06) 0%, transparent 60%),
+                  radial-gradient(ellipse at 30% 80%, rgba(200, 150, 90, 0.04) 0%, transparent 50%);
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 3;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: calc(var(--nav-height) + var(--space-xl)) var(--space-md) var(--space-lg);
+      width: 100%;
+    }
+
+    .hero__overline {
+      color: var(--copper);
+      margin-bottom: var(--space-md);
+      animation: fadeUp 0.8s 0.3s both;
+    }
+
+    .hero__title {
+      color: var(--warm-white);
+      margin-bottom: var(--space-md);
+      max-width: 700px;
+      animation: fadeUp 0.8s 0.5s both;
+    }
+
+    .hero__title em {
+      font-style: italic;
+      color: var(--copper);
+    }
+
+    .hero__subtitle {
+      color: var(--text-muted);
+      font-size: 1.125rem;
+      line-height: 1.7;
+      max-width: 600px;
+      animation: fadeUp 0.8s 0.7s both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .threat-band {
+      background: var(--midnight);
+      border-top: 1px solid rgba(62,219,198,0.1);
+      border-bottom: 1px solid rgba(62,219,198,0.1);
+      padding: 2rem 0;
+    }
+
+    .threat-band__inner {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .threat-band__header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .threat-band__label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(62,219,198,0.5);
+    }
+
+    .threat-band__live {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.25);
+      border-radius: 100px;
+      padding: 0.18rem 0.6rem;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #f87171;
+      text-transform: uppercase;
+    }
+
+    .threat-band__live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #f87171;
+      animation: livePulse 1.4s ease-in-out infinite;
+    }
+
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    .threat-band__stats {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .threat-stat {
+      text-align: center;
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .threat-stat__num {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-style: italic;
+      color: var(--warm-white);
+      display: block;
+    }
+
+    .threat-stat__label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      display: block;
+      margin-top: 0.25rem;
+    }
+
+    .stats {
+      background: var(--navy);
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+      padding: var(--space-lg) 0;
+    }
+
+    .stats__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: var(--space-md);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.02);
+      transition: border-color var(--transition);
+    }
+
+    .stat-card:hover {
+      border-color: rgba(200, 150, 90, 0.3);
+    }
+
+    .stat-card__value {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      color: var(--copper);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-card__label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+    }
+
+    .capabilities {
+      padding: var(--space-xl) 0;
+      position: relative;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233edbc6' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .capabilities__header {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md) var(--space-lg);
+    }
+
+    .capabilities__intro {
+      color: var(--text-muted);
+      font-size: 1.125rem;
+      line-height: 1.7;
+      max-width: 600px;
+      margin-top: var(--space-sm);
+    }
+
+    .capabilities__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    .soc-wheel-wrap {
+      display: flex;
+      justify-content: center;
+      padding: var(--space-lg) var(--space-md) var(--space-md);
+    }
+
+    .soc-wheel {
+      width: 100%;
+      max-width: 340px;
+      height: auto;
+      display: block;
+    }
+
+    .capability {
+      padding: var(--space-md);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .capability__icon {
+      width: 56px;
+      height: 56px;
+      border: 1px solid rgba(62, 219, 198, 0.25);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-sm);
+      background: rgba(62, 219, 198, 0.05);
+    }
+
+    .capability__icon svg {
+      width: 26px;
+      height: 26px;
+      stroke: var(--teal, #3edbc6);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .capability__title {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--warm-white);
+      margin-bottom: 0.75rem;
+    }
+
+    .capability__items {
+      list-style: none;
+      counter-reset: cap-counter;
+    }
+
+    .capability__items li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding: 0.4rem 0;
+      padding-left: 2rem;
+      position: relative;
+      counter-increment: cap-counter;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .capability__items li:last-child {
+      border-bottom: none;
+    }
+
+    /* Color-coordinate capability cards with the wheel segments */
+    .capabilities__grid .capability:nth-child(1) { border-top: 2px solid #3edbc6; }
+    .capabilities__grid .capability:nth-child(2) { border-top: 2px solid #c8965a; }
+    .capabilities__grid .capability:nth-child(2) .capability__icon { border-color: rgba(200,150,90,0.3); background: rgba(200,150,90,0.06); }
+    .capabilities__grid .capability:nth-child(2) .capability__icon svg { stroke: #c8965a; }
+    .capabilities__grid .capability:nth-child(3) { border-top: 2px solid #5f8fac; }
+    .capabilities__grid .capability:nth-child(3) .capability__icon { border-color: rgba(95,143,172,0.3); background: rgba(95,143,172,0.06); }
+    .capabilities__grid .capability:nth-child(3) .capability__icon svg { stroke: #5f8fac; }
+    .capabilities__grid .capability:nth-child(4) { border-top: 2px solid #1cb5a4; }
+    .capabilities__grid .capability:nth-child(4) .capability__icon { border-color: rgba(28,181,164,0.3); background: rgba(28,181,164,0.06); }
+    .capabilities__grid .capability:nth-child(4) .capability__icon svg { stroke: #1cb5a4; }
+
+    .capability__items li::before {
+      content: counter(cap-counter, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: 0.4rem;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--teal, #3edbc6);
+      letter-spacing: 0.02em;
+    }
+
+    .benefits {
+      padding: var(--space-xl) 0;
+    }
+
+    .benefits__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      align-items: start;
+    }
+
+    .benefits__header {
+      position: sticky;
+      top: calc(var(--nav-height) + var(--space-md));
+    }
+
+    .benefits__desc {
+      font-size: 1.125rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      margin-top: var(--space-sm);
+      max-width: 440px;
+    }
+
+    .benefits__list {
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .benefit {
+      padding: 1.25rem 1.5rem;
+      border-left: 2px solid var(--border-light);
+      transition: border-color var(--transition);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.5rem 1rem;
+      align-items: start;
+    }
+
+    .benefit:hover {
+      border-color: var(--copper);
+    }
+
+    .benefit__body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .benefit__title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--warm-white);
+    }
+
+    .benefit__text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .benefit__metric {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .benefit__metric-val {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--copper);
+      line-height: 1;
+      display: block;
+    }
+
+    .benefit__metric-note {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .delivery {
+      padding: var(--space-xl) 0;
+    }
+
+    .delivery__header {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md) var(--space-lg);
+    }
+
+    .delivery__desc {
+      font-size: 1.125rem;
+      line-height: 1.7;
+      max-width: 600px;
+      margin-top: var(--space-sm);
+    }
+
+    .delivery__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    .delivery-card {
+      position: relative;
+      overflow: hidden;
+      padding: var(--space-md);
+      border: 1px solid var(--border-light);
+      border-top: 3px solid var(--teal, #3EDBC6);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.04);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .delivery-card:hover {
+      border-color: var(--copper);
+      border-top-color: var(--teal, #3EDBC6);
+      box-shadow: 0 4px 24px rgba(200, 150, 90, 0.06);
+    }
+
+    .delivery-card__watermark {
+      position: absolute;
+      bottom: -0.25rem;
+      right: 0.75rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 6rem;
+      line-height: 1;
+      color: var(--warm-white, #F5F0E8);
+      opacity: 0.05;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .delivery-card__number {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 2.5rem;
+      color: var(--copper);
+      line-height: 1;
+      margin-bottom: var(--space-sm);
+    }
+
+    .delivery-card__title {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .delivery-card__text {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    .delivery-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: var(--space-md);
+    }
+
+    .delivery-card__tag {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--teal, #3EDBC6);
+      border: 1px solid rgba(62, 219, 198, 0.25);
+      border-radius: 2px;
+      padding: 0.2rem 0.6rem;
+    }
+
+    .differentiators {
+      padding: var(--space-xl) 0;
+    }
+
+    .differentiators__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    .differentiators__header {
+      margin-bottom: var(--space-lg);
+    }
+
+    .differentiators__desc {
+      font-size: 1.125rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin-top: var(--space-sm);
+    }
+
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--space-sm);
+    }
+
+    .diff-item {
+      padding: var(--space-md);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      backdrop-filter: blur(8px);
+      transition: border-color var(--transition), background var(--transition);
+    }
+
+    .diff-item:hover {
+      border-color: rgba(62, 219, 198, 0.45);
+      background: rgba(62, 219, 198, 0.09);
+    }
+
+    .diff-item__icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: var(--space-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(62, 219, 198, 0.25);
+      border-radius: var(--radius);
+    }
+
+    .diff-item__icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--teal, #3EDBC6);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .diff-item__num {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--teal, #3EDBC6);
+      margin-bottom: 0.35rem;
+    }
+
+    .diff-item__label {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--warm-white);
+      margin-bottom: 0.6rem;
+    }
+
+    .diff-item__text {
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: var(--text-muted);
+    }
+
+    .cta-section {
+      padding: var(--space-xl) 0;
+      text-align: center;
+    }
+
+    .cta-section__inner {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    .cta-section__title {
+      color: var(--warm-white);
+      margin-bottom: var(--space-sm);
+    }
+
+    .cta-section__text {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: var(--space-md);
+    }
+
+    .capabilities h2.h2,
+    .benefits h2.h2,
+    .delivery h2.h2,
+    .differentiators h2.h2,
+    .cta-section h2.h2 {
+      font-family: var(--font-display);
+      font-weight: 300;
+    }
+
+    @media (max-width: 1024px) {
+      .stats__grid { grid-template-columns: repeat(2, 1fr); }
+      .diff-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .capabilities__grid { grid-template-columns: 1fr; }
+      .soc-wheel { max-width: 260px; }
+      .benefits__inner { grid-template-columns: 1fr; }
+      .benefits__header { position: static; }
+      .delivery__grid { grid-template-columns: 1fr; }
+      .diff-grid { grid-template-columns: repeat(2, 1fr); }
+      .delivery-card__tags { gap: 0.375rem; }
+      .benefit__metric { text-align: left; margin-top: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo"><img src="../assets/logo-white.png" alt="Brandvakt" style="height:36px;"></a>
+      <div class="nav__links">
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="soc.html" class="active">SOC</a>
+        <a href="bygrc.html">byGRC</a>
+        <a href="homodeus-partnership.html">Brandvakt × HomoDeus</a>
+        <a href="https://homodeus.me" target="_blank" class="nav__link-highlight">Homo Deus</a>
+        <a href="academy.html">Academy</a>
+        <a href="partners.html">Partners</a>
+        <a href="careers.html">Careers</a>
+        <a href="contact.html" class="nav__cta">Contact</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero__grid-bg"></div>
+    <div class="hero__radial"></div>
+    <div class="hero__content">
+      <p class="overline hero__overline">24/7 Threat Monitoring</p>
+      <h1 class="h1 hero__title">
+        Security Operations <em>Center</em>
+      </h1>
+      <p class="hero__subtitle">
+        Continuous monitoring, threat detection, and incident response — before they become breaches.
+      </p>
+      <div style="margin-top:var(--space-lg); display:inline-flex; align-items:center; gap:0.6rem; border:1px solid var(--teal,#3EDBC6); border-radius:2rem; padding:0.35rem 0.9rem;">
+        <span style="font-family:var(--font-body); font-weight:700; font-size:0.8rem; letter-spacing:0.06em; color:var(--teal,#3EDBC6);">Brandvakt SOC</span>
+        <span style="width:1px; height:12px; background:rgba(62,219,198,0.3);"></span>
+        <span style="font-size:0.75rem; letter-spacing:0.05em; color:rgba(62,219,198,0.6); text-transform:uppercase;">AI-Powered Defense</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="threat-band">
+    <div class="container">
+      <div class="threat-band__inner">
+        <div class="threat-band__header">
+          <p class="threat-band__label">Global Threat Landscape 2025</p>
+          <span class="threat-band__live"><span class="threat-band__live-dot"></span>Live Data</span>
+        </div>
+        <div class="threat-band__stats">
+          <div class="threat-stat"><span class="threat-stat__num">2,500+</span><span class="threat-stat__label">cyberattacks per day globally</span></div>
+          <div class="threat-stat"><span class="threat-stat__num">$10.5T</span><span class="threat-stat__label">projected cybercrime cost in 2025</span></div>
+          <div class="threat-stat"><span class="threat-stat__num">94%</span><span class="threat-stat__label">of malware delivered via email</span></div>
+          <div class="threat-stat"><span class="threat-stat__num">39 sec</span><span class="threat-stat__label">average time between attacks</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="stats section--navy">
+    <div class="stats__grid">
+      <div class="stat-card reveal">
+        <div class="stat-card__value" data-target="4.24" data-prefix="$" data-suffix="M">$0M</div>
+        <div class="stat-card__label">Average cost of a data breach to a business</div>
+      </div>
+      <div class="stat-card reveal reveal-delay-1">
+        <div class="stat-card__value" data-target="287" data-suffix=" days">0 days</div>
+        <div class="stat-card__label">Average time to identify and contain a data breach</div>
+      </div>
+      <div class="stat-card reveal reveal-delay-2">
+        <div class="stat-card__value" data-target="82" data-suffix="%">0%</div>
+        <div class="stat-card__label">Increase in ransomware related data leaks</div>
+      </div>
+      <div class="stat-card reveal reveal-delay-3">
+        <div class="stat-card__value" data-target="650" data-suffix="+">0+</div>
+        <div class="stat-card__label">New threat groups detected, with 1,900+ tracked</div>
+      </div>
+      <div class="stat-card reveal reveal-delay-4">
+        <div class="stat-card__value" data-target="62" data-suffix="%">0%</div>
+        <div class="stat-card__label">Of detections were malware-free</div>
+      </div>
+      <div class="stat-card reveal reveal-delay-4">
+        <div class="stat-card__value" data-target="20" data-suffix="%">0%</div>
+        <div class="stat-card__label">Of incidents initially caused by compromised credentials</div>
+      </div>
+      <div class="stat-card reveal reveal-delay-5">
+        <div class="stat-card__value" data-prefix="$" data-target="180">$0</div>
+        <div class="stat-card__label">Average cost per stolen record containing sensitive or confidential information</div>
+      </div>
+      <div class="stat-card reveal reveal-delay-5">
+        <div class="stat-card__value" data-target="75" data-suffix="%">0%</div>
+        <div class="stat-card__label">Of cyberattacks exploit known, unpatched vulnerabilities</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="capabilities section--dark">
+    <div class="capabilities__header reveal">
+      <p class="overline" style="color: var(--copper);">How We Protect You</p>
+      <h2 class="h2" style="color: var(--warm-white); margin-top: 0.5rem;">
+        Proactive Risk Mitigation
+      </h2>
+      <p class="capabilities__intro">
+        Covering every phase of the threat lifecycle.
+      </p>
+    </div>
+
+    <div class="soc-wheel-wrap reveal">
+      <svg class="soc-wheel" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Background track -->
+        <circle cx="200" cy="200" r="100" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="30"/>
+
+        <!-- Prevention arc — teal, top-right quadrant -->
+        <circle cx="200" cy="200" r="100" fill="none" stroke="#3edbc6" stroke-width="30"
+                stroke-dasharray="153 475" stroke-dashoffset="0" stroke-linecap="round"
+                transform="rotate(-90 200 200)"/>
+
+        <!-- Detection arc — copper, bottom-right quadrant -->
+        <circle cx="200" cy="200" r="100" fill="none" stroke="#c8965a" stroke-width="30"
+                stroke-dasharray="153 475" stroke-dashoffset="-157" stroke-linecap="round"
+                transform="rotate(-90 200 200)"/>
+
+        <!-- Response arc — steel blue, bottom-left quadrant -->
+        <circle cx="200" cy="200" r="100" fill="none" stroke="#5f8fac" stroke-width="30"
+                stroke-dasharray="153 475" stroke-dashoffset="-314" stroke-linecap="round"
+                transform="rotate(-90 200 200)"/>
+
+        <!-- Reporting arc — deep teal, top-left quadrant -->
+        <circle cx="200" cy="200" r="100" fill="none" stroke="#1cb5a4" stroke-width="30"
+                stroke-dasharray="153 475" stroke-dashoffset="-471" stroke-linecap="round"
+                transform="rotate(-90 200 200)"/>
+
+        <!-- Center fill -->
+        <circle cx="200" cy="200" r="68" fill="#0f1628"/>
+
+        <!-- Center text -->
+        <text x="200" y="194" text-anchor="middle" fill="rgba(250,247,242,0.45)"
+              font-size="9" letter-spacing="3" font-family="Outfit,sans-serif" font-weight="400">BRANDVAKT</text>
+        <text x="200" y="216" text-anchor="middle" fill="#faf7f2"
+              font-size="22" font-weight="700" font-family="Cormorant Garamond,serif" letter-spacing="2">SOC</text>
+
+        <!-- Clockwise direction indicator -->
+        <path d="M 200 95 L 206 88 L 212 95" fill="none"
+              stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- Phase numbers inside arcs at midpoints (r=100) -->
+        <!-- Prevention midpoint (45°): 200+70.7, 200-70.7 -->
+        <text x="271" y="133" text-anchor="middle" fill="rgba(8,12,24,0.85)"
+              font-size="11" font-weight="700" font-family="Outfit,sans-serif">01</text>
+        <!-- Detection midpoint (135°) -->
+        <text x="271" y="271" text-anchor="middle" fill="rgba(8,12,24,0.85)"
+              font-size="11" font-weight="700" font-family="Outfit,sans-serif">02</text>
+        <!-- Response midpoint (225°) -->
+        <text x="129" y="271" text-anchor="middle" fill="rgba(8,12,24,0.85)"
+              font-size="11" font-weight="700" font-family="Outfit,sans-serif">03</text>
+        <!-- Reporting midpoint (315°) -->
+        <text x="129" y="133" text-anchor="middle" fill="rgba(8,12,24,0.85)"
+              font-size="11" font-weight="700" font-family="Outfit,sans-serif">04</text>
+
+        <!-- Phase labels — positioned at quadrant midpoints (r≈155) -->
+        <!-- Prevention label — top-right (45°) -->
+        <text x="306" y="86" text-anchor="middle" fill="#3edbc6"
+              font-size="11" font-weight="600" letter-spacing="1.5" font-family="Outfit,sans-serif">PREVENTION</text>
+
+        <!-- Detection label — bottom-right (135°) -->
+        <text x="306" y="318" text-anchor="middle" fill="#c8965a"
+              font-size="11" font-weight="600" letter-spacing="1.5" font-family="Outfit,sans-serif">DETECTION</text>
+
+        <!-- Response label — bottom-left (225°) -->
+        <text x="94" y="318" text-anchor="middle" fill="#5f8fac"
+              font-size="11" font-weight="600" letter-spacing="1.5" font-family="Outfit,sans-serif">RESPONSE</text>
+
+        <!-- Reporting label — top-left (315°) -->
+        <text x="94" y="86" text-anchor="middle" fill="#1cb5a4"
+              font-size="11" font-weight="600" letter-spacing="1.5" font-family="Outfit,sans-serif">REPORTING</text>
+      </svg>
+    </div>
+
+    <div class="capabilities__grid">
+      <div class="capability reveal">
+        <div class="capability__icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="capability__title">Incident Prevention</div>
+        <ul class="capability__items">
+          <li>Threat intelligence feeds</li>
+          <li>GRC policies and process alignment</li>
+          <li>Security auditing and assessment</li>
+          <li>Attack surface reduction</li>
+        </ul>
+      </div>
+      <div class="capability reveal reveal-delay-1">
+        <div class="capability__icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="capability__title">Incident Detection</div>
+        <ul class="capability__items">
+          <li>Continuous security monitoring</li>
+          <li>SIEM correlation and analysis</li>
+          <li>Behavioral anomaly detection</li>
+          <li>Malware-free threat identification</li>
+        </ul>
+      </div>
+      <div class="capability reveal reveal-delay-2">
+        <div class="capability__icon">
+          <svg viewBox="0 0 24 24"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
+        </div>
+        <div class="capability__title">Incident Response</div>
+        <ul class="capability__items">
+          <li>Rapid containment and remediation</li>
+          <li>Playbook-driven response workflows</li>
+          <li>Forensic investigation support</li>
+          <li>Escalation and coordination</li>
+        </ul>
+      </div>
+      <div class="capability reveal reveal-delay-3">
+        <div class="capability__icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div class="capability__title">Reporting</div>
+        <ul class="capability__items">
+          <li>Security metrics and KPIs</li>
+          <li>Trend analysis and forecasting</li>
+          <li>Executive advisories</li>
+          <li>Compliance documentation</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="benefits section--navy">
+    <div class="benefits__inner">
+      <div class="benefits__header reveal">
+        <p class="overline" style="color: var(--copper);">Why a SOC</p>
+        <h2 class="h2" style="color: var(--warm-white); margin-top: 0.5rem;">
+          Measurable Security Outcomes
+        </h2>
+        <p class="benefits__desc">
+          Tangible operational improvements, measured by outcomes.
+        </p>
+      </div>
+      <div class="benefits__list">
+        <div class="benefit reveal">
+          <div class="benefit__body">
+            <div class="benefit__title">Cost Effective</div>
+            <div class="benefit__text">Clear-term service model instead of maintaining an entire in-house department.</div>
+          </div>
+          <div class="benefit__metric">
+            <span class="benefit__metric-val">60%</span>
+            <span class="benefit__metric-note">avg. savings</span>
+          </div>
+        </div>
+        <div class="benefit reveal reveal-delay-1">
+          <div class="benefit__body">
+            <div class="benefit__title">Reduced Downtime</div>
+            <div class="benefit__text">Sole focus on your security results in faster incident resolution and recovery.</div>
+          </div>
+          <div class="benefit__metric">
+            <span class="benefit__metric-val">4h</span>
+            <span class="benefit__metric-note">avg. response</span>
+          </div>
+        </div>
+        <div class="benefit reveal reveal-delay-2">
+          <div class="benefit__body">
+            <div class="benefit__title">Customer Trust</div>
+            <div class="benefit__text">Tight security posture and breach avoidance build lasting client confidence.</div>
+          </div>
+          <div class="benefit__metric">
+            <span class="benefit__metric-val">97%</span>
+            <span class="benefit__metric-note">retention rate</span>
+          </div>
+        </div>
+        <div class="benefit reveal reveal-delay-3">
+          <div class="benefit__body">
+            <div class="benefit__title">Continuous Monitoring</div>
+            <div class="benefit__text">Around-the-clock analysis of system activity and security events.</div>
+          </div>
+          <div class="benefit__metric">
+            <span class="benefit__metric-val">24/7</span>
+            <span class="benefit__metric-note">always on</span>
+          </div>
+        </div>
+        <div class="benefit reveal reveal-delay-4">
+          <div class="benefit__body">
+            <div class="benefit__title">Centralized Control</div>
+            <div class="benefit__text">Single point of visibility and governance over hardware, software, and data assets.</div>
+          </div>
+          <div class="benefit__metric">
+            <span class="benefit__metric-val">1</span>
+            <span class="benefit__metric-note">pane of glass</span>
+          </div>
+        </div>
+        <div class="benefit reveal reveal-delay-5">
+          <div class="benefit__body">
+            <div class="benefit__title">Faster Detection</div>
+            <div class="benefit__text">Decreased timeline between compromise occurrence and detection.</div>
+          </div>
+          <div class="benefit__metric">
+            <span class="benefit__metric-val">12×</span>
+            <span class="benefit__metric-note">faster MTTD</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="delivery section--cream">
+    <div class="delivery__header reveal">
+      <p class="overline" style="color: var(--copper);">Delivery Models</p>
+      <h2 class="h2" style="margin-top: 0.5rem;">
+        Choose Your Engagement
+      </h2>
+      <p class="delivery__desc">
+        Choose the model that fits your operational reality.
+      </p>
+    </div>
+    <div class="delivery__grid">
+      <div class="delivery-card reveal">
+        <div class="delivery-card__watermark">01</div>
+        <div class="delivery-card__number">01</div>
+        <div class="delivery-card__title">Outsourced SOC</div>
+        <div class="delivery-card__text">
+          We integrate with your existing technology stack and provide alert-based monitoring using your established playbooks.
+        </div>
+        <div class="delivery-card__tags">
+          <span class="delivery-card__tag">Uses existing tech stack</span>
+          <span class="delivery-card__tag">Alert-based monitoring</span>
+          <span class="delivery-card__tag">Playbook alignment</span>
+        </div>
+      </div>
+      <div class="delivery-card reveal reveal-delay-1">
+        <div class="delivery-card__watermark">02</div>
+        <div class="delivery-card__number">02</div>
+        <div class="delivery-card__title">Managed SOC</div>
+        <div class="delivery-card__text">
+          Full-service operations managed entirely by Brandvakt — technology, processes, and expertise included.
+        </div>
+        <div class="delivery-card__tags">
+          <span class="delivery-card__tag">Full-service</span>
+          <span class="delivery-card__tag">End-to-end coverage</span>
+          <span class="delivery-card__tag">Zero infrastructure overhead</span>
+        </div>
+      </div>
+      <div class="delivery-card reveal reveal-delay-2">
+        <div class="delivery-card__watermark">03</div>
+        <div class="delivery-card__number">03</div>
+        <div class="delivery-card__title">Collaborative SOC</div>
+        <div class="delivery-card__text">
+          Our analysts work alongside your existing team — expert augmentation and knowledge transfer.
+        </div>
+        <div class="delivery-card__tags">
+          <span class="delivery-card__tag">Hybrid model</span>
+          <span class="delivery-card__tag">Expert augmentation</span>
+          <span class="delivery-card__tag">Knowledge transfer</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="differentiators section--navy">
+    <div class="differentiators__inner">
+      <div class="differentiators__header reveal">
+        <p class="overline" style="color: var(--copper);">Why Brandvakt</p>
+        <h2 class="h2" style="color: var(--warm-white); margin-top: 0.5rem;">
+          What Sets Us Apart
+        </h2>
+        <p class="differentiators__desc">
+          Complete visibility into your environment for better security decisions.
+        </p>
+      </div>
+      <div class="diff-grid">
+        <div class="diff-item">
+          <div class="diff-item__num">01</div>
+          <div class="diff-item__icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="diff-item__label">Proactive Security</div>
+          <div class="diff-item__text">Analysts actively hunt for threats, identifying indicators of compromise before escalation.</div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-item__num">02</div>
+          <div class="diff-item__icon">
+            <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <div class="diff-item__label">Expert Advisory</div>
+          <div class="diff-item__text">Strategic guidance on security architecture and long-term cyber resilience.</div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-item__num">03</div>
+          <div class="diff-item__icon">
+            <svg viewBox="0 0 24 24"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+          </div>
+          <div class="diff-item__label">Tailored Services</div>
+          <div class="diff-item__text">Every engagement scoped to your industry, threat profile, and regulatory environment.</div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-item__num">04</div>
+          <div class="diff-item__icon">
+            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="diff-item__label">Client Satisfaction</div>
+          <div class="diff-item__text">Regular reporting, transparent metrics, and executive briefings.</div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-item__num">05</div>
+          <div class="diff-item__icon">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div class="diff-item__label">Affordable Solutions</div>
+          <div class="diff-item__text">Enterprise-grade security accessible to organizations of all sizes.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section section--dark">
+    <div class="cta-section__inner reveal">
+      <p class="overline" style="color: var(--copper); margin-bottom: var(--space-sm);">Get Started</p>
+      <h2 class="h2 cta-section__title">Ready to secure your operations?</h2>
+      <p class="cta-section__text">
+        Talk to our team about the SOC model that fits your organization.
+      </p>
+      <a href="contact.html" class="btn btn--primary">Contact Us</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="../index.html" class="footer__logo"><img src="../assets/logo-white.png" alt="Brandvakt" style="height:36px;"></a>
+          <p class="footer__about">We are a cybersecurity services company operating globally with a strong presence in the southern hemisphere, serving financial services, telecommunications, and energy sectors.</p>
+          <div class="footer__contact">
+            <a href="mailto:info@brandvakt.com" class="footer__contact-link">info@brandvakt.com</a>
+            <a href="https://www.linkedin.com/company/brandvakt" target="_blank" rel="noopener" class="footer__contact-link"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__col-title">Quick Links</p>
+          <div class="footer__col-links">
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="soc.html">SOC</a>
+            <a href="bygrc.html">byGRC</a>
+            <a href="homodeus-partnership.html">Brandvakt × HomoDeus</a>
+            <a href="partners.html">Partners</a>
+            <a href="careers.html">Careers</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__col-title">Services</p>
+          <div class="footer__col-links">
+            <a href="services.html#csma">CSMA</a>
+            <a href="services.html#digital-identity">Digital Identity</a>
+            <a href="services.html#cloud-security">Cloud Security</a>
+            <a href="services.html#cyber-awareness">Cyber Awareness</a>
+            <a href="services.html#grc">GRC</a>
+            <a href="services.html#pentest">Penetration Testing</a>
+            <a href="services.html#vulnerability">Vulnerability Management</a>
+            <a href="services.html#network-security">Network Security</a>
+            <a href="services.html#endpoint-security">Endpoint Security</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__regions">
+        <span class="footer__region">LATAM</span>
+        <span class="footer__region">Middle East</span>
+        <span class="footer__region">Africa</span>
+        <span class="footer__region">Europe</span>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2026 Brandvakt Group. All rights reserved.</span>
+        <div>
+          <a href="privacy.html">Privacy Policy</a> &middot; <a href="cookies.html">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    // Animated stat counters
+    function animateCounter(el) {
+      var prefix = el.dataset.prefix || '';
+      var suffix = el.dataset.suffix || '';
+      var target = parseFloat(el.dataset.target);
+      var duration = 2000;
+      var start = performance.now();
+      function step(now) {
+        var progress = Math.min((now - start) / duration, 1);
+        var val = progress * target;
+        el.textContent = prefix + (Number.isInteger(target) ? Math.floor(val) : val.toFixed(2)) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = prefix + target + suffix;
+      }
+      requestAnimationFrame(step);
+    }
+    var statObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting && !e.target.dataset.animated) {
+          e.target.dataset.animated = '1';
+          animateCounter(e.target);
+          statObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-target]').forEach(function(el) { statObserver.observe(el); });
+
+  // Page scroll progress bar
+  (function() {
+    var bar = document.createElement('div');
+    bar.id = 'page-progress';
+    document.body.insertBefore(bar, document.body.firstChild);
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY || document.documentElement.scrollTop;
+      var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      bar.style.width = pct + '%';
+    }, { passive: true });
+  })();
+  </script>
+
+  <script src="../js/global.js"></script>
+</body>
+</html>

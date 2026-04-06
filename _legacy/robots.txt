@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://brandvakt-redesign.vercel.app/sitemap.xml

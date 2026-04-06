@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brandvakt | Privacy Policy</title>
+  <meta name="description" content="Privacy Policy for Brandvakt Group. How we collect, use, and protect personal data in accordance with GDPR and LGPD.">
+  <meta name="theme-color" content="#080c18">
+  <link rel="canonical" href="https://brandvakt-redesign.vercel.app/pages/privacy">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+
+    .nav.scrolled {
+      background: rgba(8, 12, 24, 0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+
+
+
+
+
+
+
+
+    .hero-banner {
+      position: relative;
+      padding: calc(var(--nav-height) + var(--space-2xl)) 0 var(--space-2xl);
+      background:
+        radial-gradient(ellipse at 75% 40%, rgba(200,150,90,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse at 15% 80%, rgba(62,219,198,0.04) 0%, transparent 50%),
+        var(--midnight);
+      overflow: hidden;
+    }
+
+    .hero-banner::before {
+      content: 'PRIVACY';
+      position: absolute;
+      right: -1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(6rem, 13vw, 15rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: rgba(255,255,255,0.02);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .hero-banner::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--copper), transparent);
+    }
+
+    .hero-banner__content {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      max-width: 800px;
+    }
+
+    .hero-banner__overline {
+      color: var(--copper);
+      margin-bottom: var(--space-md);
+      opacity: 0;
+      animation: fadeUp 0.8s 0.3s forwards;
+    }
+
+    .hero-banner__title {
+      color: var(--warm-white);
+      margin-bottom: var(--space-md);
+      opacity: 0;
+      animation: fadeUp 0.8s 0.5s forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .policy {
+      padding: var(--space-2xl) 0;
+    }
+
+    .policy__inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .policy__section {
+      margin-bottom: var(--space-xl);
+    }
+
+    .policy__section h2 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(1.25rem, 2vw, 1.5rem);
+      color: var(--text-dark);
+      margin-bottom: var(--space-sm);
+    }
+
+    .policy__section p {
+      color: #5a5e6e;
+      line-height: 1.8;
+      margin-bottom: var(--space-sm);
+    }
+
+    .policy__section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .policy__section ul {
+      color: #5a5e6e;
+      line-height: 1.8;
+      padding-left: var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .policy__section ul li {
+      margin-bottom: 0.4rem;
+    }
+
+    .policy__divider {
+      width: 48px;
+      height: 1px;
+      background: var(--copper);
+      margin-bottom: var(--space-md);
+    }
+
+    .footer {
+      background: var(--midnight);
+      color: var(--text-muted);
+      padding: var(--space-lg) 0 var(--space-md);
+      border-top: 1px solid var(--border-light);
+    }
+
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .footer__logo {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--warm-white);
+    }
+
+    .footer__logo span { color: var(--copper); }
+
+    .footer__links {
+      display: flex;
+      gap: var(--space-md);
+    }
+
+    .footer__links a {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+
+    .footer__links a:hover { color: var(--warm-white); }
+
+    .footer__bottom {
+      margin-top: var(--space-md);
+      padding-top: var(--space-sm);
+      border-top: 1px solid var(--border-light);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .footer__bottom a {
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+
+    .footer__bottom a:hover { color: var(--copper); }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo"><img src="../assets/logo-white.png" alt="Brandvakt" style="height:36px;"></a>
+      <div class="nav__links">
+        <a href="./about.html">About</a>
+        <a href="./services.html">Services</a>
+        <a href="./soc.html">SOC</a>
+        <a href="./bygrc.html">byGRC</a>
+        <a href="./homodeus-partnership.html">Brandvakt × HomoDeus</a>
+        <a href="https://homodeus.me" target="_blank" class="nav__link-highlight">Homo Deus</a>
+        <a href="academy.html">Academy</a>
+        <a href="./partners.html">Partners</a>
+        <a href="./careers.html">Careers</a>
+        <a href="./contact.html" class="nav__cta">Contact</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="hero-banner">
+    <div class="hero-banner__content">
+      <p class="overline hero-banner__overline">Legal</p>
+      <h1 class="h-display hero-banner__title">Privacy Policy</h1>
+    </div>
+  </section>
+
+  <section class="section section--white policy">
+    <div class="container">
+      <div class="policy__inner">
+        <div class="policy__section">
+          <div class="policy__divider"></div>
+          <p>
+            This Privacy Policy describes how Brandvakt Group collects, uses, and protects personal data
+            in accordance with applicable data protection regulations including GDPR and LGPD.
+            We are committed to safeguarding your privacy and handling your data with transparency and care.
+          </p>
+          <p style="font-size:0.85rem; color:#7a7e8e;">Last updated: January 2026</p>
+        </div>
+
+        <div class="policy__section">
+          <h2>Data We Collect</h2>
+          <p>When you submit our contact form, we collect the following:</p>
+          <ul>
+            <li>Name</li>
+            <li>Email address</li>
+            <li>Company name</li>
+            <li>Any message content you choose to provide</li>
+          </ul>
+          <p>We do not collect payment information, sensitive personal data, or data from minors.</p>
+        </div>
+
+        <div class="policy__section">
+          <h2>How We Use It</h2>
+          <p>Data collected via the contact form is used solely to respond to your enquiry. We do not use it for marketing, profiling, or automated decision-making. We do not sell, rent, or share your data with third parties.</p>
+        </div>
+
+        <div class="policy__section">
+          <h2>Data Retention</h2>
+          <p>
+            Contact form submissions are retained for up to 2 years from the date received. If no ongoing
+            client relationship develops, your data is deleted at that point. Where a contractual relationship
+            exists, data is retained for the duration of the engagement and for a reasonable period thereafter
+            as required by applicable law.
+          </p>
+        </div>
+
+        <div class="policy__section">
+          <h2>Your Rights</h2>
+          <p>Depending on your jurisdiction, you have the following rights regarding your personal data:</p>
+          <ul>
+            <li><strong>Access</strong> &mdash; request a copy of the data we hold about you</li>
+            <li><strong>Rectification</strong> &mdash; correct inaccurate or incomplete data</li>
+            <li><strong>Erasure</strong> &mdash; request deletion under applicable conditions</li>
+            <li><strong>Portability</strong> &mdash; receive your data in a structured, machine-readable format</li>
+            <li><strong>Restriction</strong> &mdash; limit how we process your data in certain circumstances</li>
+            <li><strong>Objection</strong> &mdash; object to processing based on legitimate interests</li>
+          </ul>
+          <p>To exercise any of these rights, contact us at the address below.</p>
+        </div>
+
+        <div class="policy__section">
+          <h2>Contact</h2>
+          <p>
+            For privacy-related queries or to exercise your data rights, contact us at:<br>
+            <a href="mailto:privacy@brandvakt.com" style="color: var(--copper);">privacy@brandvakt.com</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="../index.html" class="footer__logo"><img src="../assets/logo-white.png" alt="Brandvakt" style="height:36px;"></a>
+          <p class="footer__about">We are a cybersecurity services company operating globally with a strong presence in the southern hemisphere, serving financial services, telecommunications, and energy sectors.</p>
+          <div class="footer__contact">
+            <a href="mailto:info@brandvakt.com" class="footer__contact-link">info@brandvakt.com</a>
+            <a href="https://www.linkedin.com/company/brandvakt" target="_blank" rel="noopener" class="footer__contact-link"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__col-title">Quick Links</p>
+          <div class="footer__col-links">
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="soc.html">SOC</a>
+            <a href="bygrc.html">byGRC</a>
+            <a href="homodeus-partnership.html">Brandvakt × HomoDeus</a>
+            <a href="partners.html">Partners</a>
+            <a href="careers.html">Careers</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__col-title">Services</p>
+          <div class="footer__col-links">
+            <a href="services.html#csma">CSMA</a>
+            <a href="services.html#digital-identity">Digital Identity</a>
+            <a href="services.html#cloud-security">Cloud Security</a>
+            <a href="services.html#cyber-awareness">Cyber Awareness</a>
+            <a href="services.html#grc">GRC</a>
+            <a href="services.html#pentest">Penetration Testing</a>
+            <a href="services.html#vulnerability">Vulnerability Management</a>
+            <a href="services.html#network-security">Network Security</a>
+            <a href="services.html#endpoint-security">Endpoint Security</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__regions">
+        <span class="footer__region">LATAM</span>
+        <span class="footer__region">Middle East</span>
+        <span class="footer__region">Africa</span>
+        <span class="footer__region">Europe</span>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2026 Brandvakt Group. All rights reserved.</span>
+        <div>
+          <a href="privacy.html">Privacy Policy</a> &middot; <a href="cookies.html">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+
+  <script>
+  (function() {
+    var bar = document.createElement('div');
+    bar.id = 'page-progress';
+    document.body.insertBefore(bar, document.body.firstChild);
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY || document.documentElement.scrollTop;
+      var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      bar.style.width = pct + '%';
+    }, { passive: true });
+  })();
+  </script>
+
+  <script src="../js/global.js"></script>
+</body>
+</html>

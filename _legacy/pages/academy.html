@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brandvakt Academy | Cybersecurity Certification Training</title>
+  <meta name="description" content="ISO-aligned cybersecurity certification programs. Train your team with Brandvakt Academy's practitioner-built courses in GRC, risk management, and AI governance.">
+  <meta property="og:title" content="Brandvakt Academy — Cybersecurity Certification Training">
+  <meta property="og:description" content="ISO-aligned courses in GRC, risk, and AI governance. Built by practitioners for practitioners.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://brandvakt-redesign.vercel.app/pages/academy">
+  <meta property="og:image" content="https://brandvakt-redesign.vercel.app/assets/logo-black-full.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://brandvakt-redesign.vercel.app/assets/logo-black-full.png">
+  <link rel="canonical" href="https://brandvakt-redesign.vercel.app/pages/academy">
+  <meta name="keywords" content="cybersecurity training, ISO 27005, GRC certification, risk management, Brandvakt Academy">
+  <meta name="theme-color" content="#080c18">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    .hero {
+      position: relative;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      background:
+        radial-gradient(ellipse at 65% 40%, rgba(62, 219, 198, 0.07) 0%, transparent 55%),
+        radial-gradient(ellipse at 25% 70%, rgba(200, 150, 90, 0.05) 0%, transparent 50%),
+        var(--midnight);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: 'ACADEMY';
+      position: absolute;
+      right: -2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(5rem, 16vw, 18rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: rgba(255,255,255,0.022);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+      z-index: 1;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: calc(var(--nav-height) + var(--space-2xl)) var(--space-md) var(--space-2xl);
+      width: 100%;
+    }
+
+    .hero__overline {
+      color: var(--teal);
+      margin-bottom: var(--space-sm);
+    }
+
+    .hero__title {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      max-width: 700px;
+      margin-bottom: var(--space-md);
+      color: var(--warm-white);
+    }
+
+    .hero__title em {
+      font-style: normal;
+      color: var(--teal);
+    }
+
+    .hero__subtitle {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.55);
+      max-width: 520px;
+      line-height: 1.65;
+      margin-bottom: var(--space-lg);
+    }
+
+    .hero__actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    /* Stats band */
+    .stats-band {
+      background: var(--navy);
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+      padding: var(--space-lg) 0;
+    }
+
+    .stats-band__inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .stats-band__item {
+      padding: var(--space-md) var(--space-lg);
+      border-right: 1px solid var(--border-light);
+      text-align: center;
+    }
+
+    .stats-band__item:last-child { border-right: none; }
+
+    .stats-band__num {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 600;
+      color: var(--warm-white);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+
+    .stats-band__label {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* What is Academy */
+    .about-section {
+      padding: var(--space-2xl) 0;
+      background: var(--midnight);
+    }
+
+    .about-section__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2xl);
+      align-items: center;
+    }
+
+    .about-section__left h2 {
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--warm-white);
+      margin-bottom: var(--space-md);
+    }
+
+    .about-section__left h2 em {
+      font-style: normal;
+      color: var(--teal);
+    }
+
+    .about-section__desc {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
+      margin-bottom: var(--space-md);
+    }
+
+    .about-section__features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .about-section__features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .about-section__features li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--teal);
+      flex-shrink: 0;
+      margin-top: 0.45em;
+    }
+
+    .about-section__right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border-light);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .about-stat {
+      background: var(--navy);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .about-stat__num {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--teal);
+      line-height: 1;
+    }
+
+    .about-stat__label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.4;
+    }
+
+    /* Courses */
+    .courses-section {
+      padding: var(--space-2xl) 0;
+      background: var(--navy);
+    }
+
+    .section-header {
+      margin-bottom: var(--space-xl);
+    }
+
+    .section-header .overline { color: var(--teal); }
+
+    .section-header h2 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 300;
+      color: var(--warm-white);
+      margin-top: var(--space-xs);
+      margin-bottom: 0;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-light);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .course-card {
+      background: var(--midnight);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      transition: background var(--transition);
+      position: relative;
+    }
+
+    .course-card:hover { background: rgba(15, 22, 40, 0.8); }
+
+    .course-card__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+      background: rgba(62,219,198,0.1);
+      color: var(--teal);
+      border: 1px solid rgba(62,219,198,0.2);
+      width: fit-content;
+    }
+
+    .course-card__badge--iso {
+      background: rgba(200,150,90,0.1);
+      color: var(--copper);
+      border-color: rgba(200,150,90,0.2);
+    }
+
+    .course-card__badge--advanced {
+      background: rgba(180,60,60,0.1);
+      color: #e87070;
+      border-color: rgba(180,60,60,0.2);
+    }
+
+    .course-card__title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--warm-white);
+      line-height: 1.3;
+    }
+
+    .course-card__desc {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .course-card__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: var(--space-sm);
+      border-top: 1px solid var(--border-light);
+      margin-top: auto;
+    }
+
+    .course-card__price {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--warm-white);
+    }
+
+    .course-card__price--contact {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.35);
+      font-family: var(--font-body);
+      font-weight: 400;
+    }
+
+    .course-card__cta {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--teal);
+      transition: color var(--transition);
+    }
+
+    .course-card__cta:hover { color: var(--warm-white); }
+
+    /* Tracks */
+    .tracks-section {
+      padding: var(--space-2xl) 0;
+      background: var(--midnight);
+    }
+
+    .tracks-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+    }
+
+    .track-card {
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: var(--space-lg);
+      background: rgba(255,255,255,0.02);
+      transition: border-color var(--transition), background var(--transition);
+    }
+
+    .track-card:hover {
+      border-color: rgba(62,219,198,0.25);
+      background: rgba(62,219,198,0.03);
+    }
+
+    .track-card__icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: var(--space-sm);
+      color: var(--teal);
+    }
+
+    .track-card__icon svg {
+      width: 40px;
+      height: 40px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .track-card__title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--warm-white);
+      margin-bottom: 0.5rem;
+    }
+
+    .track-card__desc {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.6;
+    }
+
+    .track-card__courses {
+      margin-top: var(--space-sm);
+      padding-top: var(--space-sm);
+      border-top: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .track-card__course-item {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.35);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .track-card__course-item::before {
+      content: '—';
+      color: var(--teal);
+      font-size: 0.65rem;
+    }
+
+    /* CTA */
+    .cta-section {
+      padding: var(--space-2xl) 0;
+      background: var(--navy);
+      border-top: 1px solid var(--border-light);
+      text-align: center;
+    }
+
+    .cta-section__overline {
+      color: var(--teal);
+      margin-bottom: var(--space-sm);
+    }
+
+    .cta-section h2 {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      color: var(--warm-white);
+      margin-bottom: var(--space-sm);
+    }
+
+    .cta-section p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.45);
+      max-width: 480px;
+      margin: 0 auto var(--space-lg);
+      line-height: 1.65;
+    }
+
+    .cta-section__actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+    }
+
+    @media (max-width: 900px) {
+      .stats-band__inner { grid-template-columns: repeat(2, 1fr); }
+      .stats-band__item:nth-child(2) { border-right: none; }
+      .about-section__inner { grid-template-columns: 1fr; }
+      .about-section__right { grid-template-columns: repeat(4, 1fr); }
+      .courses-grid { grid-template-columns: 1fr; }
+      .tracks-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .about-section__right { grid-template-columns: repeat(2, 1fr); }
+      .hero__actions { flex-direction: column; }
+      .hero__actions .btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="page-progress"></div>
+
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo"><img src="../assets/logo-white.png" alt="Brandvakt" style="height:36px;"></a>
+      <div class="nav__links">
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="soc.html">SOC</a>
+        <a href="bygrc.html">byGRC</a>
+        <a href="homodeus-partnership.html">Brandvakt × HomoDeus</a>
+        <a href="https://homodeus.me" target="_blank" class="nav__link-highlight">Homo Deus</a>
+        <a href="academy.html" class="active">Academy</a>
+        <a href="partners.html">Partners</a>
+        <a href="careers.html">Careers</a>
+        <a href="contact.html" class="nav__cta">Contact</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero__content">
+      <p class="overline hero__overline">Brandvakt Academy</p>
+      <h1 class="hero__title">
+        Cybersecurity training<br>built by <em>practitioners</em>
+      </h1>
+      <p class="hero__subtitle">
+        ISO-aligned certification programs in GRC, risk management, and AI governance — designed for professionals who operate in high-stakes environments.
+      </p>
+      <div class="hero__actions">
+        <a href="https://brandvakt-academy.com/courses-and-certifications" target="_blank" rel="noopener" class="btn btn--primary">Browse courses</a>
+        <a href="contact.html" class="btn btn--ghost">Team enrollment &#8594;</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-band">
+    <div class="container">
+      <div class="stats-band__inner">
+        <div class="stats-band__item reveal">
+          <div class="stats-band__num">50+</div>
+          <div class="stats-band__label">Courses available</div>
+        </div>
+        <div class="stats-band__item reveal reveal-delay-1">
+          <div class="stats-band__num">7</div>
+          <div class="stats-band__label">ISO standard tracks</div>
+        </div>
+        <div class="stats-band__item reveal reveal-delay-2">
+          <div class="stats-band__num">4</div>
+          <div class="stats-band__label">Continents served</div>
+        </div>
+        <div class="stats-band__item reveal reveal-delay-3">
+          <div class="stats-band__num">100%</div>
+          <div class="stats-band__label">Practitioner-led curriculum</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="about-section section section--dark">
+    <div class="container">
+      <div class="about-section__inner">
+        <div class="about-section__left reveal">
+          <p class="overline" style="color:var(--teal);">What is Brandvakt Academy</p>
+          <h2>Training that maps to<br><em>real threat environments</em></h2>
+          <p class="about-section__desc">
+            Built by Brandvakt's operational security team, the Academy translates field experience into certifiable competencies. Every course maps to an international standard.
+          </p>
+          <ul class="about-section__features">
+            <li>ISO/IEC and management system certifications recognized globally</li>
+            <li>Hands-on curriculum developed from active engagements</li>
+            <li>Flexible self-paced and instructor-led formats</li>
+          </ul>
+        </div>
+        <div class="about-section__right reveal reveal-delay-2">
+          <div class="about-stat">
+            <div class="about-stat__num">ISO</div>
+            <div class="about-stat__label">27005 · 31000 · 37001 · 37301 · 42001</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat__num">ESG</div>
+            <div class="about-stat__label">Governance &amp; sustainability essentials</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat__num">GRC</div>
+            <div class="about-stat__label">Risk, compliance &amp; audit frameworks</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat__num">AI</div>
+            <div class="about-stat__label">Governance &amp; security in AI systems</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="courses-section section">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="overline">Certification catalog</p>
+        <h2>Featured courses</h2>
+      </div>
+      <div class="courses-grid reveal">
+        <div class="course-card">
+          <span class="course-card__badge">Essentials</span>
+          <div class="course-card__title">Environmental, Social &amp; Governance (ESG) Essentials</div>
+          <p class="course-card__desc">Foundations of ESG frameworks, reporting standards, and governance integration for security professionals.</p>
+          <div class="course-card__footer">
+            <span class="course-card__price">€106.85</span>
+            <a href="https://brandvakt-academy.com" target="_blank" rel="noopener" class="course-card__cta">Enroll &#8594;</a>
+          </div>
+        </div>
+        <div class="course-card">
+          <span class="course-card__badge">Essentials</span>
+          <div class="course-card__title">Management System (MS) Essentials</div>
+          <p class="course-card__desc">Core principles of ISO management systems — applicable across information security, quality, and risk disciplines.</p>
+          <div class="course-card__footer">
+            <span class="course-card__price">€106.85</span>
+            <a href="https://brandvakt-academy.com" target="_blank" rel="noopener" class="course-card__cta">Enroll &#8594;</a>
+          </div>
+        </div>
+        <div class="course-card">
+          <span class="course-card__badge course-card__badge--iso">ISO/IEC 27005</span>
+          <div class="course-card__title">ISO/IEC 27005 Professional</div>
+          <p class="course-card__desc">Information security risk management aligned to ISO 27005 — threat identification, assessment, and treatment.</p>
+          <div class="course-card__footer">
+            <span class="course-card__price">€404.37</span>
+            <a href="https://brandvakt-academy.com" target="_blank" rel="noopener" class="course-card__cta">Enroll &#8594;</a>
+          </div>
+        </div>
+        <div class="course-card">
+          <span class="course-card__badge course-card__badge--iso">ISO 31000</span>
+          <div class="course-card__title">ISO 31000 Practitioner</div>
+          <p class="course-card__desc">Enterprise risk management under ISO 31000 — principles, framework design, and risk process implementation.</p>
+          <div class="course-card__footer">
+            <span class="course-card__price--contact">Contact for pricing</span>
+            <a href="https://brandvakt-academy.com" target="_blank" rel="noopener" class="course-card__cta">Enroll &#8594;</a>
+          </div>
+        </div>
+        <div class="course-card">
+          <span class="course-card__badge course-card__badge--advanced">ISO 37001</span>
+          <div class="course-card__title">ISO 37001 Lead Auditor</div>
+          <p class="course-card__desc">Anti-bribery management system auditing — plan, conduct, and report ISO 37001 conformity audits.</p>
+          <div class="course-card__footer">
+            <span class="course-card__price">€673.46</span>
+            <a href="https://brandvakt-academy.com" target="_blank" rel="noopener" class="course-card__cta">Enroll &#8594;</a>
+          </div>
+        </div>
+        <div class="course-card">
+          <span class="course-card__badge course-card__badge--advanced">ISO 37001</span>
+          <div class="course-card__title">ISO 37001 Lead Implementer</div>
+          <p class="course-card__desc">Design and deploy an ISO 37001-compliant anti-bribery management system within your organization.</p>
+          <div class="course-card__footer">
+            <span class="course-card__price">€673.46</span>
+            <a href="https://brandvakt-academy.com" target="_blank" rel="noopener" class="course-card__cta">Enroll &#8594;</a>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:var(--space-lg); text-align:center;">
+        <a href="https://brandvakt-academy.com/courses-and-certifications" target="_blank" rel="noopener" class="btn btn--ghost">View full catalog &#8594;</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="tracks-section section section--dark">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="overline">Learning tracks</p>
+        <h2>Structured certification paths</h2>
+      </div>
+      <div class="tracks-grid">
+        <div class="track-card reveal">
+          <div class="track-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <div class="track-card__title">Risk Management</div>
+          <p class="track-card__desc">ISO 31000 and ISO 27005 certification sequence for risk professionals.</p>
+          <div class="track-card__courses">
+            <span class="track-card__course-item">ISO 31000 Practitioner</span>
+            <span class="track-card__course-item">ISO/IEC 27005 Professional</span>
+            <span class="track-card__course-item">MS Essentials (prerequisite)</span>
+          </div>
+        </div>
+        <div class="track-card reveal reveal-delay-1">
+          <div class="track-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+          </div>
+          <div class="track-card__title">Compliance &amp; Audit</div>
+          <p class="track-card__desc">Lead Auditor and Implementer tracks for ISO 37001 and governance frameworks.</p>
+          <div class="track-card__courses">
+            <span class="track-card__course-item">ISO 37001 Lead Auditor</span>
+            <span class="track-card__course-item">ISO 37001 Lead Implementer</span>
+            <span class="track-card__course-item">ESG Essentials</span>
+          </div>
+        </div>
+        <div class="track-card reveal reveal-delay-2">
+          <div class="track-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <div class="track-card__title">AI &amp; Emerging Tech Governance</div>
+          <p class="track-card__desc">AI governance and security frameworks for organizations deploying AI systems.</p>
+          <div class="track-card__courses">
+            <span class="track-card__course-item">ISO 42001 AI Management</span>
+            <span class="track-card__course-item">AI Security Fundamentals</span>
+            <span class="track-card__course-item">Brandvakt × HomoDeus program</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <p class="overline cta-section__overline">Enroll today</p>
+      <h2>Certify your team</h2>
+      <p>Group enrollment discounts available for teams of 5 or more. Contact us to build a custom training program.</p>
+      <div class="cta-section__actions">
+        <a href="https://brandvakt-academy.com/courses-and-certifications" target="_blank" rel="noopener" class="btn btn--primary">Browse all courses</a>
+        <a href="contact.html" class="btn btn--ghost">Enterprise enrollment</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="../index.html" class="footer__logo"><img src="../assets/logo-white.png" alt="Brandvakt" style="height:36px;"></a>
+          <p class="footer__about">We are a cybersecurity services company operating globally with a strong presence in the southern hemisphere, serving financial services, telecommunications, and energy sectors.</p>
+          <div class="footer__contact">
+            <a href="mailto:info@brandvakt.com" class="footer__contact-link">info@brandvakt.com</a>
+            <a href="https://www.linkedin.com/company/brandvakt" target="_blank" rel="noopener" class="footer__contact-link"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__col-title">Quick Links</p>
+          <div class="footer__col-links">
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="soc.html">SOC</a>
+            <a href="bygrc.html">byGRC</a>
+            <a href="academy.html">Academy</a>
+            <a href="homodeus-partnership.html">Brandvakt × HomoDeus</a>
+            <a href="partners.html">Partners</a>
+            <a href="careers.html">Careers</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__col-title">Services</p>
+          <div class="footer__col-links">
+            <a href="services.html#csma">CSMA</a>
+            <a href="services.html#digital-identity">Digital Identity</a>
+            <a href="services.html#cloud-security">Cloud Security</a>
+            <a href="services.html#cyber-awareness">Cyber Awareness</a>
+            <a href="services.html#grc">GRC</a>
+            <a href="services.html#pentest">Penetration Testing</a>
+            <a href="services.html#vulnerability">Vulnerability Management</a>
+            <a href="services.html#network-security">Network Security</a>
+            <a href="services.html#endpoint-security">Endpoint Security</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__regions">
+        <span class="footer__region">LATAM</span>
+        <span class="footer__region">Middle East</span>
+        <span class="footer__region">Africa</span>
+        <span class="footer__region">Europe</span>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2026 Brandvakt Group. All rights reserved.</span>
+        <div><a href="privacy.html">Privacy Policy</a> &middot; <a href="cookies.html">Cookie Policy</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/global.js"></script>
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+</body>
+</html>

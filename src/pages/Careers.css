@@ -1,0 +1,161 @@
+.hero-careers {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(ellipse at 75% 45%, rgba(62,219,198,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 10% 70%, rgba(200,150,90,0.05) 0%, transparent 50%),
+    var(--color-midnight);
+  padding: 8rem 0;
+  border-bottom: 1px solid rgba(62,219,198,0.2);
+}
+
+.chips-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.career-chip {
+  background: rgba(62, 219, 198, 0.1);
+  border: 1px solid rgba(62, 219, 198, 0.2);
+  border-radius: 100px;
+  padding: 0.4rem 1rem;
+  font-size: 0.8rem;
+  color: var(--color-teal);
+}
+
+.culture-grid-cr {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.values-grid-cr {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.value-card-cr {
+  padding: 2rem;
+  transition: transform 0.3s;
+}
+
+.value-card-cr:hover {
+  transform: translateY(-4px);
+}
+
+.icon-cr {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(62,219,198,0.1);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1rem;
+  color: var(--color-teal);
+}
+
+.icon-cr svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+.life-grid-cr {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.life-pillar {
+  padding: 2.5rem;
+}
+
+.perks-grid-cr {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.perk-card {
+  padding: 2rem;
+}
+
+.perk-icon {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(62,219,198,0.08);
+  border: 1px solid rgba(62,219,198,0.2);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1rem;
+  color: var(--color-teal);
+}
+.perk-icon svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+.positions-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.position-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 3rem;
+  border-left: 3px solid var(--color-teal);
+  transition: all 0.3s;
+}
+.position-card:hover {
+  border-left-color: var(--color-copper);
+}
+
+.pos-dept {
+  background: rgba(62,219,198,0.1);
+  color: var(--color-teal);
+  border-radius: 20px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.pos-type {
+  background: rgba(200,150,90,0.1);
+  color: var(--color-copper);
+  border-radius: 20px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.pos-reqs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.pos-reqs li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.pos-reqs li::before {
+  content: "·";
+  color: var(--color-teal);
+  font-size: 1.2rem;
+  line-height: 0.8;
+}
+
+.pos-apply {
+  padding: 0.8rem 2rem;
+  align-self: flex-start;
+}
+
+@media (max-width: 1024px) {
+  .culture-grid-cr { grid-template-columns: 1fr; gap: 2rem; }
+  .life-grid-cr { grid-template-columns: 1fr; }
+  .perks-grid-cr { grid-template-columns: repeat(2, 1fr); }
+  .position-card { grid-template-columns: 1fr; align-items: start; }
+}
+@media (max-width: 768px) {
+  .values-grid-cr { grid-template-columns: 1fr; }
+  .perks-grid-cr { grid-template-columns: 1fr; }
+}

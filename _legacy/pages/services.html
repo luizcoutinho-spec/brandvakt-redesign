@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybersecurity Services | Brandvakt</title>
+  <meta name="description" content="Nine core cybersecurity services from maturity assessment through cloud security. Brandvakt architects, implements, and manages your security capabilities.">
+  <meta property="og:title" content="Cybersecurity Services — Brandvakt">
+  <meta property="og:description" content="CSMA, digital identity, cloud security, GRC, penetration testing, SOC, and more. Nine interconnected security capabilities.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://brandvakt-redesign.vercel.app/pages/services">
+  <meta property="og:image" content="https://brandvakt-redesign.vercel.app/assets/logo-black-full.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://brandvakt-redesign.vercel.app/assets/logo-black-full.png">
+  <link rel="canonical" href="https://brandvakt-redesign.vercel.app/pages/services">
+  <meta name="keywords" content="cybersecurity services, CSMA, GRC, penetration testing, digital identity">
+  <meta name="theme-color" content="#080c18">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+
+    .hero-banner {
+      position: relative;
+      padding: calc(var(--nav-height) + var(--space-xl)) 0 var(--space-xl);
+      background:
+        radial-gradient(ellipse at 80% 30%, rgba(62,219,198,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse at 10% 70%, rgba(200,150,90,0.06) 0%, transparent 50%),
+        var(--midnight);
+      overflow: hidden;
+    }
+
+    .hero-banner::before {
+      content: 'SERVICES';
+      position: absolute;
+      right: -1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(6rem, 13vw, 15rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: rgba(255,255,255,0.025);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .hero-banner::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    }
+
+    .hero-banner__content {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      max-width: 800px;
+    }
+
+    .hero-banner__overline {
+      color: var(--copper);
+      margin-bottom: var(--space-md);
+      animation: fadeUp 0.8s 0.3s both;
+    }
+
+    .hero-banner__title {
+      color: var(--warm-white);
+      margin-bottom: var(--space-md);
+      animation: fadeUp 0.8s 0.5s both;
+    }
+
+    .hero-banner__title em {
+      font-style: italic;
+      color: var(--copper);
+    }
+
+    .hero-banner__subtitle {
+      color: var(--text-muted);
+      font-size: 1.125rem;
+      line-height: 1.7;
+      max-width: 600px;
+      animation: fadeUp 0.8s 0.7s both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .svc-intro {
+      padding: var(--space-xl) 0;
+      text-align: center;
+    }
+
+    .svc-intro__inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .svc-intro .overline {
+      color: var(--copper);
+      margin-bottom: var(--space-sm);
+    }
+
+    .svc-intro .h3 {
+      margin-bottom: var(--space-md);
+    }
+
+    .svc-intro p {
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .svc-step {
+      padding: var(--space-xl) 0;
+    }
+
+    .svc-step__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      align-items: center;
+    }
+
+    .svc-step__inner--reverse .svc-step__content {
+      order: -1;
+    }
+
+    .svc-step__number-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: var(--space-xl) var(--space-lg);
+      border-radius: var(--radius);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section--dark .svc-step__number-block,
+    .section--navy .svc-step__number-block {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-light);
+    }
+
+    .section--white .svc-step__number-block,
+    .section--cream .svc-step__number-block {
+      background: rgba(0, 0, 0, 0.02);
+      border: 1px solid var(--border-dark);
+    }
+
+    .svc-step__step-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-xs);
+    }
+
+    .section--dark .svc-step__step-label,
+    .section--navy .svc-step__step-label {
+      color: var(--text-muted);
+    }
+
+    .section--white .svc-step__step-label,
+    .section--cream .svc-step__step-label {
+      color: var(--text-muted);
+    }
+
+    .svc-step__step-number {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(5rem, 10vw, 9rem);
+      line-height: 1;
+      position: absolute;
+      top: 0;
+      right: 0;
+      opacity: 0.06;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .section--dark .svc-step__step-number,
+    .section--navy .svc-step__step-number {
+      color: var(--warm-white);
+    }
+
+    .section--white .svc-step__step-number,
+    .section--cream .svc-step__step-number {
+      color: var(--text-dark);
+    }
+
+    .step-aside__quote {
+      font-style: italic;
+      font-size: 0.875rem;
+      margin-top: 1rem;
+      border-top: 1px solid rgba(62, 219, 198, 0.3);
+      padding-top: 0.75rem;
+    }
+
+    .section--dark .step-aside__quote,
+    .section--navy .step-aside__quote {
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .section--white .step-aside__quote,
+    .section--cream .step-aside__quote {
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    .svc-step__step-phase {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(1.25rem, 2vw, 1.5rem);
+      margin-top: var(--space-sm);
+    }
+
+    .section--dark .svc-step__step-phase,
+    .section--navy .svc-step__step-phase {
+      color: var(--warm-white);
+    }
+
+    .section--white .svc-step__step-phase,
+    .section--cream .svc-step__step-phase {
+      color: var(--text-dark);
+    }
+
+    .svc-step__content .overline {
+      color: var(--copper);
+      margin-bottom: var(--space-xs);
+    }
+
+    .svc-step__title {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.1;
+      margin-bottom: var(--space-md);
+    }
+
+    .section--dark .svc-step__title,
+    .section--navy .svc-step__title {
+      color: var(--warm-white);
+    }
+
+    .section--white .svc-step__title,
+    .section--cream .svc-step__title {
+      color: var(--text-dark);
+    }
+
+    .svc-step__text {
+      line-height: 1.8;
+      margin-bottom: var(--space-md);
+    }
+
+    .section--dark .svc-step__text,
+    .section--navy .svc-step__text {
+      color: var(--text-muted);
+    }
+
+    .section--white .svc-step__text,
+    .section--cream .svc-step__text {
+      color: var(--text-muted);
+    }
+
+    .svc-step__divider {
+      width: 48px;
+      height: 1px;
+      background: var(--copper);
+      margin-bottom: var(--space-md);
+    }
+
+    /* Teal arrow bullet for feature lists */
+    .svc-step__features {
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .svc-step__features li {
+      font-size: 0.9rem;
+      line-height: 1.55;
+      padding-left: 1.6rem;
+      position: relative;
+    }
+
+    .svc-step__features li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--teal);
+      font-size: 0.85rem;
+    }
+
+    .section--dark .svc-step__features li,
+    .section--navy .svc-step__features li {
+      color: var(--text-muted);
+    }
+
+    .section--white .svc-step__features li,
+    .section--cream .svc-step__features li {
+      color: var(--text-muted);
+    }
+
+    /* Consistent section alternation: dark/light/dark/light... */
+    #csma { background: var(--midnight); }
+    #network-security { background: var(--cream); }
+    #vulnerability { background: var(--navy); }
+    #digital-identity { background: var(--cream); }
+    #endpoint-security { background: var(--midnight); }
+    #pentest { background: var(--cream); }
+    #cyber-awareness { background: var(--navy); }
+    #grc { background: var(--cream); }
+    #cloud-security { background: var(--midnight); }
+
+    .cta-band {
+      padding: var(--space-2xl) 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 600px;
+      height: 600px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, var(--copper-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-band .h2 {
+      color: var(--warm-white);
+      margin-bottom: var(--space-sm);
+      position: relative;
+    }
+
+    .cta-band p {
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto var(--space-lg);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      position: relative;
+    }
+
+    .cta-band .btn { position: relative; }
+
+    .partner-callout {
+      margin-top: var(--space-md);
+      border-left: 4px solid var(--teal, #3EDBC6);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.5rem 1.75rem;
+      background: rgba(62, 219, 198, 0.05);
+    }
+
+    .partner-callout__header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .partner-callout__badge {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal, #3EDBC6);
+    }
+
+    .partner-callout__title {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--warm-white);
+      margin-bottom: 0.5rem;
+    }
+
+    .section--white .partner-callout__title,
+    .section--cream .partner-callout__title {
+      color: var(--text-dark);
+    }
+
+    .partner-callout__desc {
+      font-size: 0.875rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .section--white .partner-callout__desc,
+    .section--cream .partner-callout__desc {
+      color: var(--text-muted);
+    }
+
+    .partner-callout__list-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--teal, #3EDBC6);
+      margin-bottom: 0.5rem;
+    }
+
+    .partner-callout__list {
+      list-style: none;
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .partner-callout__list li {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .section--white .partner-callout__list li,
+    .section--cream .partner-callout__list li {
+      color: var(--text-muted);
+    }
+
+    .partner-callout__list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--teal, #3EDBC6);
+      opacity: 0.75;
+    }
+
+    .partner-callout--steps .partner-callout__list {
+      counter-reset: step-counter;
+    }
+
+    .partner-callout--steps .partner-callout__list li {
+      counter-increment: step-counter;
+    }
+
+    .partner-callout--steps .partner-callout__list li::before {
+      content: counter(step-counter);
+      background: none;
+      border-radius: 0;
+      width: auto;
+      height: auto;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--teal, #3EDBC6);
+      top: 0.15em;
+    }
+
+    .ciso-steps {
+      counter-reset: ciso-counter;
+    }
+
+    .ciso-steps li {
+      counter-increment: ciso-counter;
+      padding-left: 2.5rem;
+    }
+
+    .ciso-steps li::before {
+      content: counter(ciso-counter, decimal-leading-zero);
+      background: none;
+      border-radius: 0;
+      width: auto;
+      height: auto;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--teal, #3EDBC6);
+      top: 0;
+      left: 0;
+    }
+
+    /* CSMA 3-phase process */
+    .csma-process {
+      margin-top: var(--space-lg);
+    }
+
+    .csma-process__heading {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal, #3EDBC6);
+      margin-bottom: var(--space-md);
+    }
+
+    .csma-phases {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 0;
+      align-items: start;
+      margin-bottom: var(--space-lg);
+    }
+
+    .csma-phase {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 2px solid rgba(62, 219, 198, 0.5);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.1rem;
+    }
+
+    .csma-phase__num {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--teal, #3EDBC6);
+      opacity: 0.6;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .csma-phase__title {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 0.5rem;
+    }
+
+    .csma-phase__desc {
+      font-size: 0.8rem;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .csma-arrow {
+      display: flex;
+      align-items: center;
+      padding: 0 0.5rem;
+      padding-top: 1.75rem;
+      color: var(--teal, #3EDBC6);
+      opacity: 0.5;
+      font-size: 1.1rem;
+    }
+
+    .csma-deliverables__heading {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal, #3EDBC6);
+      margin-bottom: var(--space-sm);
+    }
+
+    .csma-deliverables__list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem 1.5rem;
+    }
+
+    .csma-deliverables__list li {
+      font-size: 0.83rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+      padding-left: 1.4rem;
+      position: relative;
+    }
+
+    .csma-deliverables__list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--teal, #3EDBC6);
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    /* Digital Identity 7 dimensions */
+    .identity-dimensions {
+      margin-top: var(--space-lg);
+    }
+
+    .identity-dimensions__heading {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal, #3EDBC6);
+      margin-bottom: var(--space-md);
+    }
+
+    .identity-dimensions__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem 1.25rem;
+    }
+
+    .identity-dim {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .identity-dim__num {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--teal, #3EDBC6);
+      line-height: 1.2;
+      min-width: 1.5rem;
+    }
+
+
+    .identity-dim__title {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.83rem;
+      color: var(--text-dark);
+      margin-bottom: 0.2rem;
+    }
+
+    .identity-dim__desc {
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    /* Cloud Security 6 Rs */
+    .cloud-rs {
+      margin-top: var(--space-lg);
+    }
+
+    .cloud-rs__heading {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal, #3EDBC6);
+      margin-bottom: var(--space-md);
+    }
+
+    .cloud-rs__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.65rem;
+    }
+
+    .cloud-r-card {
+      background: var(--navy-light, rgba(255,255,255,0.04));
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 1rem 1rem;
+    }
+
+    .cloud-r-card__num {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--teal, #3EDBC6);
+      opacity: 0.6;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+
+    .cloud-r-card__title {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--warm-white);
+      margin-bottom: 0.4rem;
+    }
+
+    .cloud-r-card__desc {
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .svc-step__inner {
+        grid-template-columns: 1fr;
+      }
+      .svc-step__inner--reverse .svc-step__content {
+        order: 0;
+      }
+      .csma-phases {
+        grid-template-columns: 1fr;
+      }
+      .csma-arrow {
+        display: none;
+      }
+      .csma-deliverables__list {
+        grid-template-columns: 1fr;
+      }
+      .identity-dimensions__grid {
+        grid-template-columns: 1fr;
+      }
+      .cloud-rs__grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cloud-rs__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .services-nav {
+      background: var(--navy);
+      border-bottom: 1px solid var(--border-light);
+      position: sticky;
+      top: var(--nav-height);
+      z-index: 50;
+    }
+    .services-nav__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .services-nav__link {
+      padding: 0.875rem 1.25rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .services-nav__link:hover {
+      color: var(--warm-white);
+      border-bottom-color: var(--teal);
+    }
+    .services-nav__link.active {
+      color: var(--warm-white);
+      border-bottom-color: var(--teal);
+    }
+
+    .grc-stat-callout {
+      margin-top: var(--space-md);
+      border-left: 4px solid var(--copper);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.25rem 1.5rem;
+      background: rgba(188, 110, 64, 0.07);
+    }
+    .grc-stat-callout__text {
+      font-size: 0.95rem;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+    .grc-stat-callout__text strong {
+      color: var(--copper);
+      font-style: normal;
+    }
+
+    /* Service flow diagram */
+    .svc-flow {
+      margin-top: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .svc-flow__phase {
+      background: var(--midnight);
+      color: var(--warm-white);
+      border-radius: 4px;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      max-width: 340px;
+      border: 1px solid rgba(62,219,198,0.2);
+      position: relative;
+    }
+
+    .svc-flow__phase-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--teal);
+      line-height: 1;
+    }
+
+    .svc-flow__phase-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 0.2rem;
+    }
+
+    .svc-flow__phase-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--warm-white);
+    }
+
+    .svc-flow__arrow {
+      width: 1px;
+      height: 32px;
+      background: var(--teal);
+      opacity: 0.3;
+      position: relative;
+    }
+
+    .svc-flow__arrow::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 6px solid rgba(62,219,198,0.3);
+    }
+
+    .svc-flow__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    .svc-flow__item {
+      background: var(--midnight);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 4px;
+      padding: 0.85rem 1rem;
+      text-align: center;
+      transition: border-color var(--transition), background var(--transition);
+      text-decoration: none;
+      cursor: pointer;
+      display: block;
+    }
+
+    .svc-flow__item:hover {
+      border-color: rgba(62,219,198,0.25);
+      background: rgba(62,219,198,0.04);
+    }
+
+    .svc-flow__item-num {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 300;
+      color: var(--copper);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .svc-flow__item-name {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: rgba(250,247,242,0.7);
+      line-height: 1.3;
+    }
+
+    .svc-flow__phase-two {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: var(--space-sm);
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .svc-flow__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo"><img src="../assets/logo-white.png" alt="Brandvakt" style="height:36px;"></a>
+      <div class="nav__links">
+        <a href="./about.html">About</a>
+        <a href="./services.html" class="active">Services</a>
+        <a href="./soc.html">SOC</a>
+        <a href="./bygrc.html">byGRC</a>
+        <a href="./homodeus-partnership.html">Brandvakt × HomoDeus</a>
+        <a href="https://homodeus.me" target="_blank" class="nav__link-highlight">Homo Deus</a>
+        <a href="academy.html">Academy</a>
+        <a href="./partners.html">Partners</a>
+        <a href="./careers.html">Careers</a>
+        <a href="./contact.html" class="nav__cta">Contact</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="hero-banner">
+    <div class="hero-banner__content">
+      <p class="overline hero-banner__overline">Services</p>
+      <h1 class="h-display hero-banner__title">How we can<br><em>help</em> you</h1>
+      <p class="hero-banner__subtitle">
+        Nine interconnected capabilities. From maturity assessment to managed security operations.
+      </p>
+    </div>
+  </section>
+
+  <div class="services-nav">
+    <div class="container">
+      <div class="services-nav__inner">
+        <a href="#csma" class="services-nav__link">CSMA</a>
+        <a href="#network-security" class="services-nav__link">Network</a>
+        <a href="#vulnerability" class="services-nav__link">Vulnerability</a>
+        <a href="#digital-identity" class="services-nav__link">Identity</a>
+        <a href="#endpoint-security" class="services-nav__link">Endpoint</a>
+        <a href="#pentest" class="services-nav__link">Pen Testing</a>
+        <a href="#cyber-awareness" class="services-nav__link">Awareness</a>
+        <a href="#grc" class="services-nav__link">GRC</a>
+        <a href="#cloud-security" class="services-nav__link">Cloud</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="section section--cream svc-intro">
+    <div class="container">
+      <div class="svc-intro__inner reveal">
+        <p class="overline">Our Approach</p>
+        <h3 class="h3">Two phases. Nine disciplines.</h3>
+        <p>
+          Assessment first. Then eight action areas to close gaps and harden defenses.
+        </p>
+      </div>
+      <div class="svc-flow reveal reveal-delay-1">
+        <div class="svc-flow__phase">
+          <div class="svc-flow__phase-num">01</div>
+          <div>
+            <div class="svc-flow__phase-label">Phase 1 &mdash; Foundation</div>
+            <div class="svc-flow__phase-name">Cybersecurity Maturity Assessment</div>
+          </div>
+        </div>
+        <div class="svc-flow__arrow"></div>
+        <p class="svc-flow__phase-two">Phase 2 &mdash; Eight Action Areas</p>
+        <div class="svc-flow__grid">
+          <a href="#network-security" class="svc-flow__item">
+            <div class="svc-flow__item-num">02</div>
+            <div class="svc-flow__item-name">Network Security</div>
+          </a>
+          <a href="#vulnerability" class="svc-flow__item">
+            <div class="svc-flow__item-num">03</div>
+            <div class="svc-flow__item-name">Vulnerability Mgmt</div>
+          </a>
+          <a href="#digital-identity" class="svc-flow__item">
+            <div class="svc-flow__item-num">04</div>
+            <div class="svc-flow__item-name">Digital Identity</div>
+          </a>
+          <a href="#endpoint-security" class="svc-flow__item">
+            <div class="svc-flow__item-num">05</div>
+            <div class="svc-flow__item-name">Endpoint Security</div>
+          </a>
+          <a href="#pentest" class="svc-flow__item">
+            <div class="svc-flow__item-num">06</div>
+            <div class="svc-flow__item-name">Pentest &amp; Red Team</div>
+          </a>
+          <a href="#cyber-awareness" class="svc-flow__item">
+            <div class="svc-flow__item-num">07</div>
+            <div class="svc-flow__item-name">Cyber Awareness</div>
+          </a>
+          <a href="#grc" class="svc-flow__item">
+            <div class="svc-flow__item-num">08</div>
+            <div class="svc-flow__item-name">GRC Consulting</div>
+          </a>
+          <a href="#cloud-security" class="svc-flow__item">
+            <div class="svc-flow__item-num">09</div>
+            <div class="svc-flow__item-name">Cloud Security</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="csma" class="section section--dark svc-step">
+    <div class="container">
+      <div class="svc-step__inner reveal">
+        <div class="svc-step__number-block">
+          <div class="svc-step__step-label">First step</div>
+          <div class="svc-step__step-number">01</div>
+          <div class="svc-step__step-phase">Know your posture</div>
+          <p class="step-aside__quote">You cannot protect what you haven't mapped. Every security program starts here.</p>
+        </div>
+        <div class="svc-step__content">
+          <p class="overline">Cybersecurity Maturity Assessment</p>
+          <div class="svc-step__divider"></div>
+          <h2 class="svc-step__title">Where does your security strategy stand?</h2>
+          <p class="svc-step__text">
+            A gap analysis and risk assessment against ISO 27001, NIST CSF, and CIS Controls. Delivers a prioritized roadmap and executive scorecard.
+          </p>
+
+          <div class="csma-process reveal">
+            <p class="csma-process__heading">How the assessment works</p>
+            <div class="csma-phases">
+              <div class="csma-phase">
+                <div class="csma-phase__num">1</div>
+                <div class="csma-phase__title">On-site Interviews</div>
+                <p class="csma-phase__desc">Structured interviews with IT leadership, security ops, compliance, and business owners.</p>
+              </div>
+              <div class="csma-arrow">&#8594;</div>
+              <div class="csma-phase">
+                <div class="csma-phase__num">2</div>
+                <div class="csma-phase__title">Remote Analysis</div>
+                <p class="csma-phase__desc">Evaluation of documentation and configurations against ISO 27001, NIST CSF, CIS Controls.</p>
+              </div>
+              <div class="csma-arrow">&#8594;</div>
+              <div class="csma-phase">
+                <div class="csma-phase__num">3</div>
+                <div class="csma-phase__title">Policy &amp; Gap Review</div>
+                <p class="csma-phase__desc">Gaps scored, maturity rated, remediation roadmap built.</p>
+              </div>
+            </div>
+            <p class="csma-deliverables__heading">What you receive</p>
+            <ul class="csma-deliverables__list">
+              <li>Executive scorecard and maturity ratings</li>
+              <li>Prioritized roadmap with tactical/strategic recommendations</li>
+              <li>Remediation implementation guide</li>
+            </ul>
+          </div>
+
+          <a href="./contact.html" class="btn btn--teal" style="margin-top: var(--space-md); display: inline-block;">Request an assessment</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="network-security" class="section section--cream svc-step">
+    <div class="container">
+      <div class="svc-step__inner svc-step__inner--reverse reveal">
+        <div class="svc-step__number-block">
+          <div class="svc-step__step-label">Take action</div>
+          <div class="svc-step__step-number">02</div>
+          <div class="svc-step__step-phase">Protect the perimeter</div>
+          <p class="step-aside__quote">Your network is the first line of defense. Modern threats require modern architecture.</p>
+        </div>
+        <div class="svc-step__content">
+          <p class="overline">Network Security</p>
+          <div class="svc-step__divider"></div>
+          <h2 class="svc-step__title">Trusted networks, protected data</h2>
+          <p class="svc-step__text">
+            We modernize, monitor, and secure the networks your organization depends on.
+          </p>
+          <ul class="svc-step__features">
+            <li>Next-generation firewall deployment and management</li>
+            <li>Network segmentation and zero-trust architecture</li>
+            <li>Intrusion detection and prevention systems (IDS/IPS)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="vulnerability" class="section section--navy svc-step">
+    <div class="container">
+      <div class="svc-step__inner reveal">
+        <div class="svc-step__number-block">
+          <div class="svc-step__step-label">Take action</div>
+          <div class="svc-step__step-number">03</div>
+          <div class="svc-step__step-phase">Test and verify</div>
+          <p class="step-aside__quote">Automated scanning misses what human creativity finds. Test continuously.</p>
+        </div>
+        <div class="svc-step__content">
+          <p class="overline">Vulnerability Management</p>
+          <div class="svc-step__divider"></div>
+          <h2 class="svc-step__title">Close gaps before they are exploited</h2>
+          <p class="svc-step__text">
+            Continuous scanning, risk-based prioritization, and guided remediation — powered by Tenable Nessus.
+          </p>
+          <div class="partner-callout partner-callout--steps reveal">
+            <div class="partner-callout__header">
+              <span class="partner-callout__badge">Powered by Tenable</span>
+            </div>
+            <p class="partner-callout__title">Industry-standard vulnerability intelligence</p>
+            <div class="partner-callout__list-label">Our 4-step process</div>
+            <ul class="partner-callout__list">
+              <li><strong>Identify</strong> — Continuous asset discovery</li>
+              <li><strong>Evaluate</strong> — Risk-based prioritization</li>
+              <li><strong>Remediate</strong> — Guided remediation workflows</li>
+              <li><strong>Report</strong> — Executive and technical reporting</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="digital-identity" class="section section--cream svc-step">
+    <div class="container">
+      <div class="svc-step__inner svc-step__inner--reverse reveal">
+        <div class="svc-step__number-block">
+          <div class="svc-step__step-label">Take action</div>
+          <div class="svc-step__step-number">04</div>
+          <div class="svc-step__step-phase">Control access</div>
+          <p class="step-aside__quote">80% of breaches involve compromised credentials. Identity is the new perimeter.</p>
+        </div>
+        <div class="svc-step__content">
+          <p class="overline">Digital Identity</p>
+          <div class="svc-step__divider"></div>
+          <h2 class="svc-step__title">Identities are the new perimeter</h2>
+          <p class="svc-step__text">
+            80% of breaches involve compromised credentials. We protect Workforce and Consumer Identity across 7 dimensions.
+          </p>
+
+          <div class="identity-dimensions reveal">
+            <p class="identity-dimensions__heading">Our assessment covers 7 dimensions</p>
+            <div class="identity-dimensions__grid">
+              <div class="identity-dim">
+                <div class="identity-dim__num">1</div>
+                <div class="identity-dim__body">
+                  <div class="identity-dim__title">Federation</div>
+                  <p class="identity-dim__desc">SAML, OAuth, OIDC, and cross-domain trust relationships</p>
+                </div>
+              </div>
+              <div class="identity-dim">
+                <div class="identity-dim__num">2</div>
+                <div class="identity-dim__body">
+                  <div class="identity-dim__title">Multi-factor Authentication</div>
+                  <p class="identity-dim__desc">MFA deployment coverage and enforcement policies</p>
+                </div>
+              </div>
+              <div class="identity-dim">
+                <div class="identity-dim__num">3</div>
+                <div class="identity-dim__body">
+                  <div class="identity-dim__title">Single Sign-On</div>
+                  <p class="identity-dim__desc">SSO scope, coverage, and exception management</p>
+                </div>
+              </div>
+              <div class="identity-dim">
+                <div class="identity-dim__num">4</div>
+                <div class="identity-dim__body">
+                  <div class="identity-dim__title">Delegated Administration</div>
+                  <p class="identity-dim__desc">Role-based delegation and least-privilege enforcement</p>
+                </div>
+              </div>
+              <div class="identity-dim">
+                <div class="identity-dim__num">5</div>
+                <div class="identity-dim__body">
+                  <div class="identity-dim__title">Identity Life-cycle Administration</div>
+                  <p class="identity-dim__desc">Joiner/mover/leaver processes and automation</p>
+                </div>
+              </div>
+              <div class="identity-dim">
+                <div class="identity-dim__num">6</div>
+                <div class="identity-dim__body">
+                  <div class="identity-dim__title">Access Management</div>
+                  <p class="identity-dim__desc">Dynamic access controls and session management</p>
+                </div>
+              </div>
+              <div class="identity-dim">
+                <div class="identity-dim__num">7</div>
+                <div class="identity-dim__body">
+                  <div class="identity-dim__title">Identity Governance</div>
+                  <p class="identity-dim__desc">Certification campaigns, SoD conflicts, and audit trails</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="endpoint-security" class="section section--dark svc-step">
+    <div class="container">
+      <div class="svc-step__inner reveal">
+        <div class="svc-step__number-block">
+          <div class="svc-step__step-label">Take action</div>
+          <div class="svc-step__step-number">05</div>
+          <div class="svc-step__step-phase">Secure the edge</div>
+          <p class="step-aside__quote">Every device is a potential entry point. Shrink your attack surface.</p>
+        </div>
+        <div class="svc-step__content">
+          <p class="overline">Endpoint Security</p>
+          <div class="svc-step__divider"></div>
+          <h2 class="svc-step__title">The devices your people work from</h2>
+          <p class="svc-step__text">
+            Every device is a potential entry point. We deploy and manage endpoint protection across all classes.
+          </p>
+          <ul class="svc-step__features">
+            <li>EDR/XDR deployment across all endpoint classes</li>
+            <li>Device configuration management and hardening</li>
+            <li>Behavioral analysis and threat hunting</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pentest" class="section section--cream svc-step">
+    <div class="container">
+      <div class="svc-step__inner svc-step__inner--reverse reveal">
+        <div class="svc-step__number-block">
+          <div class="svc-step__step-label">Take action</div>
+          <div class="svc-step__step-number">06</div>
+          <div class="svc-step__step-phase">Simulate the threat</div>
+          <p class="step-aside__quote">Find your vulnerabilities before attackers do. Ethical hacking saves enterprises.</p>
+        </div>
+        <div class="svc-step__content">
+          <p class="overline">Penetration Testing</p>
+          <div class="svc-step__divider"></div>
+          <h2 class="svc-step__title">Find vulnerabilities before attackers do</h2>
+          <p class="svc-step__text">
+            Simulated attacks on applications, APIs, and networks — findings delivered with remediation guidance.
+          </p>
+          <ul class="svc-step__features">
+            <li>Web application and API penetration testing</li>
+            <li>Red team exercises and adversary simulation</li>
+            <li>Detailed findings report with remediation guidance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cyber-awareness" class="section section--navy svc-step">
+    <div class="container">
+      <div class="svc-step__inner reveal">
+        <div class="svc-step__number-block">
+          <div class="svc-step__step-label">Take action</div>
+          <div class="svc-step__step-number">07</div>
+          <div class="svc-step__step-phase">Train the people</div>
+          <p class="step-aside__quote">The human layer is your biggest risk and your most powerful defense.</p>
+        </div>
+        <div class="svc-step__content">
+          <p class="overline">Cybersecurity Awareness</p>
+          <div class="svc-step__divider"></div>
+          <h2 class="svc-step__title">Your people are the last line of defence</h2>
+          <p class="svc-step__text">
+            Programs that change behavior, not just check a compliance box. Certified KnowBe4 partner.
+          </p>
+          <div class="partner-callout reveal">
+            <div class="partner-callout__header">
+              <span class="partner-callout__badge">Powered by KnowBe4</span>
+            </div>
+            <p class="partner-callout__title">Leader in the Forrester Wave&#8482; for Security Awareness and Training Platforms.</p>
+            <div class="partner-callout__list-label">What's included</div>
+            <ul class="partner-callout__list">
+              <li>Automated phishing simulation campaigns</li>
+              <li>World's largest training content library</li>
+              <li>Enterprise reporting and metrics dashboard</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="grc" class="section section--cream svc-step">
+    <div class="container">
+      <div class="svc-step__inner svc-step__inner--reverse reveal">
+        <div class="svc-step__number-block">
+          <div class="svc-step__step-label">Take action</div>
+          <div class="svc-step__step-number">08</div>
+          <div class="svc-step__step-phase">Govern and comply</div>
+          <p class="step-aside__quote">Regulations aren't obstacles. They're a baseline for genuine security.</p>
+        </div>
+        <div class="svc-step__content">
+          <p class="overline">Governance, Risk & Compliance</p>
+          <div class="svc-step__divider"></div>
+          <h2 class="svc-step__title">Navigate the regulatory landscape</h2>
+          <p class="svc-step__text">
+            ISO 27001, SWIFT, PCI DSS, LGPD, DORA — we implement, audit, and maintain compliance programs.
+          </p>
+          <div class="grc-stat-callout reveal">
+            <p class="grc-stat-callout__text"><strong>Regulatory non-compliance costs organizations 2.71x more than maintaining compliance.</strong> Governance isn't overhead; it's the cheaper path.</p>
+          </div>
+
+          <div id="ciso" class="partner-callout reveal">
+            <div class="partner-callout__header">
+              <span class="partner-callout__badge">CISO-as-a-Service</span>
+            </div>
+            <p class="partner-callout__title">CISO-level thinking without the full-time headcount.</p>
+            <div class="partner-callout__list-label">Our process</div>
+            <ul class="partner-callout__list ciso-steps">
+              <li><strong>Analyze</strong> — Current-state assessment of security posture, gaps, risks</li>
+              <li><strong>Strategize</strong> — Define a security roadmap aligned to business objectives</li>
+              <li><strong>Execute</strong> — Implement security controls, governance frameworks, and KPIs</li>
+            </ul>
+            <p style="margin-top:1rem; font-size:0.8rem; letter-spacing:0.06em; color:var(--teal,#3EDBC6);">Project-based &middot; Time &amp; Material &middot; Virtual Advisory</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cloud-security" class="section section--dark svc-step">
+    <div class="container">
+      <div class="svc-step__inner reveal">
+        <div class="svc-step__number-block">
+          <div class="svc-step__step-label">Take action</div>
+          <div class="svc-step__step-number">09</div>
+          <div class="svc-step__step-phase">Secure the cloud</div>
+          <p class="step-aside__quote">Cloud doesn't mean secure. Shared responsibility requires your active participation.</p>
+        </div>
+        <div class="svc-step__content">
+          <p class="overline">Cloud Security</p>
+          <div class="svc-step__divider"></div>
+          <h2 class="svc-step__title">Shared responsibility, fully covered</h2>
+          <p class="svc-step__text">
+            AWS, Azure, GCP — we close the gaps in the shared responsibility model and protect your workloads.
+          </p>
+
+          <div class="cloud-rs reveal">
+            <p class="cloud-rs__heading">The 6 Rs of Cloud Migration</p>
+            <div class="cloud-rs__grid">
+              <div class="cloud-r-card">
+                <div class="cloud-r-card__num">1</div>
+                <div class="cloud-r-card__title">Rehost</div>
+                <p class="cloud-r-card__desc">Lift-and-shift. Move applications to the cloud as-is with minimal changes.</p>
+              </div>
+              <div class="cloud-r-card">
+                <div class="cloud-r-card__num">2</div>
+                <div class="cloud-r-card__title">Replatform</div>
+                <p class="cloud-r-card__desc">Lift, tinker, and shift. Make targeted cloud optimizations without core changes.</p>
+              </div>
+              <div class="cloud-r-card">
+                <div class="cloud-r-card__num">3</div>
+                <div class="cloud-r-card__title">Repurchase</div>
+                <p class="cloud-r-card__desc">Move to a different product — typically SaaS (e.g., CRM to Salesforce).</p>
+              </div>
+              <div class="cloud-r-card">
+                <div class="cloud-r-card__num">4</div>
+                <div class="cloud-r-card__title">Refactor</div>
+                <p class="cloud-r-card__desc">Re-architect for cloud-native. Highest investment, highest cloud benefit.</p>
+              </div>
+              <div class="cloud-r-card">
+                <div class="cloud-r-card__num">5</div>
+                <div class="cloud-r-card__title">Retain</div>
+                <p class="cloud-r-card__desc">Keep in place. Applications that must stay on-premises for compliance or performance.</p>
+              </div>
+              <div class="cloud-r-card">
+                <div class="cloud-r-card__num">6</div>
+                <div class="cloud-r-card__title">Retire</div>
+                <p class="cloud-r-card__desc">Turn off. Decommission applications that are no longer needed.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="academy" class="section section--navy cta-band">
+    <div class="container reveal">
+      <p class="overline" style="color: var(--copper); margin-bottom: var(--space-sm);">Get started</p>
+      <h2 class="h2">Know where you stand,<br>then take action</h2>
+      <p>
+        Tell us where you are. We map the path forward.
+      </p>
+      <a href="./contact.html" class="btn btn--primary">Start a conversation</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="../index.html" class="footer__logo"><img src="../assets/logo-white.png" alt="Brandvakt" style="height:36px;"></a>
+          <p class="footer__about">Cybersecurity services company. Global operations across LATAM, Africa, Middle East, and Europe.</p>
+          <div class="footer__contact">
+            <a href="mailto:info@brandvakt.com" class="footer__contact-link">info@brandvakt.com</a>
+            <a href="https://www.linkedin.com/company/brandvakt" target="_blank" rel="noopener" class="footer__contact-link"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__col-title">Quick Links</p>
+          <div class="footer__col-links">
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="soc.html">SOC</a>
+            <a href="bygrc.html">byGRC</a>
+            <a href="homodeus-partnership.html">Brandvakt × HomoDeus</a>
+            <a href="partners.html">Partners</a>
+            <a href="careers.html">Careers</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__col-title">Services</p>
+          <div class="footer__col-links">
+            <a href="services.html#csma">CSMA</a>
+            <a href="services.html#digital-identity">Digital Identity</a>
+            <a href="services.html#cloud-security">Cloud Security</a>
+            <a href="services.html#cyber-awareness">Cyber Awareness</a>
+            <a href="services.html#grc">GRC</a>
+            <a href="services.html#pentest">Penetration Testing</a>
+            <a href="services.html#vulnerability">Vulnerability Management</a>
+            <a href="services.html#network-security">Network Security</a>
+            <a href="services.html#endpoint-security">Endpoint Security</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__regions">
+        <span class="footer__region">LATAM</span>
+        <span class="footer__region">Middle East</span>
+        <span class="footer__region">Africa</span>
+        <span class="footer__region">Europe</span>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2026 Brandvakt Group. All rights reserved.</span>
+        <div>
+          <a href="privacy.html">Privacy Policy</a> &middot; <a href="cookies.html">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Services nav active state
+    var svcLinks = document.querySelectorAll('.services-nav__link');
+    if (svcLinks.length) {
+      window.addEventListener('scroll', function() {
+        var scrollY = window.scrollY + 120;
+        svcLinks.forEach(function(link) {
+          var id = link.getAttribute('href').slice(1);
+          var section = document.getElementById(id);
+          if (section) {
+            var top = section.offsetTop;
+            var bottom = top + section.offsetHeight;
+            link.classList.toggle('active', scrollY >= top && scrollY < bottom);
+          }
+        });
+      }, { passive: true });
+    }
+
+  // Page scroll progress bar
+  (function() {
+    var bar = document.createElement('div');
+    bar.id = 'page-progress';
+    document.body.insertBefore(bar, document.body.firstChild);
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY || document.documentElement.scrollTop;
+      var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      bar.style.width = pct + '%';
+    }, { passive: true });
+  })();
+  </script>
+
+  <script src="../js/global.js"></script>
+</body>
+</html>

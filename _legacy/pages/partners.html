@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Partners | Brandvakt</title>
+  <meta name="description" content="Brandvakt's trusted partner ecosystem. We work with leading organizations across financial services, telecommunications, and oil & gas.">
+  <meta property="og:title" content="Partners | Brandvakt">
+  <meta property="og:description" content="Strategic partnerships with KnowBe4, Tenable, CrowdStrike, and 36 other leading security vendors.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://brandvakt-redesign.vercel.app/pages/partners">
+  <meta property="og:image" content="https://brandvakt-redesign.vercel.app/assets/logo-black-full.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://brandvakt-redesign.vercel.app/assets/logo-black-full.png">
+  <link rel="canonical" href="https://brandvakt-redesign.vercel.app/pages/partners">
+  <meta name="keywords" content="security partners, KnowBe4, Tenable, CrowdStrike, cybersecurity vendors">
+  <meta name="theme-color" content="#080c18">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+
+    .hero {
+      position: relative;
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+      background:
+        radial-gradient(ellipse at 70% 40%, rgba(200,150,90,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse at 15% 75%, rgba(62,219,198,0.04) 0%, transparent 50%),
+        var(--midnight);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: 'PARTNERS';
+      position: absolute;
+      right: -1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(5rem, 12vw, 14rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: rgba(255,255,255,0.025);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--copper), transparent);
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: calc(var(--nav-height) + var(--space-xl)) var(--space-md) var(--space-xl);
+    }
+
+    .hero__overline {
+      color: var(--copper);
+      margin-bottom: var(--space-md);
+      animation: fadeUp 0.8s 0.3s both;
+    }
+
+    .hero__title {
+      color: var(--warm-white);
+      margin-bottom: var(--space-md);
+      animation: fadeUp 0.8s 0.5s both;
+    }
+
+    .hero__title em {
+      font-style: italic;
+      color: var(--copper);
+    }
+
+    .hero__subtitle {
+      color: var(--text-muted);
+      font-size: 1.125rem;
+      line-height: 1.7;
+      max-width: 560px;
+      animation: fadeUp 0.8s 0.7s both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .approach {
+      padding: var(--space-xl) 0;
+      background: var(--cream);
+    }
+
+    .approach__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    .approach__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+
+    .approach__card {
+      padding: var(--space-md);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius);
+      background: var(--warm-white);
+    }
+
+    .approach__card-number {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--copper);
+      line-height: 1;
+      margin-bottom: var(--space-sm);
+    }
+
+    .approach__card h4 {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-dark);
+    }
+
+    .approach__card p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .approach__card__list {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+      list-style: none;
+      padding: 0;
+    }
+
+    .approach__card__list li::before {
+      content: "·";
+      color: var(--teal);
+      margin-right: 0.5rem;
+    }
+
+    .featured-partners {
+      padding: var(--space-xl) 0;
+      background: var(--midnight);
+    }
+
+    .featured-partners__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    .featured-partners__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+
+    .featured-partner-card {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: var(--radius);
+      padding: var(--space-md);
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
+    }
+
+    .featured-partner-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--card-accent, var(--teal)), transparent);
+    }
+
+    .featured-partner-card:hover {
+      border-color: rgba(62, 219, 198, 0.3);
+      background: rgba(62, 219, 198, 0.04);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .featured-partner-card__name {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--card-accent, var(--teal));
+      margin-bottom: 0.25rem;
+      line-height: 1.1;
+    }
+
+    .featured-partner-card__category {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.3);
+      margin-bottom: var(--space-sm);
+    }
+
+    .featured-partner-card__text {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.7;
+    }
+
+    .featured-partner-card__badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--midnight);
+      background: var(--copper);
+      padding: 3px 10px;
+      border-radius: var(--radius);
+      margin-bottom: var(--space-sm);
+    }
+
+    .partners-grid {
+      padding: var(--space-xl) 0;
+      background: var(--navy);
+    }
+
+    .partners-grid__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    .partners-grid__inner .overline {
+      color: var(--teal);
+    }
+
+    .partners-grid__inner .h2 {
+      color: var(--warm-white);
+    }
+
+    .partners-grid__logos {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.75rem;
+      margin-top: var(--space-lg);
+    }
+
+    .partner-logo {
+      height: 60px;
+      border: 1px solid rgba(62, 219, 198, 0.15);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 0.75rem 1.5rem;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .partner-logo::before {
+      content: '•';
+      color: var(--teal);
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+
+    .partner-logo:hover {
+      background: rgba(62, 219, 198, 0.08);
+      border-color: rgba(62, 219, 198, 0.3);
+    }
+
+    .partner-logo:hover .partner-logo__name {
+      color: #fff;
+    }
+
+    .partner-logo__name {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      color: rgba(255, 255, 255, 0.8);
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @media (max-width: 1100px) {
+      .partners-grid__logos {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .sectors {
+      padding: var(--space-xl) 0;
+      background: var(--navy);
+      color: var(--text-light);
+    }
+
+    .sectors__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    .sectors__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+
+    .sector-card {
+      padding: var(--space-md);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+
+    .sector-card:hover {
+      border-color: var(--copper);
+    }
+
+    .sector-card__icon {
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--copper);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-sm);
+    }
+
+    .sector-card__icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--copper);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .sector-card h4 {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--warm-white);
+      margin-bottom: 0.5rem;
+    }
+
+    .sector-card p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+
+    @media (max-width: 900px) {
+      .sectors__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .approach__grid,
+      .featured-partners__grid {
+        grid-template-columns: 1fr;
+      }
+      .sectors__grid {
+        grid-template-columns: 1fr;
+      }
+      .partners-grid__logos {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo"><img src="../assets/logo-white.png" alt="Brandvakt" style="height:36px;"></a>
+      <div class="nav__links">
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="soc.html">SOC</a>
+        <a href="bygrc.html">byGRC</a>
+        <a href="homodeus-partnership.html">Brandvakt × HomoDeus</a>
+        <a href="https://homodeus.me" target="_blank" class="nav__link-highlight">Homo Deus</a>
+        <a href="academy.html">Academy</a>
+        <a href="partners.html" class="active">Partners</a>
+        <a href="careers.html">Careers</a>
+        <a href="contact.html" class="nav__cta">Contact</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero__content">
+      <p class="overline hero__overline">Partner Ecosystem</p>
+      <h1 class="h-display hero__title">Trusted by those who<br><em>cannot afford</em> to be breached</h1>
+      <p class="hero__subtitle">Partnerships across financial services, telecommunications, and oil & gas — where the stakes are measured in continuity and trust.</p>
+    </div>
+  </section>
+
+  <section class="approach">
+    <div class="approach__inner">
+      <p class="overline reveal" style="color: var(--copper);">Our Approach</p>
+      <h2 class="h2 reveal reveal-delay-1" style="margin-top: var(--space-sm); max-width: 600px;">We navigate the security landscape alongside our partners</h2>
+      <div class="approach__grid">
+        <div class="approach__card reveal reveal-delay-1">
+          <div class="approach__card-number">01</div>
+          <h4>Risk Assessment</h4>
+          <p>We weigh risk versus investment appetite to find the right balance between protection and operational efficiency.</p>
+          <ul class="approach__card__list">
+            <li>Threat modeling</li>
+            <li>Security posture review</li>
+            <li>Risk vs. investment analysis</li>
+          </ul>
+        </div>
+        <div class="approach__card reveal reveal-delay-2">
+          <div class="approach__card-number">02</div>
+          <h4>Solutions & Technology</h4>
+          <p>Matching customers to solutions that align with security frameworks and regulatory requirements.</p>
+          <ul class="approach__card__list">
+            <li>Vendor evaluation</li>
+            <li>Architecture design</li>
+            <li>Compliance alignment</li>
+          </ul>
+        </div>
+        <div class="approach__card reveal reveal-delay-3">
+          <div class="approach__card-number">03</div>
+          <h4>Awareness & Education</h4>
+          <p>Engaging and educating through cyber awareness programs that build a security-first culture across the organization.</p>
+          <ul class="approach__card__list">
+            <li>KnowBe4 programs</li>
+            <li>Executive briefings</li>
+            <li>Incident response drills</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured-partners">
+    <div class="featured-partners__inner">
+      <p class="overline reveal" style="color: var(--teal);">Featured Partnerships</p>
+      <h2 class="h2 reveal reveal-delay-1" style="margin-top: var(--space-sm); color: var(--warm-white);">Strategic alliances that define our capabilities</h2>
+      <div class="featured-partners__grid">
+        <div class="featured-partner-card reveal reveal-delay-1">
+          <div class="featured-partner-card__badge">Certified Partner</div>
+          <div class="featured-partner-card__name">KnowBe4</div>
+          <div class="featured-partner-card__category">Security Awareness Training</div>
+          <p class="featured-partner-card__text">Certified partner delivering behavior-driven training programs across Africa, Europe, and Latin America.</p>
+        </div>
+        <div class="featured-partner-card reveal reveal-delay-2" style="--card-accent: var(--copper);">
+          <div class="featured-partner-card__badge">Certified Partner</div>
+          <div class="featured-partner-card__name">Tenable</div>
+          <div class="featured-partner-card__category">Exposure Management &amp; VM</div>
+          <p class="featured-partner-card__text">Tenable Nessus deployed for vulnerability scanning and continuous assessment across client infrastructure.</p>
+        </div>
+        <div class="featured-partner-card reveal reveal-delay-3" style="--card-accent: var(--teal-muted);">
+          <div class="featured-partner-card__badge">Certified Partner</div>
+          <div class="featured-partner-card__name">CrowdStrike</div>
+          <div class="featured-partner-card__category">Endpoint Detection &amp; Response</div>
+          <p class="featured-partner-card__text">Next-gen endpoint protection. Our SOC integrates CrowdStrike Falcon for advanced threat detection, hunting, and response.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="partners-grid">
+    <div class="partners-grid__inner">
+      <p class="overline reveal" style="color: var(--teal);">Technology Partners</p>
+      <h2 class="h2 reveal reveal-delay-1" style="margin-top: var(--space-sm); color: var(--warm-white);">Our partner network</h2>
+      <div class="partners-grid__logos">
+        <div class="partner-logo reveal reveal-delay-1"><span class="partner-logo__name">AWS</span></div>
+        <div class="partner-logo reveal reveal-delay-2"><span class="partner-logo__name">Brainwave GRC</span></div>
+        <div class="partner-logo reveal reveal-delay-3"><span class="partner-logo__name">Citrix</span></div>
+        <div class="partner-logo reveal reveal-delay-4"><span class="partner-logo__name">CyberArk</span></div>
+        <div class="partner-logo reveal reveal-delay-1"><span class="partner-logo__name">F5</span></div>
+        <div class="partner-logo reveal reveal-delay-2"><span class="partner-logo__name">Forcepoint</span></div>
+        <div class="partner-logo reveal reveal-delay-3"><span class="partner-logo__name">Fortinet</span></div>
+        <div class="partner-logo reveal reveal-delay-4"><span class="partner-logo__name">IBM</span></div>
+        <div class="partner-logo reveal reveal-delay-1"><span class="partner-logo__name">Illumio</span></div>
+        <div class="partner-logo reveal reveal-delay-2"><span class="partner-logo__name">Kaspersky</span></div>
+        <div class="partner-logo reveal reveal-delay-3"><span class="partner-logo__name">KnowBe4</span></div>
+        <div class="partner-logo reveal reveal-delay-4"><span class="partner-logo__name">ManagedLogic</span></div>
+        <div class="partner-logo reveal reveal-delay-1"><span class="partner-logo__name">McAfee</span></div>
+        <div class="partner-logo reveal reveal-delay-2"><span class="partner-logo__name">Microsoft</span></div>
+        <div class="partner-logo reveal reveal-delay-3"><span class="partner-logo__name">PingIdentity</span></div>
+        <div class="partner-logo reveal reveal-delay-4"><span class="partner-logo__name">Red Hat</span></div>
+        <div class="partner-logo reveal reveal-delay-1"><span class="partner-logo__name">RSA</span></div>
+        <div class="partner-logo reveal reveal-delay-2"><span class="partner-logo__name">Sophos</span></div>
+        <div class="partner-logo reveal reveal-delay-3"><span class="partner-logo__name">Tenable</span></div>
+        <div class="partner-logo reveal reveal-delay-4"><span class="partner-logo__name">Trellix</span></div>
+        <div class="partner-logo reveal reveal-delay-1"><span class="partner-logo__name">Tripwire</span></div>
+        <div class="partner-logo reveal reveal-delay-2"><span class="partner-logo__name">Tufin</span></div>
+        <div class="partner-logo reveal reveal-delay-3"><span class="partner-logo__name">Veracode</span></div>
+        <div class="partner-logo reveal reveal-delay-4"><span class="partner-logo__name">Zscaler</span></div>
+        <div class="partner-logo reveal reveal-delay-1"><span class="partner-logo__name">Yubico</span></div>
+        <div class="partner-logo reveal reveal-delay-2"><span class="partner-logo__name">Cisco</span></div>
+        <div class="partner-logo reveal reveal-delay-3"><span class="partner-logo__name">Cobalt</span></div>
+        <div class="partner-logo reveal reveal-delay-4"><span class="partner-logo__name">CrowdStrike</span></div>
+        <div class="partner-logo reveal reveal-delay-1"><span class="partner-logo__name">Mimecast</span></div>
+        <div class="partner-logo reveal reveal-delay-2"><span class="partner-logo__name">LatchManager</span></div>
+        <div class="partner-logo reveal reveal-delay-3"><span class="partner-logo__name">Riverbed</span></div>
+        <div class="partner-logo reveal reveal-delay-4"><span class="partner-logo__name">Varonis</span></div>
+        <div class="partner-logo reveal reveal-delay-1"><span class="partner-logo__name">VMware</span></div>
+        <div class="partner-logo reveal reveal-delay-2"><span class="partner-logo__name">Open Raven</span></div>
+        <div class="partner-logo reveal reveal-delay-3"><span class="partner-logo__name">SailPoint</span></div>
+        <div class="partner-logo reveal reveal-delay-4"><span class="partner-logo__name">Abnormal Security</span></div>
+        <div class="partner-logo reveal reveal-delay-1"><span class="partner-logo__name">Lansweeper</span></div>
+        <div class="partner-logo reveal reveal-delay-2"><span class="partner-logo__name">ManageEngine</span></div>
+        <div class="partner-logo reveal reveal-delay-3"><span class="partner-logo__name">Versasec</span></div>
+        <div class="partner-logo reveal reveal-delay-4"><span class="partner-logo__name">WALLIX</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sectors">
+    <div class="sectors__inner">
+      <p class="overline reveal" style="color: var(--copper);">Industry Focus</p>
+      <h2 class="h2 reveal reveal-delay-1" style="margin-top: var(--space-sm); color: var(--warm-white);">Sectors we serve</h2>
+      <div class="sectors__grid">
+        <div class="sector-card reveal reveal-delay-1">
+          <div class="sector-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M3 21h18M3 7v14M21 7v14M6 7V3h12v4M9 21v-4h6v4M9 11h.01M15 11h.01M9 15h.01M15 15h.01"/></svg>
+          </div>
+          <h4>Financial Services</h4>
+          <p>Banks and financial institutions where regulatory compliance and data protection are non-negotiable mandates.</p>
+        </div>
+        <div class="sector-card reveal reveal-delay-2">
+          <div class="sector-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7M2 20h20M6 8l4-4 4 4 4-4"/></svg>
+          </div>
+          <h4>Telecommunications</h4>
+          <p>Operators managing critical communications infrastructure, large volumes of sensitive data, and customer PII at scale.</p>
+        </div>
+        <div class="sector-card reveal reveal-delay-3">
+          <div class="sector-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-7-7zM13 2v7h7"/></svg>
+          </div>
+          <h4>Oil &amp; Gas</h4>
+          <p>Energy companies protecting operational technology, industrial control systems, and critical national infrastructure.</p>
+        </div>
+        <div class="sector-card reveal reveal-delay-4">
+          <div class="sector-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h4>Healthcare</h4>
+          <p>Securing patient records, connected devices, and HIPAA/POPI compliance.</p>
+        </div>
+        <div class="sector-card reveal reveal-delay-5">
+          <div class="sector-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M9 9l-4 3 4 3M15 9l4 3-4 3M12 3l-2 18"/></svg>
+          </div>
+          <h4>Technology</h4>
+          <p>Cloud-native organizations embedding DevSecOps and securing multi-tenant architectures.</p>
+        </div>
+        <div class="sector-card reveal reveal-delay-6">
+          <div class="sector-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M3 21h18M3 21V7l9-4 9 4v14M9 21v-6h6v6"/></svg>
+          </div>
+          <h4>Infrastructure</h4>
+          <p>Public utilities and government bodies building cyber resilience into water, transport, and electricity systems.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--midnight partner-cta" style="text-align:center; padding: var(--space-2xl) 0;">
+    <div class="container">
+      <p class="overline reveal" style="color: var(--teal);">Join the Ecosystem</p>
+      <h2 class="h2 reveal reveal-delay-1" style="color: var(--warm-white); margin-bottom: 1rem;">Become a Brandvakt partner</h2>
+      <p class="reveal reveal-delay-2" style="color: rgba(255,255,255,0.6); max-width: 520px; margin: 0 auto 2.5rem; font-size: 1rem; line-height: 1.7;">If your technology complements our cybersecurity portfolio, we'd like to hear from you.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="contact.html" class="btn btn--primary">Partner Enquiry</a>
+        <a href="mailto:partners@brandvakt.com" class="btn btn--ghost">partners@brandvakt.com</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="../index.html" class="footer__logo"><img src="../assets/logo-white.png" alt="Brandvakt" style="height:36px;"></a>
+          <p class="footer__about">We are a cybersecurity services company operating globally with a strong presence in the southern hemisphere, serving financial services, telecommunications, and energy sectors.</p>
+          <div class="footer__contact">
+            <a href="mailto:info@brandvakt.com" class="footer__contact-link">info@brandvakt.com</a>
+            <a href="https://www.linkedin.com/company/brandvakt" target="_blank" rel="noopener" class="footer__contact-link"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__col-title">Quick Links</p>
+          <div class="footer__col-links">
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="soc.html">SOC</a>
+            <a href="bygrc.html">byGRC</a>
+            <a href="homodeus-partnership.html">Brandvakt × HomoDeus</a>
+            <a href="partners.html">Partners</a>
+            <a href="careers.html">Careers</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__col-title">Services</p>
+          <div class="footer__col-links">
+            <a href="services.html#csma">CSMA</a>
+            <a href="services.html#digital-identity">Digital Identity</a>
+            <a href="services.html#cloud-security">Cloud Security</a>
+            <a href="services.html#cyber-awareness">Cyber Awareness</a>
+            <a href="services.html#grc">GRC</a>
+            <a href="services.html#pentest">Penetration Testing</a>
+            <a href="services.html#vulnerability">Vulnerability Management</a>
+            <a href="services.html#network-security">Network Security</a>
+            <a href="services.html#endpoint-security">Endpoint Security</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__regions">
+        <span class="footer__region">LATAM</span>
+        <span class="footer__region">Middle East</span>
+        <span class="footer__region">Africa</span>
+        <span class="footer__region">Europe</span>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2026 Brandvakt Group. All rights reserved.</span>
+        <div>
+          <a href="privacy.html">Privacy Policy</a> &middot; <a href="cookies.html">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+  // Page scroll progress bar
+  (function() {
+    var bar = document.createElement('div');
+    bar.id = 'page-progress';
+    document.body.insertBefore(bar, document.body.firstChild);
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY || document.documentElement.scrollTop;
+      var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      bar.style.width = pct + '%';
+    }, { passive: true });
+  })();
+  </script>
+
+  <script src="../js/global.js"></script>
+</body>
+</html>

@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brandvakt × HomoDeus | AI Partnership | Brandvakt</title>
+  <meta name="description" content="Brandvakt and HomoDeus have joined forces to build the next generation of AI-powered cyber defense. Two specialist teams. One unified mission.">
+  <meta property="og:title" content="Brandvakt × HomoDeus — Autonomous Defense Intelligence">
+  <meta property="og:description" content="Brandvakt's cybersecurity expertise fused with HomoDeus AI. A partnership redefining autonomous threat defense.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://brandvakt-redesign.vercel.app/pages/homodeus-partnership">
+  <meta property="og:image" content="https://brandvakt-redesign.vercel.app/assets/logo-black-full.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://brandvakt-redesign.vercel.app/assets/logo-black-full.png">
+  <link rel="canonical" href="https://brandvakt-redesign.vercel.app/pages/homodeus-partnership">
+  <meta name="keywords" content="AI cybersecurity, autonomous defense, HomoDeus, AI threat intelligence">
+  <meta name="theme-color" content="#080c18">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    /* ── Cosmic animations ── */
+    @keyframes cosmicDrift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes sepPulse {
+      0%, 100% { opacity: 1; text-shadow: 0 0 20px rgba(62,219,198,0.5); }
+      50% { opacity: 0.5; text-shadow: 0 0 40px rgba(62,219,198,0.9); }
+    }
+
+    @keyframes partnershipSepPulse {
+      0%, 100% { opacity: 1; filter: drop-shadow(0 0 20px rgba(62,219,198,0.4)); }
+      50% { opacity: 0.6; filter: drop-shadow(0 0 40px rgba(62,219,198,0.8)); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(0,180,160,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(180,130,40,0.06) 0%, transparent 50%),
+        linear-gradient(135deg, #050708 0%, #080c0f 40%, #060a10 70%, #08090e 100%);
+      background-size: 200% 200%, 200% 200%, 400% 400%;
+      animation: cosmicDrift 20s ease infinite;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 100%, rgba(62,219,198,0.04) 0%, transparent 70%),
+        radial-gradient(ellipse at 30% 20%, rgba(62,219,198,0.03) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero__logos-hr {
+      width: 100%;
+      max-width: 480px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(62,219,198,0.3), rgba(200,150,90,0.2), transparent);
+      margin: var(--space-md) 0;
+      animation: fadeUp 0.8s 0.5s both;
+    }
+
+    .hero__glyph {
+      position: absolute;
+      right: 8%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 420px;
+      height: 420px;
+      pointer-events: none;
+      opacity: 0.18;
+    }
+
+    .hero__glyph-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1px solid var(--teal);
+    }
+
+    .hero__glyph-ring:nth-child(1) {
+      animation: orbit1 18s linear infinite;
+    }
+
+    .hero__glyph-ring:nth-child(2) {
+      inset: 40px;
+      border-color: var(--copper);
+      animation: orbit2 12s linear infinite reverse;
+    }
+
+    .hero__glyph-ring:nth-child(3) {
+      inset: 90px;
+      border-color: rgba(62,219,198,0.6);
+      animation: orbit1 8s linear infinite;
+    }
+
+    .hero__glyph-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      border: 1.5px solid var(--teal);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero__glyph-shield {
+      width: 32px;
+      height: 32px;
+      fill: none;
+      stroke: var(--teal);
+      stroke-width: 1.5;
+    }
+
+    @keyframes orbit1 {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    @keyframes orbit2 {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(-360deg); }
+    }
+
+    .hero__content {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: calc(var(--nav-height) + var(--space-xl)) var(--space-md) var(--space-xl);
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+    }
+
+    .hero__overline {
+      color: var(--teal);
+      margin-bottom: var(--space-md);
+      animation: fadeUp 0.8s 0.2s both;
+    }
+
+    .hero__logos {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: var(--space-md);
+      animation: fadeUp 0.8s 0.4s both;
+    }
+
+    .hero__logo-img {
+      height: 44px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+
+    .hero__logos-sep {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: 300;
+      color: var(--teal);
+      line-height: 1;
+      margin-top: -8px;
+      animation: sepPulse 3s ease-in-out infinite;
+    }
+
+    .hero__logos-name {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 2.25rem;
+      color: var(--warm-white);
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+
+    .hero__title {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--warm-white);
+      margin-bottom: var(--space-md);
+      animation: fadeUp 0.8s 0.6s both;
+    }
+
+    .hero__subtitle {
+      color: rgba(255,255,255,0.75);
+      font-size: 1.125rem;
+      line-height: 1.75;
+      max-width: 620px;
+      margin-bottom: var(--space-lg);
+      animation: fadeUp 0.8s 0.8s both;
+    }
+
+    .hero__ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s 1s both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Partnership Story ── */
+    .partnership {
+      padding: var(--space-xl) 0;
+      background:
+        radial-gradient(ellipse at 0% 50%, rgba(62,219,198,0.05) 0%, transparent 55%),
+        radial-gradient(ellipse at 100% 50%, rgba(200,168,75,0.04) 0%, transparent 55%),
+        linear-gradient(180deg, rgba(8,12,24,0.95) 0%, #080c0f 50%, rgba(8,12,24,0.95) 100%);
+    }
+
+    .partnership__header {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    .partnership__header .overline { color: var(--teal); margin-bottom: var(--space-sm); }
+    .partnership__header .h2 {
+      color: var(--warm-white);
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      letter-spacing: -0.02em;
+    }
+
+    .partnership__grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: var(--space-md);
+      align-items: center;
+    }
+
+    .partner-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-light);
+      border-radius: 4px;
+      padding: var(--space-lg) var(--space-md);
+      transition: border-color var(--transition), background var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .partner-card:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(62,219,198,0.2);
+    }
+
+    .partner-card--brandvakt::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: linear-gradient(to top, rgba(62,219,198,0.08) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .partner-card--homodeus::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: linear-gradient(to top, rgba(200,168,75,0.1) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .partner-card__brand {
+      margin-bottom: var(--space-md);
+    }
+
+    .partner-card__logo {
+      height: 36px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      margin-bottom: var(--space-sm);
+    }
+
+    .partner-card__label {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--warm-white);
+    }
+
+    .partner-card__subtitle {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: var(--space-sm);
+    }
+
+    .partner-card__text {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    .partnership__sep {
+      font-family: var(--font-display);
+      font-size: 5.5rem;
+      font-weight: 300;
+      color: var(--teal);
+      text-align: center;
+      line-height: 1;
+      filter: drop-shadow(0 0 20px rgba(62,219,198,0.4));
+      animation: partnershipSepPulse 3.5s ease-in-out infinite;
+    }
+
+    /* ── Capabilities ── */
+    .capabilities {
+      padding: var(--space-xl) 0;
+      background: rgba(8,12,24,0.95);
+    }
+
+    .capabilities__header {
+      margin-bottom: var(--space-xl);
+    }
+
+    .capabilities__header .overline { color: var(--teal); margin-bottom: var(--space-sm); }
+    .capabilities__header .h2 {
+      color: var(--warm-white);
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      letter-spacing: -0.02em;
+    }
+
+    .capabilities__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border-light);
+    }
+
+    .cap-card {
+      background: rgba(8,12,24,0.95);
+      padding: var(--space-lg) var(--space-md);
+      transition: background var(--transition);
+    }
+
+    .cap-card:hover { background: rgba(62,219,198,0.03); }
+
+    .cap-card__number {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 2.5rem;
+      color: rgba(62,219,198,0.25);
+      line-height: 1;
+      margin-bottom: var(--space-sm);
+    }
+
+    .cap-card__title {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+      color: var(--warm-white);
+      margin-bottom: var(--space-sm);
+    }
+
+    .cap-card__text {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.75;
+    }
+
+    /* ── Platform ── */
+    .platform {
+      padding: var(--space-xl) 0;
+      background: #050708;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .platform::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    }
+
+    .platform__noise {
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      opacity: 0.4;
+      z-index: 0;
+    }
+
+    .platform::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,150,90,0.4), transparent);
+    }
+
+    .platform__glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(62,219,198,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .platform__inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .platform__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(200,150,90,0.12);
+      border: 1px solid rgba(200,150,90,0.3);
+      border-radius: 2px;
+      padding: 0.375rem 0.875rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: var(--space-md);
+    }
+
+    .platform__overline { color: var(--teal); margin-bottom: var(--space-sm); }
+
+    .platform__title {
+      color: var(--warm-white);
+      margin-bottom: var(--space-md);
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      letter-spacing: -0.02em;
+    }
+
+    .platform__description {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 720px;
+      margin-bottom: var(--space-xl);
+    }
+
+    .platform__pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-light);
+      margin-bottom: var(--space-xl);
+    }
+
+    .pillar {
+      background: #050708;
+      padding: var(--space-md);
+      position: relative;
+      transition: background var(--transition);
+    }
+
+    .pillar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--teal), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .pillar:hover { background: rgba(62,219,198,0.04); }
+    .pillar:hover::before { opacity: 1; }
+
+    .pillar__title {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--warm-white);
+      margin-bottom: var(--space-sm);
+    }
+
+    .pillar__text {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      line-height: 1.75;
+    }
+
+    .platform__cta-wrap {
+      text-align: center;
+    }
+
+    .btn--amber {
+      background: linear-gradient(135deg, #c8a84b 0%, #e8c878 50%, #c8a84b 100%);
+      background-size: 200% auto;
+      color: var(--midnight);
+      border-color: #c8a84b;
+      font-size: 0.9rem;
+      padding: 1rem 2.5rem;
+      letter-spacing: 0.08em;
+      box-shadow: 0 0 30px rgba(200,150,90,0.25);
+      transition: all var(--transition), background-position 0.5s ease;
+    }
+
+    .btn--amber:hover {
+      background-position: right center;
+      border-color: #e8c878;
+      box-shadow: 0 0 50px rgba(200,150,90,0.5), 0 0 80px rgba(200,150,90,0.2);
+      transform: translateY(-2px);
+      animation: shimmer 1.5s linear infinite;
+    }
+
+    /* ── Stats ── */
+    .stats {
+      padding: var(--space-xl) 0;
+      background: #080c0f;
+    }
+
+    .stats__header {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    .stats__header .h2 {
+      color: var(--warm-white);
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      letter-spacing: -0.02em;
+    }
+
+    .stats__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .stat-item {
+      background: #080c0f;
+      padding: var(--space-lg) var(--space-md);
+      text-align: center;
+      transition: background var(--transition);
+      position: relative;
+    }
+
+    .stat-item + .stat-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 15%;
+      height: 70%;
+      width: 1px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .stat-item:hover { background: rgba(62,219,198,0.05); }
+
+    .stat-item__number {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(4rem, 10vw, 8rem);
+      color: var(--teal);
+      line-height: 1;
+      margin-bottom: var(--space-sm);
+      letter-spacing: -0.02em;
+    }
+
+    .stat-item__number--compact {
+      font-size: clamp(2.6rem, 6vw, 5rem);
+    }
+
+    .stat-item__label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(240,234,220,0.6);
+      line-height: 1.5;
+    }
+
+    /* ── Use Cases ── */
+    .usecases {
+      padding: var(--space-xl) 0;
+    }
+
+    .usecases__header {
+      margin-bottom: var(--space-xl);
+    }
+
+    .usecases__header .overline {
+      color: var(--copper);
+      margin-bottom: var(--space-sm);
+    }
+
+    .usecases__header .h2 { color: var(--warm-white); }
+
+    .usecase-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .usecase-card {
+      background: rgba(255,255,255,0.02);
+      padding: var(--space-lg) var(--space-md);
+      transition: background var(--transition);
+      border-left: 3px solid transparent;
+      position: relative;
+    }
+
+    .usecase-card:hover { background: rgba(62,219,198,0.04); }
+
+    .usecase-card--financial { border-left-color: var(--copper); }
+    .usecase-card--telecom   { border-left-color: var(--teal); }
+    .usecase-card--energy    { border-left-color: var(--copper); }
+
+    .usecase-card__icon {
+      display: none;
+    }
+
+    .usecase-card__symbol {
+      display: block;
+      font-size: 3rem;
+      line-height: 1;
+      margin-bottom: var(--space-md);
+      color: var(--teal);
+      font-style: normal;
+    }
+
+    .usecase-card__symbol--financial::before {
+      content: '$';
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 3.5rem;
+      color: var(--teal);
+      filter: drop-shadow(0 0 12px rgba(62,219,198,0.4));
+    }
+
+    .usecase-card__symbol--telecom::before {
+      content: '⌇';
+      font-size: 3rem;
+      color: var(--teal);
+      filter: drop-shadow(0 0 12px rgba(62,219,198,0.4));
+    }
+
+    .usecase-card__symbol--energy::before {
+      content: '⚡';
+      font-size: 3rem;
+      filter: drop-shadow(0 0 12px rgba(62,219,198,0.4));
+    }
+
+    /* ── How It Works ── */
+    .how-it-works {
+      padding: var(--space-xl) 0;
+      background: #080c0f;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .how-it-works::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(62,219,198,0.3), transparent);
+    }
+
+    .how-it-works__header {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    .how-it-works__header .overline { color: var(--teal); margin-bottom: var(--space-sm); }
+    .how-it-works__header .h2 {
+      color: var(--warm-white);
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      letter-spacing: -0.02em;
+    }
+
+    .how-it-works__steps {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: start;
+      gap: 0;
+    }
+
+    .how-step {
+      padding: var(--space-md);
+    }
+
+    .how-step__number {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      color: var(--teal);
+      line-height: 1;
+      margin-bottom: var(--space-sm);
+      opacity: 0.7;
+    }
+
+    .how-step__title {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--warm-white);
+      margin-bottom: var(--space-sm);
+    }
+
+    .how-step__text {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      line-height: 1.75;
+    }
+
+    .how-step__connector {
+      display: flex;
+      align-items: flex-start;
+      padding-top: 2.5rem;
+      color: rgba(62,219,198,0.25);
+      font-size: 1.5rem;
+      letter-spacing: 0.2em;
+      font-family: monospace;
+    }
+
+    @media (max-width: 900px) {
+      .how-it-works__steps {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+      }
+      .how-step__connector { display: none; }
+    }
+
+    .usecase-card__title {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(1.4rem, 2vw, 1.75rem);
+      color: var(--warm-white);
+      margin-bottom: var(--space-sm);
+      line-height: 1.2;
+    }
+
+    .usecase-card__problem {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      line-height: 1.7;
+      margin-bottom: var(--space-sm);
+    }
+
+    .usecase-card__solution {
+      color: var(--warm-white);
+      font-size: 0.875rem;
+      line-height: 1.7;
+      padding: var(--space-sm) var(--space-sm);
+      background: rgba(62,219,198,0.07);
+      border-radius: 2px;
+    }
+
+    .usecase-card__text {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.75;
+    }
+
+    /* ── Manifesto ── */
+    .manifesto {
+      padding: calc(var(--space-xl) * 1.5) 0;
+      background: #000;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .manifesto::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 900px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(62,219,198,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .manifesto__text {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      color: var(--warm-white);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .manifesto__text em {
+      font-style: italic;
+      color: var(--teal);
+    }
+
+    .manifesto__sub {
+      margin-top: var(--space-md);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(240,234,220,0.3);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── CTA Band ── */
+    .cta-band {
+      padding: var(--space-xl) 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 600px;
+      height: 400px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(ellipse, rgba(62,219,198,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-band .h2 {
+      color: var(--warm-white);
+      margin-bottom: var(--space-md);
+      position: relative;
+    }
+
+    .cta-band__actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .partnership__grid { grid-template-columns: 1fr; gap: var(--space-md); }
+      .partnership__sep { display: none; }
+      .capabilities__grid { grid-template-columns: 1fr; }
+      .stats__grid { grid-template-columns: 1fr 1fr; }
+      .stat-item + .stat-item::before { display: none; }
+      .platform__pillars { grid-template-columns: 1fr; }
+      .usecase-grid { grid-template-columns: 1fr; }
+      .hero__glyph { display: none; }
+    }
+
+    @media (max-width: 768px) {
+
+      .hero__title { font-size: clamp(2.2rem, 9vw, 3.5rem); }
+      .hero__logos { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+      .hero__logos-sep { font-size: 2rem; margin-top: 0; }
+      .hero__logos-hr { max-width: 100%; }
+
+      .footer__inner { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+      .footer__links { flex-wrap: wrap; gap: 1rem; }
+      .footer__bottom { flex-direction: column; gap: 0.5rem; }
+    }
+
+    @media (max-width: 600px) {
+      .stats__grid { grid-template-columns: 1fr 1fr; }
+      .hero__logos-hr { max-width: 100%; }
+      .outcomes__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Outcome cards (homodeus.me-inspired) ── */
+    .outcomes {
+      background: #06080f;
+      padding: var(--space-xl) 0;
+    }
+
+    .outcomes__header {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+      padding: 0 var(--space-md);
+    }
+
+    .outcomes__header .overline { color: var(--teal); }
+    .outcomes__header .h2 { color: var(--warm-white); }
+
+    .outcomes__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      gap: 2px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .outcome-card {
+      position: relative;
+      overflow: hidden;
+      padding: var(--space-lg) var(--space-md);
+      display: flex;
+      flex-direction: column;
+      min-height: 360px;
+      transition: transform 0.4s ease;
+    }
+
+    .outcome-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      transition: opacity 0.4s ease;
+      opacity: 0.85;
+    }
+
+    .outcome-card:hover { transform: scale(1.01); }
+    .outcome-card:hover::before { opacity: 1; }
+
+    /* Sector-specific atmospheric backgrounds */
+    .outcome-card--financial::before {
+      background:
+        radial-gradient(ellipse 80% 60% at 80% 20%, rgba(62,219,198,0.18) 0%, transparent 60%),
+        linear-gradient(160deg, #040c14 0%, #061220 40%, #040d1a 100%);
+    }
+    .outcome-card--financial .outcome-card__bg {
+      background-image:
+        repeating-linear-gradient(90deg, rgba(62,219,198,0.04) 0px, transparent 1px, transparent 40px, rgba(62,219,198,0.04) 41px),
+        repeating-linear-gradient(0deg, rgba(62,219,198,0.04) 0px, transparent 1px, transparent 40px, rgba(62,219,198,0.04) 41px);
+    }
+
+    .outcome-card--telecom::before {
+      background:
+        radial-gradient(ellipse 70% 50% at 20% 80%, rgba(100,80,200,0.22) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 80% 20%, rgba(62,219,198,0.12) 0%, transparent 50%),
+        linear-gradient(140deg, #07060f 0%, #0a0818 50%, #060810 100%);
+    }
+    .outcome-card--telecom .outcome-card__bg {
+      background-image: radial-gradient(circle, rgba(100,80,200,0.08) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    .outcome-card--energy::before {
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 90%, rgba(200,150,90,0.20) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 40% at 10% 10%, rgba(200,100,60,0.10) 0%, transparent 50%),
+        linear-gradient(170deg, #0a0804 0%, #120c05 50%, #0c0906 100%);
+    }
+    .outcome-card--energy .outcome-card__bg {
+      background-image: repeating-linear-gradient(45deg, rgba(200,150,90,0.04) 0px, transparent 1px, transparent 28px, rgba(200,150,90,0.04) 29px);
+    }
+
+    .outcome-card--banking::before {
+      background:
+        radial-gradient(ellipse 60% 70% at 90% 50%, rgba(30,180,120,0.16) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 0% 0%, rgba(62,219,198,0.10) 0%, transparent 50%),
+        linear-gradient(150deg, #040e0a 0%, #06120e 50%, #040d09 100%);
+    }
+    .outcome-card--banking .outcome-card__bg {
+      background-image: repeating-linear-gradient(90deg, rgba(30,180,120,0.05) 0px, transparent 1px, transparent 48px, rgba(30,180,120,0.05) 49px);
+    }
+
+    .outcome-card__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .outcome-card__body {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .outcome-card__sector {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      font-family: var(--font-body);
+    }
+
+    .outcome-card--energy .outcome-card__sector { color: #d4a05a; }
+    .outcome-card--telecom .outcome-card__sector { color: #a090e0; }
+    .outcome-card--banking .outcome-card__sector { color: #3ec890; }
+
+    .outcome-card__headline {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: rgba(250,247,242,0.50);
+      line-height: 1.55;
+      margin-top: var(--space-sm);
+      flex: 1;
+      max-width: 28ch;
+    }
+
+    .outcome-card__metric {
+      font-family: var(--font-display);
+      font-size: clamp(4.5rem, 9vw, 7rem);
+      font-weight: 300;
+      color: var(--warm-white);
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      margin-top: var(--space-lg);
+    }
+
+    .outcome-card__unit {
+      font-size: 0.72rem;
+      color: rgba(250,247,242,0.30);
+      letter-spacing: 0.07em;
+      margin-top: 0.75rem;
+      font-family: var(--font-body);
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo"><img src="../assets/logo-white.png" alt="Brandvakt" style="height:36px;"></a>
+      <div class="nav__links">
+        <a href="./about.html">About</a>
+        <a href="./services.html">Services</a>
+        <a href="./soc.html">SOC</a>
+        <a href="./bygrc.html">byGRC</a>
+        <a href="./homodeus-partnership.html" class="active">Brandvakt × HomoDeus</a>
+        <a href="https://homodeus.me" target="_blank" class="nav__link-highlight">Homo Deus</a>
+        <a href="academy.html">Academy</a>
+        <a href="./partners.html">Partners</a>
+        <a href="./careers.html">Careers</a>
+        <a href="./contact.html" class="nav__cta">Contact</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Section 1: Hero ── -->
+  <section class="hero">
+    <div class="hero__glyph" aria-hidden="true">
+      <div class="hero__glyph-ring"></div>
+      <div class="hero__glyph-ring"></div>
+      <div class="hero__glyph-ring"></div>
+      <div class="hero__glyph-center">
+        <svg class="hero__glyph-shield" viewBox="0 0 24 24">
+          <path d="M12 2L4 5v6c0 5.5 3.8 10.7 8 12 4.2-1.3 8-6.5 8-12V5l-8-3z"/>
+        </svg>
+      </div>
+    </div>
+    <div class="hero__content">
+      <p class="overline hero__overline">Strategic Partnership</p>
+      <div class="hero__logos">
+        <img src="../assets/logo-white.png" alt="Brandvakt" class="hero__logo-img">
+        <span class="hero__logos-sep">×</span>
+        <span class="hero__logos-name">HomoDeus</span>
+      </div>
+      <div class="hero__logos-hr" aria-hidden="true"></div>
+      <h1 class="hero__title">Autonomous Defense<br>Intelligence</h1>
+      <p class="hero__subtitle">
+        Brandvakt's cybersecurity expertise fused with HomoDeus AI.
+      </p>
+      <div class="hero__ctas">
+        <a href="https://homodeus.me" target="_blank" class="btn btn--primary">Explore the Platform &rarr;</a>
+        <a href="./services.html" class="btn btn--outline">Our Cybersecurity Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 2: Partnership Story ── -->
+  <section class="section section--navy partnership">
+    <div class="container">
+      <div class="partnership__header reveal">
+        <p class="overline">Why We Built This Together</p>
+        <h2 class="h2">Cybersecurity expertise.<br>AI at operational scale.</h2>
+      </div>
+      <div class="partnership__grid">
+        <div class="partner-card partner-card--brandvakt reveal">
+          <div class="partner-card__brand">
+            <img src="../assets/logo-white.png" alt="Brandvakt" class="partner-card__logo">
+          </div>
+          <div class="partner-card__subtitle">Cybersecurity</div>
+          <h3 class="partner-card__label">Brandvakt</h3>
+          <div class="divider divider--light" style="margin: var(--space-sm) 0;"></div>
+          <p class="partner-card__text">
+            Cybersecurity consulting and security operations. Trusted by enterprises across Africa, LATAM, and Europe.
+          </p>
+        </div>
+        <div class="partnership__sep reveal reveal-delay-1">×</div>
+        <div class="partner-card partner-card--homodeus reveal reveal-delay-2">
+          <div class="partner-card__brand">
+            <div style="height:36px; display:flex; align-items:center; margin-bottom: var(--space-sm);">
+              <span style="font-family:var(--font-display); font-weight:300; font-size:1.5rem; color:var(--warm-white); letter-spacing:-0.01em;">HomoDeus</span>
+            </div>
+          </div>
+          <div class="partner-card__subtitle">AI Lab</div>
+          <h3 class="partner-card__label" style="color: var(--teal);">HomoDeus</h3>
+          <div class="divider" style="background: var(--teal); opacity:0.4; margin: var(--space-sm) 0;"></div>
+          <p class="partner-card__text">
+            Operational AI systems for enterprises. 95% success rate. 20+ clients in production. Miami, Lisbon, Rio.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 3: Capabilities ── -->
+  <section class="capabilities">
+    <div class="container">
+      <div class="capabilities__header reveal">
+        <p class="overline">The Value We Create Together</p>
+        <h2 class="h2">Intelligence-led cybersecurity,<br>powered by AI</h2>
+        <div class="divider" style="background: var(--teal);"></div>
+      </div>
+      <div class="capabilities__grid">
+        <div class="cap-card reveal">
+          <div class="cap-card__number">01</div>
+          <div class="cap-card__title">AI Threat Intelligence</div>
+          <p class="cap-card__text">
+            AI agents correlate indicators of compromise and surface actionable intelligence. SOC analysts act on it in real time.
+          </p>
+        </div>
+        <div class="cap-card reveal reveal-delay-1">
+          <div class="cap-card__number">02</div>
+          <div class="cap-card__title">Autonomous Incident Response</div>
+          <p class="cap-card__text">
+            AI-powered playbooks execute first response in seconds — before a human reads the alert.
+          </p>
+        </div>
+        <div class="cap-card reveal reveal-delay-2">
+          <div class="cap-card__number">03</div>
+          <div class="cap-card__title">Predictive Risk Analysis</div>
+          <p class="cap-card__text">
+            AI models trained on your environment identify risk trajectories weeks before they become incidents.
+          </p>
+        </div>
+        <div class="cap-card reveal reveal-delay-3">
+          <div class="cap-card__number">04</div>
+          <div class="cap-card__title">Continuous Compliance Automation</div>
+          <p class="cap-card__text">
+            LGPD, DORA, ISO 27001, PCI DSS — mapped and monitored automatically.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Manifesto Statement ── -->
+  <section class="manifesto">
+    <div class="container">
+      <p class="manifesto__text reveal">
+        We don't sell AI.<br><em>We sell outcomes.</em>
+      </p>
+      <p class="manifesto__sub reveal reveal-delay-1">Brandvakt &times; HomoDeus &mdash; Autonomous Defense Intelligence</p>
+    </div>
+  </section>
+
+  <!-- ── Section 4: Platform ── -->
+  <section class="platform">
+    <div class="platform__glow" aria-hidden="true"></div>
+    <div class="platform__noise" aria-hidden="true"></div>
+    <div class="container platform__inner">
+      <div class="reveal">
+        <div class="platform__badge">&#9733; Flagship Platform</div>
+        <p class="overline platform__overline">The Product</p>
+        <h2 class="h2 platform__title">HomoDeus — Autonomous AI<br>for Cyber Defense</h2>
+        <p class="platform__description">
+          Autonomous security layer — monitoring, detecting, and responding across your entire digital estate.
+        </p>
+      </div>
+      <div class="platform__pillars">
+        <div class="pillar reveal">
+          <div class="pillar__title">Continuous Monitoring</div>
+          <p class="pillar__text">
+            24/7 coverage of endpoints, networks, identity, and cloud. Only signal.
+          </p>
+        </div>
+        <div class="pillar reveal reveal-delay-1">
+          <div class="pillar__title">Autonomous Response</div>
+          <p class="pillar__text">
+            Ransomware isolated in seconds. Credentials revoked before lateral movement.
+          </p>
+        </div>
+        <div class="pillar reveal reveal-delay-2">
+          <div class="pillar__title">Adaptive Intelligence</div>
+          <p class="pillar__text">
+            Baselines and threat models improve with every day of operation.
+          </p>
+        </div>
+      </div>
+      <div class="platform__cta-wrap reveal">
+        <a href="https://homodeus.me" target="_blank" class="btn btn--amber">
+          Explore HomoDeus &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 4b: How It Works ── -->
+  <section class="how-it-works">
+    <div class="container">
+      <div class="how-it-works__header reveal">
+        <p class="overline">How It Works</p>
+        <h2 class="h2">From assessment to<br>autonomous defense</h2>
+      </div>
+      <div class="how-it-works__steps">
+        <div class="how-step reveal">
+          <div class="how-step__number">01</div>
+          <div class="how-step__title">Assess</div>
+          <p class="how-step__text">
+            Security experts map your threat surface across endpoints, identity, cloud, and OT. Output: a prioritized risk profile.
+          </p>
+        </div>
+        <div class="how-step__connector reveal reveal-delay-1" aria-hidden="true">— —</div>
+        <div class="how-step reveal reveal-delay-1">
+          <div class="how-step__number">02</div>
+          <div class="how-step__title">Deploy</div>
+          <p class="how-step__text">
+            AI agents calibrated to your threat profile. Integrated into your existing stack within days.
+          </p>
+        </div>
+        <div class="how-step__connector reveal reveal-delay-2" aria-hidden="true">— —</div>
+        <div class="how-step reveal reveal-delay-2">
+          <div class="how-step__number">03</div>
+          <div class="how-step__title">Monitor</div>
+          <p class="how-step__text">
+            Agents detect and respond around the clock. Brandvakt analysts escalate when human judgment is required.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 5: Stats ── -->
+  <section class="section section--navy stats">
+    <div class="container">
+      <div class="stats__header reveal">
+        <p class="overline" style="color: var(--teal); margin-bottom: var(--space-sm);">By the numbers</p>
+        <h2 class="h2">The numbers behind the partnership</h2>
+      </div>
+      <div class="stats__grid">
+        <div class="stat-item reveal">
+          <div class="stat-item__number">95%</div>
+          <div class="stat-item__label">Threat Detection<br>Accuracy</div>
+        </div>
+        <div class="stat-item reveal reveal-delay-1">
+          <div class="stat-item__number stat-item__number--compact">&lt;&nbsp;4min</div>
+          <div class="stat-item__label">Mean Time<br>to Respond</div>
+        </div>
+        <div class="stat-item reveal reveal-delay-2">
+          <div class="stat-item__number stat-item__number--compact">Zero&#8209;Day</div>
+          <div class="stat-item__label">Threat<br>Intelligence</div>
+        </div>
+        <div class="stat-item reveal reveal-delay-3">
+          <div class="stat-item__number">24&thinsp;/&thinsp;7</div>
+          <div class="stat-item__label">Autonomous<br>Monitoring</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 6: Use Cases ── -->
+  <!-- ── Outcome Cards (homodeus.me-inspired) ── -->
+  <section class="outcomes">
+    <div class="outcomes__header reveal">
+      <p class="overline">Measured Impact</p>
+      <h2 class="h2">Results that speak<br><em>for themselves</em></h2>
+    </div>
+    <div class="outcomes__grid">
+      <div class="outcome-card outcome-card--financial reveal">
+        <div class="outcome-card__bg"></div>
+        <div class="outcome-card__body">
+          <span class="outcome-card__sector">Financial Services</span>
+          <div class="outcome-card__headline">Fraud rings dismantled in real-time before exfiltration occurs across transaction flows</div>
+          <div class="outcome-card__metric">0</div>
+          <div class="outcome-card__unit">Undetected breaches in 12 months</div>
+        </div>
+      </div>
+      <div class="outcome-card outcome-card--telecom reveal reveal-delay-1">
+        <div class="outcome-card__bg"></div>
+        <div class="outcome-card__body">
+          <span class="outcome-card__sector">Telecommunications</span>
+          <div class="outcome-card__headline">SS7 attacks detected and contained before network infrastructure is compromised</div>
+          <div class="outcome-card__metric">&lt; 4 min</div>
+          <div class="outcome-card__unit">Mean autonomous containment time</div>
+        </div>
+      </div>
+      <div class="outcome-card outcome-card--energy reveal reveal-delay-2">
+        <div class="outcome-card__bg"></div>
+        <div class="outcome-card__body">
+          <span class="outcome-card__sector">Energy &amp; Critical Infrastructure</span>
+          <div class="outcome-card__headline">ICS and OT environments continuously protected without disrupting operational continuity</div>
+          <div class="outcome-card__metric">100%</div>
+          <div class="outcome-card__unit">Operational uptime maintained under monitoring</div>
+        </div>
+      </div>
+      <div class="outcome-card outcome-card--banking reveal reveal-delay-3">
+        <div class="outcome-card__bg"></div>
+        <div class="outcome-card__body">
+          <span class="outcome-card__sector">Banking</span>
+          <div class="outcome-card__headline">Legacy SIEM replaced with autonomous AI defense layer across 200+ threat scenarios</div>
+          <div class="outcome-card__metric">67%</div>
+          <div class="outcome-card__unit">Reduction in analyst alert fatigue</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section usecases" style="background:#080c0f;">
+    <div class="container">
+      <div class="usecases__header reveal">
+        <p class="overline">Built for enterprises that</p>
+        <h2 class="h2">Can't afford to be breached</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="usecase-grid">
+        <div class="usecase-card usecase-card--financial reveal">
+          <span class="usecase-card__symbol usecase-card__symbol--financial" aria-hidden="true"></span>
+          <div class="usecase-card__title">Financial Services</div>
+          <p class="usecase-card__problem">
+            Fraud rings and state-sponsored campaigns outpace legacy detection.
+          </p>
+          <p class="usecase-card__solution">
+            Real-time anomaly detection across transaction flows. Automatic containment before exfiltration.
+          </p>
+        </div>
+        <div class="usecase-card usecase-card--telecom reveal reveal-delay-1">
+          <span class="usecase-card__symbol usecase-card__symbol--telecom" aria-hidden="true"></span>
+          <div class="usecase-card__title">Telecommunications</div>
+          <p class="usecase-card__problem">
+            SS7 vulnerabilities and perimeter complexity create persistent blind spots.
+          </p>
+          <p class="usecase-card__solution">
+            Continuous SS7 monitoring with AI threat scoring and automated playbook execution.
+          </p>
+        </div>
+        <div class="usecase-card usecase-card--energy reveal reveal-delay-2">
+          <span class="usecase-card__symbol usecase-card__symbol--energy" aria-hidden="true"></span>
+          <div class="usecase-card__title">Energy &amp; Critical Infrastructure</div>
+          <p class="usecase-card__problem">
+            Traditional security tools disrupt OT/ICS operations and leave industrial systems exposed.
+          </p>
+          <p class="usecase-card__solution">
+            Non-intrusive monitoring. Always-on protection without disrupting operations.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Section 7: CTA Band ── -->
+  <section class="section section--dark cta-band">
+    <div class="container reveal">
+      <h2 class="h2">Ready to make your organization<br>unbreachable?</h2>
+      <div class="cta-band__actions">
+        <a href="./contact.html" class="btn btn--primary">Start with a Security Assessment</a>
+        <a href="https://homodeus.me" target="_blank" class="btn btn--outline">Explore HomoDeus Platform</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="../index.html" class="footer__logo"><img src="../assets/logo-white.png" alt="Brandvakt" style="height:36px;"></a>
+          <p class="footer__about">Cybersecurity services company. Global operations across LATAM, Africa, Middle East, and Europe.</p>
+          <div class="footer__contact">
+            <a href="mailto:info@brandvakt.com" class="footer__contact-link">info@brandvakt.com</a>
+            <a href="https://www.linkedin.com/company/brandvakt" target="_blank" rel="noopener" class="footer__contact-link"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__col-title">Quick Links</p>
+          <div class="footer__col-links">
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="soc.html">SOC</a>
+            <a href="bygrc.html">byGRC</a>
+            <a href="homodeus-partnership.html">Brandvakt × HomoDeus</a>
+            <a href="partners.html">Partners</a>
+            <a href="careers.html">Careers</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__col-title">Services</p>
+          <div class="footer__col-links">
+            <a href="services.html#csma">CSMA</a>
+            <a href="services.html#digital-identity">Digital Identity</a>
+            <a href="services.html#cloud-security">Cloud Security</a>
+            <a href="services.html#cyber-awareness">Cyber Awareness</a>
+            <a href="services.html#grc">GRC</a>
+            <a href="services.html#pentest">Penetration Testing</a>
+            <a href="services.html#vulnerability">Vulnerability Management</a>
+            <a href="services.html#network-security">Network Security</a>
+            <a href="services.html#endpoint-security">Endpoint Security</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__regions">
+        <span class="footer__region">LATAM</span>
+        <span class="footer__region">Middle East</span>
+        <span class="footer__region">Africa</span>
+        <span class="footer__region">Europe</span>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2026 Brandvakt Group. All rights reserved.</span>
+        <div>
+          <a href="privacy.html">Privacy Policy</a> &middot; <a href="cookies.html">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+  // Page scroll progress bar
+  (function() {
+    var bar = document.createElement('div');
+    bar.id = 'page-progress';
+    document.body.insertBefore(bar, document.body.firstChild);
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY || document.documentElement.scrollTop;
+      var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      bar.style.width = pct + '%';
+    }, { passive: true });
+  })();
+  </script>
+
+  <script src="../js/global.js"></script>
+</body>
+</html>
