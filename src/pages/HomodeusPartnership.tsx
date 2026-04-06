@@ -110,31 +110,31 @@ const HomodeusPartnership = () => {
          <div className="platform-glow-hd"></div>
          <div className="container position-relative z-1 animate-fade-up">
             <div className="flex flex-col items-start gap-2">
-               <div className="hd-badge">★ Flagship Platform</div>
-               <p className="overline text-teal mx-0">The Product</p>
+               <div className="hd-badge">★ Strategic Partner</div>
+               <p className="overline text-teal mx-0">The Collaboration</p>
             </div>
-            <h2 className="heading-primary" style={{marginBottom: '2rem'}}>HomoDeus — Autonomous AI<br/>for Cyber Defense</h2>
+            <h2 className="heading-primary" style={{marginBottom: '2rem'}}>HomoDeus AI — Operational AI<br/>for the Enterprise</h2>
             <p className="body-large text-muted italic" style={{maxWidth: '720px', marginBottom: '4rem'}}>
-              Autonomous security layer — monitoring, detecting, and responding across your entire digital estate.
+              HomoDeus AI builds and deploys operational AI systems that replace manual workflows, automate decisions, and compound over time.
             </p>
 
             <div className="platform-pillars">
                <div className="pillar-hd">
-                  <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>Continuous Monitoring</h4>
-                  <p>24/7 coverage of endpoints, networks, identity, and cloud. Only signal.</p>
+                  <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>AI Strategy & Consulting</h4>
+                  <p>Baseline where you are. Qualify which use cases move the needle. Design a prioritized roadmap.</p>
                </div>
                <div className="pillar-hd">
-                  <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>Autonomous Response</h4>
-                  <p>Ransomware isolated in seconds. Credentials revoked before lateral movement.</p>
+                  <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>AI Development</h4>
+                  <p>Tailored AI systems targeting the value levers that matter most. Validated against real operations.</p>
                </div>
                <div className="pillar-hd">
-                  <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>Adaptive Intelligence</h4>
-                  <p>Baselines and threat models improve with every day of operation.</p>
+                  <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>Production Grade</h4>
+                  <p>AI that ships. HomoDeus maintains a 95% project success rate and 90-day ROI target.</p>
                </div>
             </div>
 
             <div className="text-center mt-6">
-               <a href="https://homodeus.me" target="_blank" rel="noreferrer" className="btn btn-amber">Explore HomoDeus &rarr;</a>
+               <a href="https://homodeus.me" target="_blank" rel="noreferrer" className="btn btn-amber">Explore HomoDeus AI &rarr;</a>
             </div>
          </div>
       </section>

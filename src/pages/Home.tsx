@@ -209,10 +209,10 @@ const Home = () => {
           
           <div className="products-grid animate-fade-up">
             <div className="product-card flagship glass-panel">
-               <span className="product-badge">AI Platform</span>
-               <h3 className="heading-secondary text-warm-white">Homo Deus</h3>
-               <p className="text-muted mt-2 mb-6">Autonomous AI agents that monitor, detect, and respond to cyber threats around the clock — without human intervention.</p>
-               <a href="/homodeus-partnership" className="button-primary" style={{width: '100%', padding: '0.75rem'}}>Explore Homo Deus</a>
+               <span className="product-badge">AI Partner</span>
+               <h3 className="heading-secondary text-warm-white">HomoDeus AI</h3>
+               <p className="text-muted mt-2 mb-6">Operational AI systems that replace manual workflows, automate decisions, and compound over time.</p>
+               <a href="/homodeus-partnership" className="button-primary" style={{width: '100%', padding: '0.75rem'}}>Explore Partnership</a>
             </div>
             <div className="product-card glass-panel">
                <span className="product-badge text-teal">Training</span>
