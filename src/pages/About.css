@@ -150,12 +150,24 @@
 
 .offices-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem;
 }
 
 .office-card {
-  padding: 2.5rem;
+  padding: 1.75rem 1.5rem;
+}
+
+@media (max-width: 1200px) {
+  .offices-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .offices-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .office-country {
@@ -190,13 +202,67 @@
   color: var(--color-text-muted);
 }
 
+.region-cta-grid {
+  margin-top: 4rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.region-cta-card {
+  padding: 2rem 1.5rem;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-top: 2px solid rgba(62, 219, 198, 0.25);
+  transition: border-top-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.region-cta-card:hover {
+  border-top-color: var(--color-teal);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.region-cta-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-text-primary);
+}
+
+.region-cta-hub {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.region-cta-time {
+  font-family: monospace;
+  font-size: 1.5rem;
+  color: var(--color-teal);
+  margin-top: auto;
+}
+
 @media (max-width: 768px) {
   .story-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .timeline-item {
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .region-cta-grid {
+    grid-template-columns: 1fr;
+    margin-top: 3rem;
   }
 }

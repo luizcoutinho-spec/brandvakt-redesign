@@ -1,6 +1,12 @@
+import { Link } from 'react-router-dom';
 import './SOC.css';
+import { useMeta } from '../lib/useMeta';
 
 const SOC = () => {
+  useMeta({
+    title: 'Security Operations Center',
+    description: '24/7 threat detection and incident response. Outsourced, managed, or collaborative SOC models with SIEM-powered event correlation and triage.'
+  });
   return (
     <div className="page-wrapper services-page">
       <header className="page-header animate-fade-up">
@@ -258,7 +264,7 @@ const SOC = () => {
            <p className="overline" style={{color: 'var(--color-copper)', marginBottom: '1rem'}}>Get Started</p>
            <h2 className="heading-display mb-4">Ready to secure<br/>your operations?</h2>
            <p className="body-large text-muted mb-8 max-w-2xl mx-auto">Talk to our team about the SOC model that fits your organization.</p>
-           <a href="#contact" className="button-primary">Contact Us</a>
+           <Link to="/contact" className="button-primary">Contact Us</Link>
         </div>
       </section>
       

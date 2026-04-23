@@ -1,6 +1,12 @@
+import { Link } from 'react-router-dom';
 import './Services.css';
+import { useMeta } from '../lib/useMeta';
 
 const Services = () => {
+  useMeta({
+    title: 'Services',
+    description: 'End-to-end cybersecurity services — assessment, SOC, identity, vulnerability management, penetration testing, GRC, and cloud security across Africa, LATAM, and the Middle East.'
+  });
   return (
     <div className="page-wrapper services-page">
       <header className="page-header animate-fade-up">
@@ -230,7 +236,7 @@ const Services = () => {
            <p className="overline" style={{color: 'var(--color-copper)', marginBottom: '1rem'}}>Get Started</p>
            <h2 className="heading-display mb-4">Know where you stand,<br/>then take action</h2>
            <p className="body-large text-muted mb-8 max-w-2xl mx-auto">Tell us where you are. We map the path forward.</p>
-           <a href="#contact" className="button-primary">Start a conversation</a>
+           <Link to="/contact" className="button-primary">Start a conversation</Link>
         </div>
       </section>
     </div>

@@ -1,0 +1,244 @@
+/* AboutSection — Palantir/military intelligence aesthetic
+   Concept: Swiss grid precision, full-width symmetry, data-forward
+   No 2-column asymmetry — everything centered or full-width horizontal
+*/
+
+/* ── Part A: What is Brandvakt ── */
+
+.about-intro-section {
+  background: var(--color-canvas);
+  position: relative;
+}
+
+.about-intro-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-sm);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-intro-heading {
+  margin-top: 1.25rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+/* Blockquote: teal left-border, mission-statement weight */
+.about-blockquote {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+  border-left: 3px solid var(--color-teal);
+  padding: 1.25rem 1.75rem;
+  text-align: left;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.82);
+  background: rgba(62, 219, 198, 0.04);
+  border-radius: 0 4px 4px 0;
+  line-height: 1.7;
+  position: relative;
+}
+
+.about-blockquote::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -3px;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--color-teal), rgba(62, 219, 198, 0.3));
+}
+
+/* Bullets: centered column, left-aligned text */
+.about-bullets {
+  list-style: none;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: left;
+}
+
+.about-bullets li {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  letter-spacing: 0.01em;
+}
+
+.about-bullet-accent {
+  color: var(--color-teal);
+  font-size: 0.7rem;
+  flex-shrink: 0;
+  text-shadow: 0 0 12px rgba(62, 219, 198, 0.5);
+}
+
+/* ── Part B: Stats bar ── */
+
+.stats-bar {
+  background: var(--color-obsidian);
+  padding: 4rem 0;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle dot-grid texture */
+.stats-bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+/* Top + bottom rule */
+.stats-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(62, 219, 198, 0.2), transparent);
+}
+
+.stats-bar-inner {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-sm);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+  z-index: 1;
+}
+
+/* Vertical dividers between stats */
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem 2rem;
+  position: relative;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0s, transform 0s;
+}
+
+.stat-item + .stat-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10%;
+  height: 80%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Triggered by IntersectionObserver */
+.stat-item.stat-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--stat-index, 0) * 0.1s),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--stat-index, 0) * 0.1s);
+}
+
+.stat-bar-number {
+  font-size: clamp(3.5rem, 6vw, 5rem);
+  font-weight: 300;
+  color: var(--color-teal);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-count {
+  display: inline-block;
+}
+
+.stat-suffix {
+  font-size: 0.55em;
+  font-weight: 400;
+  color: var(--color-teal);
+  opacity: 0.7;
+}
+
+.stat-bar-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.45);
+  max-width: 160px;
+  line-height: 1.5;
+}
+
+/* ── Counter animation ── */
+
+@keyframes count-up {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .stats-bar-inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Re-draw dividers for 2-column layout */
+  .stat-item:nth-child(2)::before {
+    display: block;
+  }
+
+  .stat-item:nth-child(3)::before {
+    display: none;
+  }
+
+  .stat-item:nth-child(3),
+  .stat-item:nth-child(4) {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-bar-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-item + .stat-item::before {
+    display: none;
+  }
+
+  .stat-item {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2rem 1.5rem;
+  }
+
+  .stat-item:first-child {
+    border-top: none;
+  }
+
+  .about-intro-container {
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .about-intro-heading {
+    text-align: left;
+  }
+}

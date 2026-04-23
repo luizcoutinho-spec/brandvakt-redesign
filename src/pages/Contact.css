@@ -1,0 +1,117 @@
+/* Contact page - mobile-first */
+
+.contact-shell {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  padding: 2rem;
+}
+
+.contact-hub-list {
+  list-style: none;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact-hub-city {
+  color: var(--color-teal);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  display: block;
+}
+
+.contact-hub-role {
+  margin-top: 0.4rem;
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+}
+
+.contact-email-block {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.contact-email-link {
+  color: var(--color-text-primary);
+  font-size: 1rem;
+}
+
+.contact-form-col { min-width: 0; }
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact-form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.contact-field label {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.contact-field input,
+.contact-field textarea {
+  padding: 0.875rem 1rem;
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  outline: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  min-height: 44px;
+}
+
+.contact-field textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-field input:focus,
+.contact-field textarea:focus {
+  border-color: var(--color-teal);
+}
+
+.contact-submit {
+  align-self: stretch;
+  margin-top: 0.5rem;
+  min-height: 48px;
+}
+
+.contact-success {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact-success a { color: var(--color-teal); text-decoration: underline; }
+
+@media (min-width: 720px) {
+  .contact-shell {
+    grid-template-columns: minmax(260px, 1fr) 1.6fr;
+    gap: 3rem;
+    padding: 3rem;
+  }
+  .contact-form-row { grid-template-columns: 1fr 1fr; }
+  .contact-submit { align-self: flex-start; }
+}
+
+@media (min-width: 1024px) {
+  .contact-shell { padding: 4rem; gap: 4rem; }
+}

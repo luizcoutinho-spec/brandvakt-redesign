@@ -1,6 +1,12 @@
+import { Link } from 'react-router-dom';
 import './HomodeusPartnership.css';
+import { useMeta } from '../lib/useMeta';
 
 const HomodeusPartnership = () => {
+  useMeta({
+    title: 'Brandvakt × HomoDeus',
+    description: 'Autonomous defense intelligence at operational scale. Operational AI systems that replace manual workflows, automate decisions, and compound capability over time.'
+  });
   return (
     <div className="page-wrapper homodeus-page">
       {/* Hero Section */}
@@ -30,7 +36,7 @@ const HomodeusPartnership = () => {
             Brandvakt's cybersecurity expertise fused with HomoDeus AI.
           </p>
           <div className="hd-actions mt-6">
-            <a href="https://homodeus.me" target="_blank" rel="noreferrer" className="btn btn-primary">Explore the Platform &rarr;</a>
+            <a href="https://homodeus.me" target="_blank" rel="noopener noreferrer" className="btn btn-primary">Explore the Platform &rarr;</a>
             <a href="/services" className="btn" style={{border: '1px solid rgba(255,255,255,0.2)'}}>Our Cybersecurity Services</a>
           </div>
         </div>
@@ -134,7 +140,7 @@ const HomodeusPartnership = () => {
             </div>
 
             <div className="text-center mt-6">
-               <a href="https://homodeus.me" target="_blank" rel="noreferrer" className="btn btn-amber">Explore HomoDeus AI &rarr;</a>
+               <a href="https://homodeus.me" target="_blank" rel="noopener noreferrer" className="btn btn-amber">Explore HomoDeus AI &rarr;</a>
             </div>
          </div>
       </section>
@@ -242,8 +248,8 @@ const HomodeusPartnership = () => {
            <h2 className="heading-primary text-warm-white mb-4">Ready to explore Autonomous Defense Intelligence?</h2>
            <p className="body-large mx-auto mb-8" style={{ color: 'rgba(255,255,255,0.6)', maxWidth: '500px' }}>Contact the Brandvakt team to schedule a technical deep dive into the HomoDeus platform or request an initial threat assessment.</p>
            <div className="flex justify-center gap-4">
-              <a href="#contact" className="btn btn-primary">Schedule a consultation</a>
-              <a href="https://homodeus.me" target="_blank" rel="noreferrer" className="btn btn-ghost" style={{border: '1px solid rgba(255,255,255,0.2)'}}>View documentation &rarr;</a>
+              <Link to="/contact" className="btn btn-primary">Schedule a consultation</Link>
+              <a href="https://homodeus.me" target="_blank" rel="noopener noreferrer" className="btn btn-ghost" style={{border: '1px solid rgba(255,255,255,0.2)'}}>View documentation &rarr;</a>
            </div>
         </div>
       </section>

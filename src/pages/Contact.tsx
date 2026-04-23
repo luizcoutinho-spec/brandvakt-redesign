@@ -1,6 +1,48 @@
-import './Services.css'; // Reusing established container layout
+import { FormEvent, useState } from 'react';
+import './Services.css';
+import './Contact.css';
+import { useMeta } from '../lib/useMeta';
+
+const CONTACT_EMAIL = 'info@brandvakt.com';
+
+interface GlobalHub {
+  city: string;
+  country: string;
+  role: string;
+}
+
+const GLOBAL_HUBS: GlobalHub[] = [
+  { city: 'Kinshasa',  country: 'DR Congo',    role: 'Africa Headquarters' },
+  { city: 'Luanda',    country: 'Angola',      role: 'Africa Operations' },
+  { city: 'Abidjan',   country: 'Ivory Coast', role: 'West Africa Hub' },
+  { city: 'Bamako',    country: 'Mali',        role: 'West Africa Hub' },
+  { city: 'São Paulo', country: 'Brazil',      role: 'LATAM Operations' },
+];
 
 const Contact = () => {
+  useMeta({
+    title: 'Contact',
+    description: 'Connect with Brandvakt to discuss your security posture, requirements, and compliance challenges. Global hubs across Africa and LATAM.'
+  });
+  const [sent, setSent] = useState(false);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const first = String(data.get('first') ?? '').trim();
+    const last = String(data.get('last') ?? '').trim();
+    const email = String(data.get('email') ?? '').trim();
+    const details = String(data.get('details') ?? '').trim();
+    const body = [
+      `Name: ${first} ${last}`,
+      `Email: ${email}`,
+      '',
+      details,
+    ].join('\n');
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Enquiry from ${first || 'website'}`)}&body=${encodeURIComponent(body)}`;
+    setSent(true);
+  };
+
   return (
     <div className="page-wrapper">
       <header className="page-header">
@@ -14,52 +56,61 @@ const Contact = () => {
       </header>
 
       <section className="section container">
-        <div className="glass-panel" style={{ padding: '4rem', display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) 2fr', gap: '4rem' }}>
-           <div>
-              <h2 className="heading-secondary">Global Hubs</h2>
-              <ul style={{ listStyle: 'none', marginTop: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                 <li>
-                    <strong style={{ color: 'var(--color-teal)', letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.8rem' }}>London, UK</strong>
-                    <div className="body-large" style={{ marginTop: '0.5rem', fontSize: '1rem' }}>Global Command Center</div>
-                 </li>
-                 <li>
-                    <strong style={{ color: 'var(--color-teal)', letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.8rem' }}>São Paulo, BR</strong>
-                    <div className="body-large" style={{ marginTop: '0.5rem', fontSize: '1rem' }}>LATAM Operations</div>
-                 </li>
-                 <li>
-                    <strong style={{ color: 'var(--color-teal)', letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.8rem' }}>Dubai, UAE</strong>
-                    <div className="body-large" style={{ marginTop: '0.5rem', fontSize: '1rem' }}>Middle East Hub</div>
-                 </li>
-                 <li>
-                    <strong style={{ color: 'var(--color-teal)', letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.8rem' }}>Kinshasa, CD</strong>
-                    <div className="body-large" style={{ marginTop: '0.5rem', fontSize: '1rem' }}>Africa Headquarters</div>
-                 </li>
-              </ul>
-           </div>
-           
-           <div>
-              <form style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                       <label style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', fontWeight: 500 }}>First Name</label>
-                       <input type="text" style={{ padding: '1rem', background: 'var(--color-surface)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', outline: 'none' }} />
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                       <label style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', fontWeight: 500 }}>Last Name</label>
-                       <input type="text" style={{ padding: '1rem', background: 'var(--color-surface)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', outline: 'none' }} />
-                    </div>
-                 </div>
-                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', fontWeight: 500 }}>Corporate Email</label>
-                    <input type="email" style={{ padding: '1rem', background: 'var(--color-surface)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', outline: 'none' }} />
-                 </div>
-                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                    <label style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', fontWeight: 500 }}>Inquiry Details</label>
-                    <textarea rows={5} style={{ padding: '1rem', background: 'var(--color-surface)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', outline: 'none', resize: 'vertical' }}></textarea>
-                 </div>
-                 <button type="button" className="button-primary" style={{ alignSelf: 'flex-start', marginTop: '1rem' }}>Submit Communication</button>
+        <div className="glass-panel contact-shell">
+          <div>
+            <h2 className="heading-secondary">Global Hubs</h2>
+            <ul className="contact-hub-list">
+              {GLOBAL_HUBS.map((hub) => (
+                <li key={hub.city}>
+                  <strong className="contact-hub-city">{hub.city}, {hub.country}</strong>
+                  <div className="contact-hub-role">{hub.role}</div>
+                </li>
+              ))}
+            </ul>
+            <div className="contact-email-block">
+              <strong className="contact-hub-city">Email</strong>
+              <div className="contact-email-link" style={{ marginTop: '0.4rem' }}>
+                <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+              </div>
+            </div>
+          </div>
+
+          <div className="contact-form-col">
+            {sent ? (
+              <div className="contact-success">
+                <h3 className="heading-secondary">Thanks — we'll be in touch.</h3>
+                <p className="body-large">
+                  Your mail client should be opening. If it didn't, write to{' '}
+                  <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+                </p>
+                <button type="button" className="button-secondary" onClick={() => setSent(false)}>
+                  Send another
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="contact-form">
+                <div className="contact-form-row">
+                  <div className="contact-field">
+                    <label htmlFor="contact-first">First Name</label>
+                    <input id="contact-first" name="first" type="text" required autoComplete="given-name" />
+                  </div>
+                  <div className="contact-field">
+                    <label htmlFor="contact-last">Last Name</label>
+                    <input id="contact-last" name="last" type="text" required autoComplete="family-name" />
+                  </div>
+                </div>
+                <div className="contact-field">
+                  <label htmlFor="contact-email">Corporate Email</label>
+                  <input id="contact-email" name="email" type="email" required autoComplete="email" />
+                </div>
+                <div className="contact-field">
+                  <label htmlFor="contact-details">Inquiry Details</label>
+                  <textarea id="contact-details" name="details" rows={5} required />
+                </div>
+                <button type="submit" className="button-primary contact-submit">Submit Communication</button>
               </form>
-           </div>
+            )}
+          </div>
         </div>
       </section>
     </div>

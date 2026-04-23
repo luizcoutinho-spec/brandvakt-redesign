@@ -1,26 +1,72 @@
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
+interface NavLinkDef {
+  to: string;
+  label: string;
+}
+
+const NAV_LINKS: NavLinkDef[] = [
+  { to: '/about',                 label: 'About' },
+  { to: '/services',              label: 'Services' },
+  { to: '/soc',                   label: 'SOC' },
+  { to: '/bygrc',                 label: 'byGRC' },
+  { to: '/homodeus-partnership',  label: 'Brandvakt × HomoDeus' },
+  { to: '/academy',               label: 'Academy' },
+  { to: '/partners',              label: 'Partners' },
+  { to: '/careers',               label: 'Careers' },
+];
+
 export const Navbar = () => {
   const location = useLocation();
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => { setOpen(false); }, [location.pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
+
+  const contactActive = location.pathname === '/contact';
 
   return (
     <nav className="nav">
       <div className="container nav-inner">
-        <Link to="/" className="nav-logo">
-          <img src="/assets/logo-white.png" alt="Brandvakt Logo" />
+        <Link to="/" className="nav-logo" onClick={() => setOpen(false)}>
+          <img src="/assets/logo-white.png" alt="Brandvakt" />
         </Link>
-        <div className="nav-links">
-          <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>About</Link>
-          <Link to="/services" className={location.pathname === '/services' ? 'active' : ''}>Services</Link>
-          <Link to="/soc" className={location.pathname === '/soc' ? 'active' : ''}>SOC</Link>
-          <Link to="/bygrc" className={location.pathname === '/bygrc' ? 'active' : ''}>byGRC</Link>
-          <Link to="/homodeus-partnership" className={location.pathname === '/homodeus-partnership' ? 'active' : ''}>Brandvakt × HomoDeus</Link>
-          <Link to="/academy" className={location.pathname === '/academy' ? 'active' : ''}>Academy</Link>
-          <Link to="/partners" className={location.pathname === '/partners' ? 'active' : ''}>Partners</Link>
-          <Link to="/careers" className={location.pathname === '/careers' ? 'active' : ''}>Careers</Link>
+
+        <button
+          type="button"
+          className={`nav-toggle${open ? ' nav-toggle-open' : ''}`}
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+          onClick={() => setOpen(v => !v)}
+        >
+          <span /><span /><span />
+        </button>
+
+        <div className={`nav-drawer${open ? ' nav-drawer-open' : ''}`}>
+          <div className="nav-links">
+            {NAV_LINKS.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                className={location.pathname === l.to ? 'active' : ''}
+              >
+                {l.label}
+              </Link>
+            ))}
+          </div>
+          <Link
+            to="/contact"
+            className={`button-primary nav-cta${contactActive ? ' active' : ''}`}
+          >
+            Contact
+          </Link>
         </div>
-        <Link to="/contact" className="button-primary nav-cta">Contact</Link>
       </div>
     </nav>
   );
@@ -32,13 +78,22 @@ export const Footer = () => {
       <div className="container footer-grid">
         <div className="footer-brand">
           <h2 className="heading-secondary">BRANDVAKT</h2>
-          <p className="body-large" style={{ fontSize: '0.9rem', marginTop: '1rem' }}>Digital Trust in the Age of AI.</p>
+          <p className="body-large footer-tagline">Digital Trust in the Age of AI.</p>
+        </div>
+        <div className="footer-links">
+          <strong>Platform</strong>
+          <Link to="/services">Services</Link>
+          <Link to="/soc">SOC</Link>
+          <Link to="/bygrc">byGRC</Link>
+          <Link to="/academy">Academy</Link>
+          <Link to="/homodeus-partnership">Brandvakt × HomoDeus</Link>
         </div>
         <div className="footer-links">
           <strong>Company</strong>
           <Link to="/about">About Us</Link>
           <Link to="/careers">Careers</Link>
           <Link to="/partners">Partners</Link>
+          <Link to="/contact">Contact</Link>
         </div>
         <div className="footer-links">
           <strong>Legal</strong>

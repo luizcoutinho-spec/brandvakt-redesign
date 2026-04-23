@@ -1,16 +1,25 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './About.css';
+import { useMeta } from '../lib/useMeta';
 
 const TIMEZONES: Record<string, string> = {
   kinshasa: 'Africa/Kinshasa',
   luanda: 'Africa/Luanda',
   abidjan: 'Africa/Abidjan',
+  bamako: 'Africa/Bamako',
   saopaulo: 'America/Sao_Paulo',
-  london: 'Europe/London',
-  dubai: 'Asia/Dubai'
+  // Region primaries for CTA region cards
+  africa: 'Africa/Kinshasa',
+  latam: 'America/Sao_Paulo',
+  middleeast: 'Asia/Dubai'
 };
 
 const About = () => {
+  useMeta({
+    title: 'About',
+    description: 'Founded in crisis, built for resilience. Brandvakt — the digital sentinels of our age. Offices across Africa and LATAM; partnerships across four continents.'
+  });
   const [times, setTimes] = useState<Record<string, string>>({});
 
   useEffect(() => {
@@ -98,22 +107,22 @@ const About = () => {
              <div className="timeline-item">
                 <div className="timeline-year">2023</div>
                 <div className="timeline-details">
-                   <strong>Ivory Coast & Homo Deus partnership</strong>
-                   <p>West Africa entry. AI-native partnership with Homo Deus integrated into the full service portfolio.</p>
+                   <strong>Ivory Coast & Mali "Bamako"</strong>
+                   <p>West Africa expansion. Offices established in Abidjan and Bamako to serve francophone enterprises.</p>
                 </div>
              </div>
              <div className="timeline-item">
                 <div className="timeline-year">2024</div>
                 <div className="timeline-details">
-                   <strong>London & byGRC launch</strong>
-                   <p>European HQ in London. byGRC compliance platform launched.</p>
+                   <strong>Launch of Brandvakt Academy</strong>
+                   <p>Q4 2024. Recognized cybersecurity training programs built by active industry practitioners.</p>
                 </div>
              </div>
              <div className="timeline-item">
                 <div className="timeline-year">2025</div>
                 <div className="timeline-details">
-                   <strong>Dubai — MEA hub</strong>
-                   <p>MEA hub operational. Network spans four continents.</p>
+                   <strong>Partnership with HomoDeus</strong>
+                   <p>AI-native partnership with HomoDeus integrated into the full service portfolio.</p>
                 </div>
              </div>
           </div>
@@ -183,53 +192,6 @@ const About = () => {
           </div>
       </section>
 
-      {/* Leadership & Board */}
-      <section className="section container animate-fade-up">
-         <p className="overline text-purple">Our Team</p>
-         <h2 className="heading-primary" style={{marginBottom: '3rem'}}>Security-minded people on the right side of the fence</h2>
-         <div className="leadership-grid">
-            <div className="glass-panel leader-card">
-               <div className="leader-role text-teal">Chief Executive Officer</div>
-               <div className="leader-loc">Kinshasa, D.R. Congo</div>
-               <p>Strategic vision and client relationships across African and Latin American markets.</p>
-            </div>
-            <div className="glass-panel leader-card">
-               <div className="leader-role text-purple">Chief Technology Officer</div>
-               <div className="leader-loc">São Paulo, Brazil</div>
-               <p>Technology stack and AI integration. Continuous, data-driven threat intelligence.</p>
-            </div>
-            <div className="glass-panel leader-card">
-               <div className="leader-role text-blue">Head of Operations, Africa</div>
-               <div className="leader-loc">Luanda, Angola</div>
-               <p>Delivery and operations across African markets, Kinshasa to Abidjan.</p>
-            </div>
-         </div>
-         
-         <h3 className="heading-secondary" style={{marginTop: '4rem', marginBottom: '2rem'}}>Board of Directors</h3>
-         <div className="leadership-grid">
-            <div className="glass-panel leader-card" style={{borderTop: '3px solid var(--color-copper)'}}>
-               <div className="leader-role text-copper">Chairperson</div>
-               <div className="leader-loc text-warm-white" style={{fontSize: '1.2rem', marginBottom: '0.25rem'}}>Board Chair</div>
-               <p className="text-muted">International Operations</p>
-            </div>
-            <div className="glass-panel leader-card" style={{borderTop: '3px solid var(--color-copper)'}}>
-               <div className="leader-role text-copper">Independent Director</div>
-               <div className="leader-loc text-warm-white" style={{fontSize: '1.2rem', marginBottom: '0.25rem'}}>Finance & Risk</div>
-               <p className="text-muted">Financial Sector</p>
-            </div>
-            <div className="glass-panel leader-card" style={{borderTop: '3px solid var(--color-copper)'}}>
-               <div className="leader-role text-copper">Independent Director</div>
-               <div className="leader-loc text-warm-white" style={{fontSize: '1.2rem', marginBottom: '0.25rem'}}>Technology & Cyber</div>
-               <p className="text-muted">Technology Sector</p>
-            </div>
-            <div className="glass-panel leader-card" style={{borderTop: '3px solid var(--color-copper)'}}>
-               <div className="leader-role text-copper">Executive Director</div>
-               <div className="leader-loc text-warm-white" style={{fontSize: '1.2rem', marginBottom: '0.25rem'}}>Africa & LATAM Operations</div>
-               <p className="text-muted">Southern Hemisphere</p>
-            </div>
-         </div>
-      </section>
-
       {/* CSR */}
       <section className="section container animate-fade-up">
          <p className="overline text-copper">Corporate Social Responsibility</p>
@@ -260,17 +222,15 @@ const About = () => {
          <h2 className="heading-primary" style={{marginBottom: '3rem'}}>Our Offices</h2>
          <div className="offices-grid">
             {[
-              {city: 'Kinshasa', country: 'DR Congo', tz: 'kinshasa', addr: '76 Ave. de la Justice, Suite #407'},
-              {city: 'Luanda', country: 'Angola', tz: 'luanda', addr: 'Avenida Talatona, Condomínio Belas Business Park V'},
-              {city: 'Abidjan', country: 'Ivory Coast', tz: 'abidjan', addr: 'Imm. XL, Av. Crozet / Bd République, Plateau'},
-              {city: 'São Paulo', country: 'Brazil', tz: 'saopaulo', addr: 'Av. Brig. Faria Lima, 3279, 5º andar'},
-              {city: 'London', country: 'United Kingdom', tz: 'london', addr: '1 Canada Square, Canary Wharf, E14 5AB'},
-              {city: 'Dubai', country: 'UAE', tz: 'dubai', addr: 'DIFC, Gate Avenue, Level 1'}
+              {city: 'Kinshasa', country: 'DR Congo', tz: 'kinshasa'},
+              {city: 'Luanda', country: 'Angola', tz: 'luanda'},
+              {city: 'Abidjan', country: 'Ivory Coast', tz: 'abidjan'},
+              {city: 'Bamako', country: 'Mali', tz: 'bamako'},
+              {city: 'São Paulo', country: 'Brazil', tz: 'saopaulo'}
             ].map(office => (
                <div key={office.city} className="glass-panel office-card">
                   <h3 className="heading-secondary">{office.city}</h3>
                   <div className="office-country text-teal">{office.country}</div>
-                  <p className="office-addr">{office.addr}</p>
                   <div className="office-time">
                      <span className="office-time-label">LOCAL TIME:</span> {times[office.tz] || '--:--:--'}
                   </div>
@@ -285,7 +245,21 @@ const About = () => {
            <p className="overline" style={{color: 'var(--color-copper)', marginBottom: '1rem'}}>Work with us</p>
            <h2 className="heading-display mb-4">Ready to strengthen<br/>your security posture?</h2>
            <p className="body-large text-muted mb-8 max-w-2xl mx-auto">Architect, implement, and manage your security capabilities with us.</p>
-           <a href="#contact" className="button-primary">Get in touch</a>
+           <Link to="/contact" className="button-primary">Get in touch</Link>
+
+           <div className="region-cta-grid">
+              {[
+                {key: 'africa',     name: 'Africa',      hub: 'Kinshasa',  tz: 'africa'},
+                {key: 'latam',      name: 'LATAM',       hub: 'São Paulo', tz: 'latam'},
+                {key: 'middleeast', name: 'Middle East', hub: 'Dubai',     tz: 'middleeast'}
+              ].map(region => (
+                <Link key={region.key} to="/contact" className="glass-panel region-cta-card">
+                   <div className="region-cta-name">{region.name}</div>
+                   <div className="region-cta-hub">Primary hub · {region.hub}</div>
+                   <div className="region-cta-time">{times[region.tz] || '--:--:--'}</div>
+                </Link>
+              ))}
+           </div>
         </div>
       </section>
       

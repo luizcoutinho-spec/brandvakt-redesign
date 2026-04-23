@@ -1,6 +1,12 @@
+import { Link } from 'react-router-dom';
 import './ByGRC.css';
+import { useMeta } from '../lib/useMeta';
 
 const ByGRC = () => {
+  useMeta({
+    title: 'Docs byGRC',
+    description: 'AI-powered GRC document intelligence. Centralized access to frameworks, controls, and compliance dashboards — SWIFT, PCI DSS, LGPD, DORA.'
+  });
   return (
     <div className="page-wrapper bygrc-page">
       <header className="page-header animate-fade-up">
@@ -177,7 +183,7 @@ const ByGRC = () => {
            <p className="overline text-teal mb-2">Get Started</p>
            <h2 className="heading-primary text-warm-white mb-4">Ready to simplify your GRC program?</h2>
            <p className="body-large mx-auto mb-8" style={{ color: 'rgba(255,255,255,0.6)', maxWidth: '500px' }}>byGRC handles the regulatory intelligence. Your team focuses on implementation.</p>
-           <a href="#contact" className="btn btn-primary">Request a Demo</a>
+           <Link to="/contact" className="btn btn-primary">Request a Demo</Link>
         </div>
       </section>
 

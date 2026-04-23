@@ -1,1 +1,4 @@
 .vercel
+.playwright-mcp/
+dogfood-output/
+node_modules/
