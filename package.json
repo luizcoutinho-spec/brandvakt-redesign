@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 8000",
-    "build": "tsc && vite build && cp dist/index.html dist/404.html",
+    "build": "tsc && vite build && node scripts/generate-route-stubs.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
