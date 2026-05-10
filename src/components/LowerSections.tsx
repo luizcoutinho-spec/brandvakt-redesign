@@ -1,43 +1,77 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import type { LucideIcon } from 'lucide-react';
+import {
+  Activity,
+  ArrowRight,
+  BookOpen,
+  CheckCircle2,
+  ClipboardCheck,
+  Cloud,
+  FileText,
+  Fingerprint,
+  GraduationCap,
+  Laptop,
+  Network,
+  SearchCheck,
+  Send,
+  ShieldCheck,
+  Sparkles,
+  Target,
+} from 'lucide-react';
 import './LowerSections.css';
 
 // ---- Capabilities ----
 
-const CAPABILITIES = [
+interface Capability {
+  icon: LucideIcon;
+  title: string;
+  desc: string;
+}
+
+const CAPABILITIES: Capability[] = [
   {
+    icon: ClipboardCheck,
     title: 'Maturity Assessment',
     desc: 'Gap analysis and risk scoring against recognized frameworks — ISO 27001, NIST CSF, CIS Controls.',
   },
   {
+    icon: Network,
     title: 'Network Security',
     desc: 'Monitor and harden networks transmitting protected data across distributed operations.',
   },
   {
+    icon: SearchCheck,
     title: 'Vulnerability Management',
     desc: 'Continuous assessment, prioritized by risk exposure, with precise remediation guidance.',
   },
   {
+    icon: Fingerprint,
     title: 'Digital Identity',
     desc: 'Identities are the new perimeter. Protecting workforce access and consumer credentials.',
   },
   {
+    icon: Laptop,
     title: 'Endpoint Security',
     desc: 'Advanced protection for employee devices against an evolving and adversarial threat surface.',
   },
   {
+    icon: Target,
     title: 'Penetration Testing',
     desc: 'Simulated ethical attacks to find vulnerabilities before adversaries can exploit them.',
   },
   {
+    icon: GraduationCap,
     title: 'Cyber Awareness',
     desc: 'Training programs that address the human factor — your ultimate line of defence.',
   },
   {
+    icon: ShieldCheck,
     title: 'Governance, Risk & Compliance',
     desc: 'Navigate SWIFT, PCI DSS, LGPD, and DORA with executable security and data frameworks.',
   },
   {
+    icon: Cloud,
     title: 'Cloud Security',
     desc: 'Secure cloud perimeters across AWS, Azure, Google, or complex multi-tenant environments.',
   },
@@ -49,12 +83,18 @@ export const CapabilitiesSection = () => (
       <p className="overline">How we protect you</p>
       <h2 className="heading-primary caps-heading">Our Capabilities</h2>
       <div className="caps-grid">
-        {CAPABILITIES.map((cap) => (
-          <div key={cap.title} className="cap-card">
-            <h3 className="cap-card-title">{cap.title}</h3>
-            <p className="cap-card-desc">{cap.desc}</p>
-          </div>
-        ))}
+        {CAPABILITIES.map((cap) => {
+          const CapIcon = cap.icon;
+          return (
+            <div key={cap.title} className="cap-card">
+              <div className="cap-card-icon">
+                <CapIcon aria-hidden="true" />
+              </div>
+              <h3 className="cap-card-title">{cap.title}</h3>
+              <p className="cap-card-desc">{cap.desc}</p>
+            </div>
+          );
+        })}
       </div>
     </div>
   </section>
@@ -108,7 +148,7 @@ export const SOCSection = () => {
         <div className="soc-panel">
           <div className="soc-panel-header">
             <span>Threat Landscape</span>
-            <span>LIVE TELEMETRY</span>
+            <span><Activity aria-hidden="true" /> Live telemetry</span>
           </div>
           <div className="soc-panel-body">
             {SOC_METRICS.map((m, i) => (
@@ -141,12 +181,15 @@ export const SOCSection = () => {
           <ul className="soc-checkpoints">
             {SOC_CHECKPOINTS.map((pt) => (
               <li key={pt} className="soc-checkpoint">
-                <span className="soc-checkpoint-dot" />
+                <CheckCircle2 aria-hidden="true" />
                 {pt}
               </li>
             ))}
           </ul>
-          <Link to="/soc" className="button-secondary">Explore our SOC</Link>
+          <Link to="/soc" className="button-secondary">
+            Explore our SOC
+            <ArrowRight aria-hidden="true" />
+          </Link>
         </div>
       </div>
     </section>
@@ -156,6 +199,7 @@ export const SOCSection = () => {
 // ---- Products ----
 
 interface Product {
+  icon: LucideIcon;
   badge: string;
   badgeVariant: 'amber' | 'teal';
   title: string;
@@ -167,6 +211,7 @@ interface Product {
 
 const PRODUCTS: Product[] = [
   {
+    icon: Sparkles,
     badge: 'AI Partner',
     badgeVariant: 'amber',
     title: 'HomoDeus AI',
@@ -176,6 +221,7 @@ const PRODUCTS: Product[] = [
     flagship: true,
   },
   {
+    icon: BookOpen,
     badge: 'Training',
     badgeVariant: 'teal',
     title: 'Academy',
@@ -185,6 +231,7 @@ const PRODUCTS: Product[] = [
     flagship: false,
   },
   {
+    icon: FileText,
     badge: 'GRC Platform',
     badgeVariant: 'teal',
     title: 'Docs byGRC',
@@ -201,19 +248,26 @@ export const ProductsSection = () => (
       <p className="overline">Products</p>
       <h2 className="heading-primary products-heading">Purpose-built platforms</h2>
       <div className="products-grid">
-        {PRODUCTS.map((p) => (
-          <div key={p.title} className={`product-card glass-panel${p.flagship ? ' product-flagship' : ''}`}>
-            <span className={`product-badge product-badge--${p.badgeVariant}`}>{p.badge}</span>
-            <h3 className="heading-secondary product-title">{p.title}</h3>
-            <p className="product-desc">{p.desc}</p>
-            <Link
-              to={p.href}
-              className={p.flagship ? 'button-primary product-cta' : 'button-secondary product-cta'}
-            >
-              {p.cta}
-            </Link>
-          </div>
-        ))}
+        {PRODUCTS.map((p) => {
+          const ProductIcon = p.icon;
+          return (
+            <div key={p.title} className={`product-card glass-panel${p.flagship ? ' product-flagship' : ''}`}>
+              <div className="product-card-top">
+                <span className={`product-badge product-badge--${p.badgeVariant}`}>{p.badge}</span>
+                <ProductIcon aria-hidden="true" />
+              </div>
+              <h3 className="heading-secondary product-title">{p.title}</h3>
+              <p className="product-desc">{p.desc}</p>
+              <Link
+                to={p.href}
+                className={p.flagship ? 'button-primary product-cta' : 'button-secondary product-cta'}
+              >
+                {p.cta}
+                <ArrowRight aria-hidden="true" />
+              </Link>
+            </div>
+          );
+        })}
       </div>
     </div>
   </section>
@@ -315,6 +369,7 @@ export const CTASection = () => {
                 </div>
                 <button type="submit" className="button-primary form-submit">
                   Send Enquiry
+                  <Send aria-hidden="true" />
                 </button>
               </form>
             )}

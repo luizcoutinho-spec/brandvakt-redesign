@@ -32,7 +32,7 @@ export const Navbar = () => {
   const contactActive = location.pathname === '/contact';
 
   return (
-    <nav className="nav">
+    <nav className={`nav${open ? ' nav-open' : ''}`}>
       <div className="container nav-inner">
         <Link to="/" className="nav-logo" onClick={() => setOpen(false)}>
           <img src="/assets/logo-white.png" alt="Brandvakt" />
@@ -48,7 +48,7 @@ export const Navbar = () => {
           <span /><span /><span />
         </button>
 
-        <div className={`nav-drawer${open ? ' nav-drawer-open' : ''}`}>
+        <div className={`nav-drawer${open ? ' nav-drawer-open' : ''}`} aria-hidden={!open}>
           <div className="nav-links">
             {NAV_LINKS.map((l) => (
               <Link
