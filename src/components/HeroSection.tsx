@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Activity, ArrowRight, Globe2, Radar, ShieldCheck } from 'lucide-react';
+import { asset } from '../lib/asset';
 import './HeroSection.css';
 
 const HERO_VIDEOS = [
-  '/assets/hero-bg.mp4',
-  '/assets/hero-sphere.mp4',
-  '/assets/hero-abstractwaves.mp4',
-  '/assets/hero-galaxystars.mp4',
-  '/assets/hero-code.mp4',
-];
+  'assets/hero-bg.mp4',
+  'assets/hero-sphere.mp4',
+  'assets/hero-abstractwaves.mp4',
+  'assets/hero-galaxystars.mp4',
+  'assets/hero-code.mp4',
+].map(asset);
 
 const CYCLE_MS = 6000;
 

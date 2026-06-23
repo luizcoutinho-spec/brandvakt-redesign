@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { asset } from './asset';
 
 interface MetaInput {
   title: string;
@@ -7,7 +8,7 @@ interface MetaInput {
 }
 
 const SITE_NAME = 'Brandvakt';
-const DEFAULT_OG_IMAGE = '/assets/logo-white.png';
+const DEFAULT_OG_IMAGE = asset('assets/logo-white.png');
 
 function setMeta(selector: string, attr: 'name' | 'property', key: string, value: string) {
   let el = document.head.querySelector<HTMLMetaElement>(selector);

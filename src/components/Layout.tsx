@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { asset } from '../lib/asset';
 import './Navbar.css';
 
 interface NavLinkDef {
@@ -35,7 +36,7 @@ export const Navbar = () => {
     <nav className={`nav${open ? ' nav-open' : ''}`}>
       <div className="container nav-inner">
         <Link to="/" className="nav-logo" onClick={() => setOpen(false)}>
-          <img src="/assets/logo-white.png" alt="Brandvakt" />
+          <img src={asset('assets/logo-white.png')} alt="Brandvakt" />
         </Link>
 
         <button
