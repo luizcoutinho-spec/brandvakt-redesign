@@ -4,7 +4,7 @@ import { ArrowRight, RotateCcw, Printer, ExternalLink } from 'lucide-react';
 import { useMeta } from '../lib/useMeta';
 
 /* ═══════════════════════════════════════════════════════════
-   DESIGN TOKENS — zinc/black/red palette
+   DESIGN TOKENS — zinc/black/teal palette
 ═══════════════════════════════════════════════════════════ */
 const C = {
   bg:      '#09090B',
@@ -16,9 +16,9 @@ const C = {
   white:   '#FAFAFA',
   muted:   '#71717A',
   muted2:  '#52525B',
-  red:     '#E5352A',
-  redDk:   '#B91C1C',
-  redLt:   'rgba(229,53,42,0.12)',
+  red:     '#4fe6d2',
+  redDk:   '#2fc6b6',
+  redLt:   'rgba(79,230,210,0.12)',
   green:   '#22C55E',
   amber:   '#F59E0B',
 };
@@ -419,7 +419,7 @@ export default function MaturityAssessment() {
               <span key={p.label} style={{
                 fontSize: 11, fontWeight: 500, letterSpacing: '0.05em',
                 padding: '5px 12px', borderRadius: 99,
-                border: `1px solid ${p.red ? 'rgba(229,53,42,0.30)' : C.border2}`,
+                border: `1px solid ${p.red ? 'rgba(79,230,210,0.30)' : C.border2}`,
                 color: p.red ? C.red : C.muted,
               }}>{p.label}</span>
             ))}
@@ -528,7 +528,7 @@ export default function MaturityAssessment() {
             return (
               <div key={qi} style={{
                 background: C.bg2, borderRadius: 16, padding: 24, marginBottom: 12,
-                border: `1px solid ${sel !== undefined ? 'rgba(229,53,42,0.22)' : C.border}`,
+                border: `1px solid ${sel !== undefined ? 'rgba(79,230,210,0.22)' : C.border}`,
                 transition: 'border-color 0.2s',
               }}>
                 {/* Framework tags */}
@@ -553,14 +553,14 @@ export default function MaturityAssessment() {
                         style={{
                           display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
                           padding: '12px 4px', borderRadius: 8, cursor: 'pointer',
-                          background: selected ? 'rgba(229,53,42,0.10)' : C.bg3,
+                          background: selected ? 'rgba(79,230,210,0.10)' : C.bg3,
                           border: `1px solid ${selected ? C.red : C.border2}`,
                           transition: 'all 0.15s',
                           fontFamily: 'inherit',
                         }}
                       >
                         <span style={{ fontFamily: 'var(--font-sans)', fontSize: 20, fontWeight: 700, color: selected ? C.red : C.muted, lineHeight: 1 }}>{s.n}</span>
-                        <span style={{ fontSize: 9, letterSpacing: '0.04em', textTransform: 'uppercase', color: selected ? 'rgba(229,53,42,0.7)' : C.muted2, textAlign: 'center', lineHeight: 1.2 }}>{s.l}</span>
+                        <span style={{ fontSize: 9, letterSpacing: '0.04em', textTransform: 'uppercase', color: selected ? 'rgba(79,230,210,0.7)' : C.muted2, textAlign: 'center', lineHeight: 1.2 }}>{s.l}</span>
                       </button>
                     );
                   })}
@@ -607,7 +607,7 @@ export default function MaturityAssessment() {
             <p style={{ fontSize: 14, color: C.muted, marginBottom: 28, lineHeight: 1.6 }}>Your AI-generated security diagnosis, gap analysis, and commercial proposal will be tailored to your organization. No spam — just your report.</p>
 
             {captureErr && (
-              <div style={{ background: 'rgba(229,53,42,0.08)', border: `1px solid rgba(229,53,42,0.2)`, borderRadius: 8, padding: '10px 14px', marginBottom: 16, fontSize: 13, color: C.red }}>
+              <div style={{ background: 'rgba(79,230,210,0.08)', border: `1px solid rgba(79,230,210,0.2)`, borderRadius: 8, padding: '10px 14px', marginBottom: 16, fontSize: 13, color: C.red }}>
                 {captureErr}
               </div>
             )}
@@ -749,7 +749,7 @@ export default function MaturityAssessment() {
                     width: 34, height: 34, borderRadius: 8, flexShrink: 0,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontFamily: 'var(--font-sans)', fontSize: 15, fontWeight: 700,
-                    background: g.score <= 1 ? 'rgba(229,53,42,0.10)' : 'rgba(245,158,11,0.10)',
+                    background: g.score <= 1 ? 'rgba(79,230,210,0.10)' : 'rgba(245,158,11,0.10)',
                     color: g.score <= 1 ? C.red : C.amber,
                   }}>{g.score}</div>
                   <div>
@@ -789,8 +789,8 @@ export default function MaturityAssessment() {
           <div style={{ fontFamily: 'var(--font-sans)', fontSize: 16, fontWeight: 600, color: C.white, margin: '24px 0 14px', letterSpacing: '-0.01em' }}>
             Commercial proposal · Brandvakt Academy
           </div>
-          <div style={{ background: 'linear-gradient(135deg, #111113 0%, rgba(229,53,42,0.04) 100%)', border: '1px solid rgba(229,53,42,0.2)', borderRadius: 16, overflow: 'hidden', marginBottom: 24 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 24px', borderBottom: '1px solid rgba(229,53,42,0.15)', background: 'rgba(229,53,42,0.06)' }}>
+          <div style={{ background: 'linear-gradient(135deg, #111113 0%, rgba(79,230,210,0.04) 100%)', border: '1px solid rgba(79,230,210,0.2)', borderRadius: 16, overflow: 'hidden', marginBottom: 24 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 24px', borderBottom: '1px solid rgba(79,230,210,0.15)', background: 'rgba(79,230,210,0.06)' }}>
               <PulseDot /><span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: C.red }}>Brandvakt AI · Tailored Proposal</span>
             </div>
             <div style={{ padding: 28, fontSize: 14, lineHeight: 1.9, color: aiProposal ? C.white : C.muted2, whiteSpace: 'pre-wrap', minHeight: 120 }}>
