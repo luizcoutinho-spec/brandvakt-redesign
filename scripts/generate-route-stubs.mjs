@@ -16,6 +16,7 @@ const ROUTES = [
   'enterprise/phisher',
   'enterprise/conscientizacao',
   'enterprise/compliance',
+  'enterprise/maturity-assessment',
   'careers',
   'privacy',
   'cookies',

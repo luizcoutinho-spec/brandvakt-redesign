@@ -11,6 +11,7 @@ import HomodeusPartnership from './pages/HomodeusPartnership'
 import Phisher from './pages/Phisher'
 import Conscientizacao from './pages/Conscientizacao'
 import Compliance from './pages/Compliance'
+import MaturityAssessment from './pages/MaturityAssessment'
 import Careers from './pages/Careers'
 import Privacy from './pages/Privacy'
 import Cookies from './pages/Cookies'
@@ -34,6 +35,7 @@ function App() {
         <Route path="/enterprise/phisher" element={<Phisher />} />
         <Route path="/enterprise/conscientizacao" element={<Conscientizacao />} />
         <Route path="/enterprise/compliance" element={<Compliance />} />
+        <Route path="/enterprise/maturity-assessment" element={<MaturityAssessment />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/cookies" element={<Cookies />} />
