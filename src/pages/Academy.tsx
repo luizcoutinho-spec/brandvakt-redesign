@@ -103,7 +103,6 @@ const Academy = () => {
               <h3 className="course-title">Environmental, Social & Governance (ESG) Essentials</h3>
               <p className="course-desc">Foundations of ESG frameworks, reporting standards, and governance integration for security professionals.</p>
               <div className="course-footer">
-                <span className="course-price">€106.85</span>
                 <a href="https://brandvakt-academy.com" target="_blank" rel="noopener noreferrer" className="course-cta">Enroll &rarr;</a>
               </div>
             </div>
@@ -112,7 +111,6 @@ const Academy = () => {
               <h3 className="course-title">Management System (MS) Essentials</h3>
               <p className="course-desc">Core principles of ISO management systems — applicable across information security, quality, and risk disciplines.</p>
               <div className="course-footer">
-                <span className="course-price">€106.85</span>
                 <a href="https://brandvakt-academy.com" target="_blank" rel="noopener noreferrer" className="course-cta">Enroll &rarr;</a>
               </div>
             </div>
@@ -121,7 +119,6 @@ const Academy = () => {
               <h3 className="course-title">ISO/IEC 27005 Professional</h3>
               <p className="course-desc">Information security risk management aligned to ISO 27005 — threat identification, assessment, and treatment.</p>
               <div className="course-footer">
-                <span className="course-price">€404.37</span>
                 <a href="https://brandvakt-academy.com" target="_blank" rel="noopener noreferrer" className="course-cta">Enroll &rarr;</a>
               </div>
             </div>
@@ -130,7 +127,6 @@ const Academy = () => {
               <h3 className="course-title">ISO 31000 Practitioner</h3>
               <p className="course-desc">Enterprise risk management under ISO 31000 — principles, framework design, and risk process implementation.</p>
               <div className="course-footer">
-                <span className="course-price opacity-70 italic text-sm">Contact for pricing</span>
                 <a href="https://brandvakt-academy.com" target="_blank" rel="noopener noreferrer" className="course-cta">Enroll &rarr;</a>
               </div>
             </div>
@@ -139,7 +135,6 @@ const Academy = () => {
               <h3 className="course-title">ISO 37001 Lead Auditor</h3>
               <p className="course-desc">Anti-bribery management system auditing — plan, conduct, and report ISO 37001 conformity audits.</p>
               <div className="course-footer">
-                <span className="course-price">€673.46</span>
                 <a href="https://brandvakt-academy.com" target="_blank" rel="noopener noreferrer" className="course-cta">Enroll &rarr;</a>
               </div>
             </div>
@@ -148,7 +143,6 @@ const Academy = () => {
               <h3 className="course-title">ISO 37001 Lead Implementer</h3>
               <p className="course-desc">Design and deploy an ISO 37001-compliant anti-bribery management system within your organization.</p>
               <div className="course-footer">
-                <span className="course-price">€673.46</span>
                 <a href="https://brandvakt-academy.com" target="_blank" rel="noopener noreferrer" className="course-cta">Enroll &rarr;</a>
               </div>
             </div>

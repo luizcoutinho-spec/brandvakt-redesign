@@ -165,7 +165,7 @@
 
 .course-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(255,255,255,0.05);
