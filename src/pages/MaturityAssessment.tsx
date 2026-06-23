@@ -298,6 +298,20 @@ export default function MaturityAssessment() {
   }
 
   /* ── Capture submit ── */
+  /* ── Lead capture (best-effort, never blocks the UI) ── */
+  async function submitLead() {
+    const payload = JSON.stringify({ ...leadData, maturityScore: pct, maturityLevel: mat.l });
+    const post = () =>
+      fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload });
+    try {
+      const r = await post();
+      if (!r.ok) throw new Error('lead post failed');
+    } catch {
+      // single simple retry; swallow any error — lead capture is best-effort
+      try { await post(); } catch { /* ignore */ }
+    }
+  }
+
   function handleCaptureSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!leadData.firstName || !leadData.email || !leadData.company) {
@@ -305,6 +319,7 @@ export default function MaturityAssessment() {
       return;
     }
     setCaptureErr('');
+    void submitLead();   // fire-and-forget, in parallel with the report flow
     setPhase('loading');
     scrollTop();
     runLoader();
@@ -645,7 +660,8 @@ export default function MaturityAssessment() {
             </form>
 
             <p style={{ fontSize: 11, color: C.muted2, marginTop: 14, lineHeight: 1.6 }}>
-              By submitting, you agree to receive your assessment report and optionally be contacted by a Brandvakt specialist. We never share your data.
+              By submitting, you agree to be contacted by a Brandvakt specialist about your results and to your data being processed in line with our{' '}
+              <Link to="/privacy" style={{ color: C.muted, textDecoration: 'underline' }}>Privacy Policy</Link>.
             </p>
           </div>
         </div>
