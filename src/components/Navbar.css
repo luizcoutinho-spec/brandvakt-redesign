@@ -208,6 +208,127 @@
 }
 
 /* ================================================================
+   "OUR PRODUCTS" DROPDOWN - mobile first (accordion)
+   ================================================================ */
+
+.nav-dropdown {
+  display: block;
+}
+
+.nav-dropdown-trigger {
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.82rem 0.9rem;
+  color: var(--color-text-secondary);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 680;
+  line-height: 1.25;
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.nav-dropdown-trigger.active,
+.nav-dropdown-trigger:hover {
+  color: var(--color-teal);
+  background: rgba(79, 230, 210, 0.07);
+  border-color: rgba(79, 230, 210, 0.24);
+}
+
+.nav-dropdown-caret {
+  margin-left: auto;
+  font-size: 0.8em;
+  transition: transform 0.2s ease;
+}
+
+.nav-dropdown-open .nav-dropdown-caret {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown-panel {
+  display: none;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.4rem 0 0.2rem 0.6rem;
+}
+
+.nav-dropdown-open .nav-dropdown-panel {
+  display: flex;
+}
+
+.nav-dropdown-panel a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0.7rem 0.9rem;
+  color: var(--color-text-secondary);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.nav-dropdown-panel a.active,
+.nav-dropdown-panel a:hover {
+  color: var(--color-teal);
+  background: rgba(79, 230, 210, 0.07);
+  border-color: rgba(79, 230, 210, 0.24);
+}
+
+@media (min-width: 960px) {
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown-trigger {
+    width: auto;
+    min-height: 40px;
+    padding: 0.55rem 0.55rem;
+    background: transparent;
+    border-color: transparent;
+    font-size: 0.79rem;
+    white-space: nowrap;
+  }
+
+  /* Floating panel — sits directly under the trigger (no gap to cross). */
+  .nav-dropdown-panel {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 230px;
+    padding: 0.4rem;
+    background:
+      linear-gradient(180deg, rgba(12, 18, 28, 0.99), rgba(5, 7, 10, 0.99)),
+      var(--color-obsidian);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+  }
+
+  .nav-dropdown-panel a {
+    background: transparent;
+    border-color: transparent;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 1180px) {
+  .nav-dropdown-trigger {
+    padding-inline: 0.65rem;
+    font-size: 0.88rem;
+  }
+}
+
+/* ================================================================
    FOOTER - mobile first
    ================================================================ */
 

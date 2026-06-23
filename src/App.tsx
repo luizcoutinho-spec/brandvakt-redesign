@@ -8,6 +8,9 @@ import Contact from './pages/Contact'
 import Academy from './pages/Academy'
 import Partners from './pages/Partners'
 import HomodeusPartnership from './pages/HomodeusPartnership'
+import Phisher from './pages/Phisher'
+import Conscientizacao from './pages/Conscientizacao'
+import Compliance from './pages/Compliance'
 import Careers from './pages/Careers'
 import Privacy from './pages/Privacy'
 import Cookies from './pages/Cookies'
@@ -28,6 +31,9 @@ function App() {
         <Route path="/academy" element={<Academy />} />
         <Route path="/partners" element={<Partners />} />
         <Route path="/homodeus-partnership" element={<HomodeusPartnership />} />
+        <Route path="/enterprise/phisher" element={<Phisher />} />
+        <Route path="/enterprise/conscientizacao" element={<Conscientizacao />} />
+        <Route path="/enterprise/compliance" element={<Compliance />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/cookies" element={<Cookies />} />

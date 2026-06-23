@@ -1,0 +1,136 @@
+/* ================================================================
+   PhishER product page
+   Scoped under .phisher-page so each product CSS stays independent.
+   ================================================================ */
+
+.phisher-page {
+  --accent: #ef4444;
+}
+
+.phisher-page .product-icon {
+  margin-right: 0.4rem;
+}
+
+.phisher-page .product-lede {
+  max-width: 44rem;
+  margin: 1rem 0 2rem;
+  color: var(--color-text-secondary);
+}
+
+/* Stats */
+.phisher-page .product-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.phisher-page .product-stat {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+}
+
+.phisher-page .product-stat-value {
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+.phisher-page .product-stat-label {
+  margin-top: 0.35rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+}
+
+/* Section titles */
+.phisher-page .product-section-title {
+  margin: 0.5rem 0 2rem;
+}
+
+/* Features */
+.phisher-page .product-features {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.phisher-page .product-feature {
+  padding: 1.75rem;
+}
+
+.phisher-page .product-feature-icon {
+  display: inline-flex;
+  font-size: 1.6rem;
+  margin-bottom: 0.9rem;
+}
+
+.phisher-page .product-feature-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.6rem;
+}
+
+.phisher-page .product-feature-desc {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+}
+
+/* How it works */
+.phisher-page .product-steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.phisher-page .product-step {
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius-sm);
+}
+
+.phisher-page .product-step-number {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.75rem;
+}
+
+.phisher-page .product-step-title {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+  color: var(--color-text-primary);
+}
+
+.phisher-page .product-step-desc {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+/* CTA */
+.phisher-page .product-cta {
+  background: var(--color-obsidian);
+  text-align: center;
+  padding: 6rem 0;
+}
+
+@media (min-width: 680px) {
+  .phisher-page .product-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 960px) {
+  .phisher-page .product-features {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .phisher-page .product-steps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
