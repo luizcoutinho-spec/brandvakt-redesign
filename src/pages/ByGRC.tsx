@@ -17,7 +17,7 @@ const ByGRC = () => {
             AI-powered document intelligence that transforms how organizations navigate regulatory complexity.
           </p>
           <div style={{marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap'}}>
-            <a href="/contact" className="btn btn-primary">Request a Demo</a>
+            <Link to="/contact" className="btn btn-primary">Request a Demo</Link>
             <a href="#features" className="btn" style={{border: '1px solid rgba(255,255,255,0.2)'}}>Explore Features</a>
           </div>
         </div>

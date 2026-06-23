@@ -37,7 +37,7 @@ const HomodeusPartnership = () => {
           </p>
           <div className="hd-actions mt-6">
             <a href="https://homodeus.me" target="_blank" rel="noopener noreferrer" className="btn btn-primary">Explore the Platform &rarr;</a>
-            <a href="/services" className="btn" style={{border: '1px solid rgba(255,255,255,0.2)'}}>Our Cybersecurity Services</a>
+            <Link to="/services" className="btn" style={{border: '1px solid rgba(255,255,255,0.2)'}}>Our Cybersecurity Services</Link>
           </div>
         </div>
       </section>

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Partners.css';
 
 const partnersData = [
@@ -159,7 +160,7 @@ const Partners = () => {
           <h2 className="heading-primary mb-4">Become a Brandvakt partner</h2>
           <p className="body-large text-muted mx-auto mb-6" style={{maxWidth: '520px'}}>If your technology complements our cybersecurity portfolio, we'd like to hear from you.</p>
           <div className="flex gap-4 justify-center">
-             <a href="/contact" className="btn btn-primary">Partner Enquiry</a>
+             <Link to="/contact" className="btn btn-primary">Partner Enquiry</Link>
              <a href="mailto:partners@brandvakt.com" className="btn" style={{border: '1px solid rgba(255,255,255,0.2)'}}>partners@brandvakt.com</a>
           </div>
         </div>

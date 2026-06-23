@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Academy.css';
 import { useMeta } from '../lib/useMeta';
 
@@ -21,7 +22,7 @@ const Academy = () => {
           </p>
           <div className="flex gap-4 flex-wrap mt-6">
             <a href="https://brandvakt-academy.com/" target="_blank" rel="noopener noreferrer" className="btn btn-primary">Browse courses</a>
-            <a href="/contact" className="btn btn-ghost" style={{border: '1px solid rgba(255,255,255,0.2)'}}>Team enrollment &rarr;</a>
+            <Link to="/contact" className="btn btn-ghost" style={{border: '1px solid rgba(255,255,255,0.2)'}}>Team enrollment &rarr;</Link>
           </div>
         </div>
       </section>
@@ -217,7 +218,7 @@ const Academy = () => {
             </p>
             <div className="flex gap-4 justify-center">
                <a href="https://brandvakt-academy.com" target="_blank" rel="noopener noreferrer" className="btn btn-primary">Browse all courses</a>
-               <a href="/contact" className="btn" style={{border: '1px solid rgba(255,255,255,0.2)'}}>Enterprise enrollment</a>
+               <Link to="/contact" className="btn" style={{border: '1px solid rgba(255,255,255,0.2)'}}>Enterprise enrollment</Link>
             </div>
          </div>
       </section>
