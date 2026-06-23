@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { asset } from '../lib/asset';
 import './Navbar.css';
@@ -8,18 +8,19 @@ interface NavLinkDef {
   label: string;
 }
 
-const NAV_LINKS: NavLinkDef[] = [
-  { to: '/about',                 label: 'About' },
-  { to: '/services',              label: 'Services' },
-  { to: '/soc',                   label: 'SOC' },
-  { to: '/bygrc',                 label: 'byGRC' },
-  { to: '/homodeus-partnership',  label: 'Brandvakt × HomoDeus' },
-  { to: '/academy',               label: 'Academy' },
-  { to: '/partners',              label: 'Partners' },
-  { to: '/careers',               label: 'Careers' },
+type NavItem =
+  | { kind: 'link'; to: string; label: string }
+  | { kind: 'menu'; id: string; label: string; items: NavLinkDef[] };
+
+// "Company" dropdown — replaces the standalone About link; groups About,
+// Partners and Careers under it.
+const COMPANY_LINKS: NavLinkDef[] = [
+  { to: '/about',    label: 'About' },
+  { to: '/partners', label: 'Partners' },
+  { to: '/careers',  label: 'Careers' },
 ];
 
-// "Our Products" dropdown — rendered right after the Academy item.
+// "Our Products" dropdown.
 // CSMA points to a route that does not exist yet (placeholder) and will
 // fall through to NotFound until the maturity-assessment page is added.
 const PRODUCT_LINKS: NavLinkDef[] = [
@@ -29,14 +30,22 @@ const PRODUCT_LINKS: NavLinkDef[] = [
   { to: '/enterprise/maturity-assessment', label: 'CSMA' },
 ];
 
+const NAV_ITEMS: NavItem[] = [
+  { kind: 'menu', id: 'company',          label: 'Company',               items: COMPANY_LINKS },
+  { kind: 'link', to: '/services',        label: 'Services' },
+  { kind: 'link', to: '/soc',             label: 'SOC' },
+  { kind: 'link', to: '/bygrc',           label: 'byGRC' },
+  { kind: 'link', to: '/homodeus-partnership', label: 'Brandvakt × HomoDeus' },
+  { kind: 'link', to: '/academy',         label: 'Academy' },
+  { kind: 'menu', id: 'products',         label: 'Our Products',          items: PRODUCT_LINKS },
+];
+
 export const Navbar = () => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
-  const [productsOpen, setProductsOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
 
-  useEffect(() => { setOpen(false); setProductsOpen(false); }, [location.pathname]);
-
-  const productsActive = PRODUCT_LINKS.some((l) => location.pathname === l.to);
+  useEffect(() => { setOpen(false); setOpenMenu(null); }, [location.pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -64,46 +73,52 @@ export const Navbar = () => {
 
         <div className={`nav-drawer${open ? ' nav-drawer-open' : ''}`} aria-hidden={!open}>
           <div className="nav-links">
-            {NAV_LINKS.map((l) => (
-              <Fragment key={l.to}>
-                <Link
-                  to={l.to}
-                  className={location.pathname === l.to ? 'active' : ''}
-                >
-                  {l.label}
-                </Link>
-
-                {l.to === '/academy' && (
-                  <div
-                    className={`nav-dropdown${productsOpen ? ' nav-dropdown-open' : ''}`}
-                    onMouseEnter={() => setProductsOpen(true)}
-                    onMouseLeave={() => setProductsOpen(false)}
+            {NAV_ITEMS.map((item) => {
+              if (item.kind === 'link') {
+                return (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    className={location.pathname === item.to ? 'active' : ''}
                   >
-                    <button
-                      type="button"
-                      className={`nav-dropdown-trigger${productsActive ? ' active' : ''}`}
-                      aria-haspopup="true"
-                      aria-expanded={productsOpen}
-                      onClick={() => setProductsOpen((v) => !v)}
-                    >
-                      Our Products
-                      <span className="nav-dropdown-caret" aria-hidden="true">▾</span>
-                    </button>
-                    <div className="nav-dropdown-panel">
-                      {PRODUCT_LINKS.map((p) => (
-                        <Link
-                          key={p.to}
-                          to={p.to}
-                          className={location.pathname === p.to ? 'active' : ''}
-                        >
-                          {p.label}
-                        </Link>
-                      ))}
-                    </div>
+                    {item.label}
+                  </Link>
+                );
+              }
+
+              const isOpen = openMenu === item.id;
+              const isActive = item.items.some((l) => location.pathname === l.to);
+              return (
+                <div
+                  key={item.id}
+                  className={`nav-dropdown${isOpen ? ' nav-dropdown-open' : ''}`}
+                  onMouseEnter={() => setOpenMenu(item.id)}
+                  onMouseLeave={() => setOpenMenu(null)}
+                >
+                  <button
+                    type="button"
+                    className={`nav-dropdown-trigger${isActive ? ' active' : ''}`}
+                    aria-haspopup="true"
+                    aria-expanded={isOpen}
+                    onClick={() => setOpenMenu((v) => (v === item.id ? null : item.id))}
+                  >
+                    {item.label}
+                    <span className="nav-dropdown-caret" aria-hidden="true">▾</span>
+                  </button>
+                  <div className="nav-dropdown-panel">
+                    {item.items.map((p) => (
+                      <Link
+                        key={p.to}
+                        to={p.to}
+                        className={location.pathname === p.to ? 'active' : ''}
+                      >
+                        {p.label}
+                      </Link>
+                    ))}
                   </div>
-                )}
-              </Fragment>
-            ))}
+                </div>
+              );
+            })}
           </div>
           <Link
             to="/contact"
