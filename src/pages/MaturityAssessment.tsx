@@ -551,7 +551,7 @@ export default function MaturityAssessment() {
                   {q.fw.map(f => (
                     <span key={f} style={{
                       fontSize: 10, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase',
-                      padding: '3px 8px', borderRadius: 4, background: C.bg4, color: C.muted, border: `1px solid ${C.border2}`,
+                      padding: '3px 8px', borderRadius: 99, background: 'rgba(79,230,210,0.06)', color: C.red, border: `1px solid rgba(79,230,210,0.30)`,
                     }}>{f}</span>
                   ))}
                 </div>
