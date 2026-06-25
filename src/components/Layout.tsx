@@ -6,6 +6,8 @@ import './Navbar.css';
 interface NavLinkDef {
   to: string;
   label: string;
+  subtitle?: string;
+  badge?: string;
 }
 
 type NavItem =
@@ -20,14 +22,14 @@ const COMPANY_LINKS: NavLinkDef[] = [
   { to: '/careers',  label: 'Careers' },
 ];
 
-// "Our Products" dropdown.
-// CSMA points to a route that does not exist yet (placeholder) and will
-// fall through to NotFound until the maturity-assessment page is added.
+// "Our Products" dropdown — label + descriptive subtitle, with a FREE badge on
+// the CSMA assessment and a final "Request a Demo" entry (-> /contact).
 const PRODUCT_LINKS: NavLinkDef[] = [
-  { to: '/enterprise/phisher',            label: 'PhishER' },
-  { to: '/enterprise/conscientizacao',    label: 'Security Awareness' },
-  { to: '/enterprise/compliance',         label: 'Compliance Suite' },
-  { to: '/enterprise/maturity-assessment', label: 'CSMA' },
+  { to: '/enterprise/phisher',             label: 'PhishER',            subtitle: 'Phishing simulation & human risk management' },
+  { to: '/enterprise/conscientizacao',     label: 'Security Awareness', subtitle: 'Multi-language corporate training' },
+  { to: '/enterprise/compliance',          label: 'Compliance Suite',   subtitle: 'Regulatory intelligence & reporting' },
+  { to: '/enterprise/maturity-assessment', label: 'CSMA',               subtitle: 'Cybersecurity Maturity Assessment', badge: 'FREE' },
+  { to: '/contact',                        label: 'Request a Demo',     subtitle: 'Talk to an enterprise specialist' },
 ];
 
 const NAV_ITEMS: NavItem[] = [
@@ -112,7 +114,11 @@ export const Navbar = () => {
                         to={p.to}
                         className={location.pathname === p.to ? 'active' : ''}
                       >
-                        {p.label}
+                        <span className="nav-dd-row">
+                          <span className="nav-dd-label">{p.label}</span>
+                          {p.badge && <span className="nav-dd-badge">{p.badge}</span>}
+                        </span>
+                        {p.subtitle && <span className="nav-dd-sub">{p.subtitle}</span>}
                       </Link>
                     ))}
                   </div>
