@@ -602,7 +602,7 @@ export default function MaturityAssessment() {
               onClick={handleNext}
               style={{
                 fontFamily: 'inherit', fontSize: 14, fontWeight: 600,
-                color: '#fff', background: C.red, border: `1px solid ${C.red}`,
+                color: '#000', background: C.red, border: `1px solid ${C.red}`,
                 padding: '12px 28px', borderRadius: 8, cursor: 'pointer',
                 display: 'flex', alignItems: 'center', gap: 8, transition: 'all 0.2s',
               }}
@@ -654,7 +654,7 @@ export default function MaturityAssessment() {
               </div>
 
               <button type="submit"
-                style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, fontFamily: 'inherit', fontSize: 14, fontWeight: 600, color: '#fff', background: C.red, border: `1px solid ${C.red}`, padding: '13px 28px', borderRadius: 8, cursor: 'pointer' }}>
+                style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, fontFamily: 'inherit', fontSize: 14, fontWeight: 600, color: '#000', background: C.red, border: `1px solid ${C.red}`, padding: '13px 28px', borderRadius: 8, cursor: 'pointer' }}>
                 Generate my report →
               </button>
             </form>
@@ -822,7 +822,7 @@ export default function MaturityAssessment() {
             </div>
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', flexShrink: 0 }}>
               <Link to="/contact"
-                style={{ fontFamily: 'inherit', fontSize: 14, fontWeight: 600, background: C.red, color: '#fff', border: 'none', padding: '13px 24px', borderRadius: 8, cursor: 'pointer', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                style={{ fontFamily: 'inherit', fontSize: 14, fontWeight: 600, background: C.red, color: '#000', border: 'none', padding: '13px 24px', borderRadius: 8, cursor: 'pointer', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
                 Talk to a specialist <ExternalLink size={14} />
               </Link>
               <button onClick={() => window.print()}
