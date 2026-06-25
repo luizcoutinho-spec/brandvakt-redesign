@@ -20,7 +20,7 @@ i18n
     fallbackLng: 'en',
     supportedLngs: SUPPORTED_LANGS as unknown as string[],
     nonExplicitSupportedLngs: true, // pt-BR, fr-FR, en-GB → pt / fr / en
-    ns: ['common', 'home'],
+    ns: ['common', 'home', 'products'],
     defaultNS: 'common',
     interpolation: { escapeValue: false },
     detection: {

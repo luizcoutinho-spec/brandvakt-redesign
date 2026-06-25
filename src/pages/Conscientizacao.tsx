@@ -1,89 +1,90 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './Conscientizacao.css';
 import { useMeta } from '../lib/useMeta';
 
 const STATS = [
-  { value: '6+',     label: 'Languages' },
-  { value: '200+',   label: 'Course Library' },
-  { value: '99.9%',  label: 'Uptime SLA' },
-  { value: '50+',    label: 'Countries' },
+  { value: '6+',    labelKey: 'awareness.stat_languages' },
+  { value: '200+',  labelKey: 'awareness.stat_library' },
+  { value: '99.9%', labelKey: 'awareness.stat_uptime' },
+  { value: '50+',   labelKey: 'awareness.stat_countries' },
 ];
 
 const FEATURES = [
-  { icon: '🌍', title: 'Interactive Multi-Language Training', desc: 'Engage employees with scenario-based learning in 6+ languages, including full RTL support for Arabic and Hebrew.' },
-  { icon: '📋', title: 'Automated Assignment & Deadlines',    desc: 'Assign mandatory training by department, role, location, or regulation with automated reminders and escalation.' },
-  { icon: '🏆', title: 'Digital Certification',               desc: 'Automatically issue tamper-proof digital certificates with QR codes upon successful course completion.' },
-  { icon: '🤖', title: 'AI-Powered Recommendations',          desc: 'Brandvakt AI analyzes individual performance and recommends personalized learning paths to close knowledge gaps.' },
-  { icon: '📈', title: 'Executive Analytics',                 desc: 'Track completion rates, scores, engagement, and compliance status across the entire organization with exportable reports.' },
-  { icon: '🔗', title: 'SSO & HRIS Integration',             desc: 'Connect with Microsoft 365, Google Workspace, Okta, SAP, Workday, and other enterprise systems for seamless user provisioning.' },
+  { icon: '🌍', titleKey: 'awareness.feat_interactive_title', descKey: 'awareness.feat_interactive_desc' },
+  { icon: '📋', titleKey: 'awareness.feat_assignment_title',  descKey: 'awareness.feat_assignment_desc' },
+  { icon: '🏆', titleKey: 'awareness.feat_cert_title',        descKey: 'awareness.feat_cert_desc' },
+  { icon: '🤖', titleKey: 'awareness.feat_ai_title',          descKey: 'awareness.feat_ai_desc' },
+  { icon: '📈', titleKey: 'awareness.feat_analytics_title',   descKey: 'awareness.feat_analytics_desc' },
+  { icon: '🔗', titleKey: 'awareness.feat_sso_title',         descKey: 'awareness.feat_sso_desc' },
 ];
 
 const STEPS = [
-  { title: 'Import Your Organization',     desc: 'Sync users from your HR system or Active Directory. Set up departments, roles, and reporting hierarchies in minutes.' },
-  { title: 'Assign Training Programs',     desc: 'Select from our library or upload custom content. Configure mandatory courses, deadlines, and passing scores by audience.' },
-  { title: 'Employees Complete Training',  desc: 'Users receive personalized notifications and complete training on any device in their preferred language.' },
-  { title: 'Measure & Report',             desc: 'Monitor real-time progress, generate compliance reports, and export audit-ready documentation for regulators.' },
+  { titleKey: 'awareness.step_import_title',   descKey: 'awareness.step_import_desc' },
+  { titleKey: 'awareness.step_assign_title',   descKey: 'awareness.step_assign_desc' },
+  { titleKey: 'awareness.step_complete_title', descKey: 'awareness.step_complete_desc' },
+  { titleKey: 'awareness.step_measure_title',  descKey: 'awareness.step_measure_desc' },
 ];
 
 const Conscientizacao = () => {
+  const { t } = useTranslation(['products', 'common']);
   useMeta({
     title: 'Security Awareness',
-    description: 'Multi-Language Corporate Training at Global Scale. Distribute, monitor, and certify cybersecurity and compliance training across your organization in 6+ languages with enterprise-grade controls.',
+    description: t('awareness.meta_desc'),
   });
 
   return (
     <div className="page-wrapper product-page awareness-page">
       <header className="page-header animate-fade-up">
         <div className="container">
-          <span className="overline text-teal">Our Products · Security Awareness</span>
+          <span className="overline text-teal">{t('shared.our_products')} · Security Awareness</span>
           <h1 className="heading-display">
             <span className="product-icon" aria-hidden="true">🌐</span> Security Awareness
           </h1>
           <p className="body-large header-subtitle">
-            Multi-Language Corporate Training at Global Scale
+            {t('awareness.subtitle')}
           </p>
           <p className="body-large product-lede">
-            Distribute, monitor, and certify cybersecurity and compliance training across your
-            entire organization in 6+ languages with enterprise-grade controls.
+            {t('awareness.lede')}
           </p>
-          <Link to="/contact" className="button-primary">Request a Demo</Link>
+          <Link to="/contact" className="button-primary">{t('common:nav.demo')}</Link>
         </div>
       </header>
 
       <section className="section container">
         <div className="product-stats">
           {STATS.map((s) => (
-            <div key={s.label} className="product-stat">
+            <div key={s.labelKey} className="product-stat">
               <div className="product-stat-value">{s.value}</div>
-              <div className="product-stat-label">{s.label}</div>
+              <div className="product-stat-label">{t(s.labelKey)}</div>
             </div>
           ))}
         </div>
       </section>
 
       <section className="section container">
-        <span className="overline text-teal">Capabilities</span>
-        <h2 className="heading-secondary product-section-title">Enterprise-grade training, end to end</h2>
+        <span className="overline text-teal">{t('shared.capabilities')}</span>
+        <h2 className="heading-secondary product-section-title">{t('awareness.caps_title')}</h2>
         <div className="product-features">
           {FEATURES.map((f) => (
-            <div key={f.title} className="service-card-premium glass-panel product-feature">
+            <div key={f.titleKey} className="service-card-premium glass-panel product-feature">
               <span className="product-feature-icon" aria-hidden="true">{f.icon}</span>
-              <h3 className="heading-secondary product-feature-title">{f.title}</h3>
-              <p className="body-large product-feature-desc">{f.desc}</p>
+              <h3 className="heading-secondary product-feature-title">{t(f.titleKey)}</h3>
+              <p className="body-large product-feature-desc">{t(f.descKey)}</p>
             </div>
           ))}
         </div>
       </section>
 
       <section className="section container">
-        <span className="overline">How it works</span>
-        <h2 className="heading-secondary product-section-title">From rollout to reporting</h2>
+        <span className="overline">{t('shared.how_it_works')}</span>
+        <h2 className="heading-secondary product-section-title">{t('awareness.steps_title')}</h2>
         <div className="product-steps">
           {STEPS.map((s, i) => (
-            <div key={s.title} className="product-step">
+            <div key={s.titleKey} className="product-step">
               <span className="product-step-number text-teal">{String(i + 1).padStart(2, '0')}</span>
-              <strong className="product-step-title">{s.title}</strong>
-              <p className="product-step-desc">{s.desc}</p>
+              <strong className="product-step-title">{t(s.titleKey)}</strong>
+              <p className="product-step-desc">{t(s.descKey)}</p>
             </div>
           ))}
         </div>
@@ -91,12 +92,12 @@ const Conscientizacao = () => {
 
       <section className="section product-cta">
         <div className="container animate-fade-up">
-          <p className="overline" style={{ color: 'var(--color-copper)', marginBottom: '1rem' }}>Get Started</p>
-          <h2 className="heading-display mb-4">Build a culture of security<br />across every team</h2>
+          <p className="overline" style={{ color: 'var(--color-copper)', marginBottom: '1rem' }}>{t('shared.get_started')}</p>
+          <h2 className="heading-display mb-4">{t('awareness.cta_l1')}<br />{t('awareness.cta_l2')}</h2>
           <p className="body-large text-muted mb-8 max-w-2xl mx-auto">
-            See how Security Awareness scales training and certification worldwide.
+            {t('awareness.cta_sub')}
           </p>
-          <Link to="/contact" className="button-primary">Request a Demo</Link>
+          <Link to="/contact" className="button-primary">{t('common:nav.demo')}</Link>
         </div>
       </section>
     </div>

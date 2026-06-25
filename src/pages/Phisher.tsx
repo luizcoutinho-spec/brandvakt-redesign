@@ -1,88 +1,89 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './Phisher.css';
 import { useMeta } from '../lib/useMeta';
 
 const STATS = [
-  { value: '1,000+', label: 'Phishing Templates' },
-  { value: '95%',    label: 'Detection Improvement' },
-  { value: '6+',     label: 'Languages Supported' },
-  { value: '< 24h',  label: 'Deployment Time' },
+  { value: '1,000+', labelKey: 'phisher.stat_templates' },
+  { value: '95%',    labelKey: 'phisher.stat_detection' },
+  { value: '6+',     labelKey: 'phisher.stat_languages' },
+  { value: '< 24h',  labelKey: 'phisher.stat_deploy' },
 ];
 
 const FEATURES = [
-  { icon: '📧', title: 'Automated Phishing Campaigns', desc: "Schedule and deploy realistic phishing simulations with 1,000+ customizable templates targeting your organization's specific threat profile." },
-  { icon: '🎯', title: 'Department-Level Targeting',   desc: 'Personalize campaigns by department, role, location, and risk profile for maximum behavioral insight.' },
-  { icon: '📊', title: 'Real-Time Risk Dashboard',     desc: 'Track click rates, reporting rates, and user vulnerability scores with executive-ready dashboards.' },
-  { icon: '🔄', title: 'Automated Training Triggers',  desc: 'Automatically enroll at-risk users in targeted security awareness training when they fail simulations.' },
-  { icon: '🛡', title: 'Human Risk Score',             desc: 'Each user receives a dynamic risk score based on simulation performance, training completion, and behavioral indicators.' },
+  { icon: '📧', titleKey: 'phisher.feat_campaigns_title', descKey: 'phisher.feat_campaigns_desc' },
+  { icon: '🎯', titleKey: 'phisher.feat_targeting_title', descKey: 'phisher.feat_targeting_desc' },
+  { icon: '📊', titleKey: 'phisher.feat_dashboard_title', descKey: 'phisher.feat_dashboard_desc' },
+  { icon: '🔄', titleKey: 'phisher.feat_triggers_title',  descKey: 'phisher.feat_triggers_desc' },
+  { icon: '🛡', titleKey: 'phisher.feat_score_title',     descKey: 'phisher.feat_score_desc' },
 ];
 
 const STEPS = [
-  { title: 'Configure Your Campaign', desc: 'Select from 1,000+ realistic templates, choose your target audience, and schedule your simulation window.' },
-  { title: 'Launch Simulation',       desc: 'PhishER automatically delivers personalized phishing attempts across your organization with full tracking.' },
-  { title: 'Analyze & Identify Risk', desc: 'Review detailed reports showing who clicked, who reported, and which departments need attention.' },
-  { title: 'Auto-Remediate',          desc: 'Users who fail are automatically enrolled in targeted microlearning modules to address specific vulnerabilities.' },
+  { titleKey: 'phisher.step_configure_title', descKey: 'phisher.step_configure_desc' },
+  { titleKey: 'phisher.step_launch_title',    descKey: 'phisher.step_launch_desc' },
+  { titleKey: 'phisher.step_analyze_title',   descKey: 'phisher.step_analyze_desc' },
+  { titleKey: 'phisher.step_remediate_title', descKey: 'phisher.step_remediate_desc' },
 ];
 
 const Phisher = () => {
+  const { t } = useTranslation(['products', 'common']);
   useMeta({
     title: 'PhishER',
-    description: 'Automated Phishing Simulation & Human Risk Management. Deploy realistic phishing simulations, identify vulnerable users, and build cyber resilience with targeted training interventions.',
+    description: t('phisher.meta_desc'),
   });
 
   return (
     <div className="page-wrapper product-page phisher-page">
       <header className="page-header animate-fade-up">
         <div className="container">
-          <span className="overline text-teal">Our Products · PhishER</span>
+          <span className="overline text-teal">{t('shared.our_products')} · PhishER</span>
           <h1 className="heading-display">
             <span className="product-icon" aria-hidden="true">🎣</span> PhishER
           </h1>
           <p className="body-large header-subtitle">
-            Automated Phishing Simulation &amp; Human Risk Management
+            {t('phisher.subtitle')}
           </p>
           <p className="body-large product-lede">
-            Deploy realistic phishing simulations across your organization, identify vulnerable
-            users, and build cyber resilience with targeted training interventions.
+            {t('phisher.lede')}
           </p>
-          <Link to="/contact" className="button-primary">Request a Demo</Link>
+          <Link to="/contact" className="button-primary">{t('common:nav.demo')}</Link>
         </div>
       </header>
 
       <section className="section container">
         <div className="product-stats">
           {STATS.map((s) => (
-            <div key={s.label} className="product-stat">
+            <div key={s.labelKey} className="product-stat">
               <div className="product-stat-value">{s.value}</div>
-              <div className="product-stat-label">{s.label}</div>
+              <div className="product-stat-label">{t(s.labelKey)}</div>
             </div>
           ))}
         </div>
       </section>
 
       <section className="section container">
-        <span className="overline text-teal">Capabilities</span>
-        <h2 className="heading-secondary product-section-title">Everything you need to manage human risk</h2>
+        <span className="overline text-teal">{t('shared.capabilities')}</span>
+        <h2 className="heading-secondary product-section-title">{t('phisher.caps_title')}</h2>
         <div className="product-features">
           {FEATURES.map((f) => (
-            <div key={f.title} className="service-card-premium glass-panel product-feature">
+            <div key={f.titleKey} className="service-card-premium glass-panel product-feature">
               <span className="product-feature-icon" aria-hidden="true">{f.icon}</span>
-              <h3 className="heading-secondary product-feature-title">{f.title}</h3>
-              <p className="body-large product-feature-desc">{f.desc}</p>
+              <h3 className="heading-secondary product-feature-title">{t(f.titleKey)}</h3>
+              <p className="body-large product-feature-desc">{t(f.descKey)}</p>
             </div>
           ))}
         </div>
       </section>
 
       <section className="section container">
-        <span className="overline">How it works</span>
-        <h2 className="heading-secondary product-section-title">From simulation to remediation</h2>
+        <span className="overline">{t('shared.how_it_works')}</span>
+        <h2 className="heading-secondary product-section-title">{t('phisher.steps_title')}</h2>
         <div className="product-steps">
           {STEPS.map((s, i) => (
-            <div key={s.title} className="product-step">
+            <div key={s.titleKey} className="product-step">
               <span className="product-step-number text-teal">{String(i + 1).padStart(2, '0')}</span>
-              <strong className="product-step-title">{s.title}</strong>
-              <p className="product-step-desc">{s.desc}</p>
+              <strong className="product-step-title">{t(s.titleKey)}</strong>
+              <p className="product-step-desc">{t(s.descKey)}</p>
             </div>
           ))}
         </div>
@@ -90,12 +91,12 @@ const Phisher = () => {
 
       <section className="section product-cta">
         <div className="container animate-fade-up">
-          <p className="overline" style={{ color: 'var(--color-copper)', marginBottom: '1rem' }}>Get Started</p>
-          <h2 className="heading-display mb-4">Turn your people into your<br />strongest line of defense</h2>
+          <p className="overline" style={{ color: 'var(--color-copper)', marginBottom: '1rem' }}>{t('shared.get_started')}</p>
+          <h2 className="heading-display mb-4">{t('phisher.cta_l1')}<br />{t('phisher.cta_l2')}</h2>
           <p className="body-large text-muted mb-8 max-w-2xl mx-auto">
-            See how PhishER measures and reduces human risk across your organization.
+            {t('phisher.cta_sub')}
           </p>
-          <Link to="/contact" className="button-primary">Request a Demo</Link>
+          <Link to="/contact" className="button-primary">{t('common:nav.demo')}</Link>
         </div>
       </section>
     </div>
