@@ -4,10 +4,55 @@ import { asset } from '../lib/asset';
 import './Navbar.css';
 
 interface NavLinkDef {
-  to: string;
+  to?: string;
   label: string;
   subtitle?: string;
   badge?: string;
+  calendly?: string; // if set, the item opens a Calendly popup instead of navigating
+}
+
+declare global {
+  interface Window {
+    Calendly?: { initPopupWidget(opts: { url: string }): void };
+  }
+}
+
+// Lazy-load the Calendly widget (CSS + JS) on first use — never on every page.
+function ensureCalendly(): Promise<void> {
+  if (window.Calendly) return Promise.resolve();
+
+  if (!document.querySelector('link[data-calendly]')) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://assets.calendly.com/assets/external/widget.css';
+    link.dataset.calendly = '1';
+    document.head.appendChild(link);
+  }
+
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector<HTMLScriptElement>('script[data-calendly]');
+    if (existing) {
+      if (window.Calendly) resolve();
+      else existing.addEventListener('load', () => resolve(), { once: true });
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    script.dataset.calendly = '1';
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error('Calendly failed to load'));
+    document.head.appendChild(script);
+  });
+}
+
+async function openCalendly(url: string): Promise<void> {
+  try {
+    await ensureCalendly();
+    window.Calendly?.initPopupWidget({ url });
+  } catch {
+    /* best-effort: ignore load failures */
+  }
 }
 
 type NavItem =
@@ -29,7 +74,7 @@ const PRODUCT_LINKS: NavLinkDef[] = [
   { to: '/enterprise/conscientizacao',     label: 'Security Awareness', subtitle: 'Multi-language corporate training' },
   { to: '/enterprise/compliance',          label: 'Compliance Suite',   subtitle: 'Regulatory intelligence & reporting' },
   { to: '/enterprise/maturity-assessment', label: 'CSMA',               subtitle: 'Cybersecurity Maturity Assessment', badge: 'FREE' },
-  { to: '/contact',                        label: 'Request a Demo',     subtitle: 'Talk to an enterprise specialist' },
+  { label: 'Request a Demo', subtitle: 'Talk to an enterprise specialist', calendly: 'https://calendly.com/luiz-coutinho-brandvakt-group/30min' },
 ];
 
 const NAV_ITEMS: NavItem[] = [
@@ -108,19 +153,43 @@ export const Navbar = () => {
                     <span className="nav-dropdown-caret" aria-hidden="true">▾</span>
                   </button>
                   <div className="nav-dropdown-panel">
-                    {item.items.map((p) => (
-                      <Link
-                        key={p.to}
-                        to={p.to}
-                        className={location.pathname === p.to ? 'active' : ''}
-                      >
-                        <span className="nav-dd-row">
-                          <span className="nav-dd-label">{p.label}</span>
-                          {p.badge && <span className="nav-dd-badge">{p.badge}</span>}
-                        </span>
-                        {p.subtitle && <span className="nav-dd-sub">{p.subtitle}</span>}
-                      </Link>
-                    ))}
+                    {item.items.map((p) => {
+                      const inner = (
+                        <>
+                          <span className="nav-dd-row">
+                            <span className="nav-dd-label">{p.label}</span>
+                            {p.badge && <span className="nav-dd-badge">{p.badge}</span>}
+                          </span>
+                          {p.subtitle && <span className="nav-dd-sub">{p.subtitle}</span>}
+                        </>
+                      );
+
+                      if (p.calendly) {
+                        return (
+                          <button
+                            key={p.label}
+                            type="button"
+                            onClick={() => {
+                              setOpen(false);
+                              setOpenMenu(null);
+                              openCalendly(p.calendly!);
+                            }}
+                          >
+                            {inner}
+                          </button>
+                        );
+                      }
+
+                      return (
+                        <Link
+                          key={p.to}
+                          to={p.to!}
+                          className={location.pathname === p.to ? 'active' : ''}
+                        >
+                          {inner}
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
               );
