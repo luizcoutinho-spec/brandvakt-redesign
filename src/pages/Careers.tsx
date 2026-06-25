@@ -1,6 +1,161 @@
+import { FormEvent, useEffect, useState } from 'react';
 import './Careers.css';
 
+interface Position {
+  title: string;
+  dept: string;
+  type: string;
+  location: string;
+  description: string;
+  requirements: string[];
+}
+
+const POSITIONS: Position[] = [
+  {
+    title: 'SOC Analyst',
+    dept: 'Security Operations',
+    type: 'Full-time',
+    location: '· Multiple Offices · Remote',
+    description: 'Monitor, detect and respond to security incidents in our 24/7 operations center. Work with SIEM platforms, threat intelligence feeds, and our proprietary detection playbooks.',
+    requirements: [
+      '2+ years security monitoring experience',
+      'SIEM proficiency (Splunk, QRadar, or similar)',
+      'Security certifications (CompTIA Security+, CEH preferred)',
+    ],
+  },
+  {
+    title: 'GRC Consultant',
+    dept: 'GRC',
+    type: 'Full-time',
+    location: '· Europe · LATAM · Remote',
+    description: 'Help clients navigate complex regulatory landscapes across GDPR, DORA, NIS2, and industry-specific frameworks. Deliver assessments, gap analyses, and remediation roadmaps.',
+    requirements: [
+      '3+ years GRC or compliance experience',
+      'Knowledge of ISO 27001, NIST, or similar',
+      'Fluency in English + French or Portuguese preferred',
+    ],
+  },
+  {
+    title: 'Penetration Tester',
+    dept: 'Offensive Security',
+    type: 'Full-time',
+    location: '· Remote · Client Sites',
+    description: 'Conduct authorized offensive security testing for enterprise clients. Red team exercises, web application testing, social engineering assessments, and vulnerability research.',
+    requirements: [
+      '2+ years offensive security experience',
+      'OSCP or equivalent certification',
+      'Experience with Kali Linux, Metasploit, Burp Suite',
+    ],
+  },
+  {
+    title: 'Business Development Manager',
+    dept: 'Sales',
+    type: 'Full-time',
+    location: '· São Paulo · Abidjan · Kinshasa',
+    description: "Drive revenue growth across African and LATAM markets. Build C-suite relationships, identify security requirements, and position Brandvakt's full portfolio.",
+    requirements: [
+      '3+ years B2B sales (cybersecurity preferred)',
+      'Existing network in Financial Services or Telecom',
+      'Portuguese or French fluency a plus',
+    ],
+  },
+];
+
+const OPEN_APPLICATION: Position = {
+  title: 'Open Application',
+  dept: '',
+  type: '',
+  location: '',
+  description: "Don't see the right role? Send us your CV and a brief note about your security expertise — we're always looking for talented people.",
+  requirements: [],
+};
+
+const MAX_BYTES = 2.5 * 1024 * 1024; // 2.5 MB
+type Status = 'idle' | 'sending' | 'success' | 'error';
+
+function fileToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = String(reader.result);
+      resolve(result.split(',')[1] ?? ''); // strip the data:...;base64, prefix
+    };
+    reader.onerror = () => reject(new Error('read error'));
+    reader.readAsDataURL(file);
+  });
+}
+
 const Careers = () => {
+  const [selected, setSelected] = useState<Position | null>(null);
+  const [email, setEmail] = useState('');
+  const [file, setFile] = useState<File | null>(null);
+  const [fileErr, setFileErr] = useState('');
+  const [status, setStatus] = useState<Status>('idle');
+
+  function openModal(pos: Position) {
+    setSelected(pos);
+    setEmail('');
+    setFile(null);
+    setFileErr('');
+    setStatus('idle');
+  }
+  function closeModal() {
+    setSelected(null);
+  }
+
+  // Esc to close + lock body scroll while the modal is open.
+  useEffect(() => {
+    if (!selected) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') closeModal(); };
+    window.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [selected]);
+
+  function onFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const f = e.target.files?.[0] ?? null;
+    if (!f) { setFile(null); setFileErr(''); return; }
+    if (f.type !== 'application/pdf' || !/\.pdf$/i.test(f.name)) {
+      setFile(null);
+      setFileErr('Please upload a PDF file.');
+      return;
+    }
+    if (f.size > MAX_BYTES) {
+      setFile(null);
+      setFileErr('File exceeds the 2.5MB limit.');
+      return;
+    }
+    setFileErr('');
+    setFile(f);
+  }
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!file) { setFileErr('Please attach your CV (PDF).'); return; }
+    if (!selected) return;
+    setStatus('sending');
+    try {
+      const cvBase64 = await fileToBase64(file);
+      const res = await fetch('/api/apply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          positionTitle: selected.title,
+          email,
+          cvBase64,
+          cvFilename: file.name,
+        }),
+      });
+      if (!res.ok) throw new Error('request failed');
+      setStatus('success');
+    } catch {
+      setStatus('error');
+    }
+  }
+
   return (
     <div className="page-wrapper careers-page">
       {/* Hero */}
@@ -67,7 +222,7 @@ const Careers = () => {
         <div className="container animate-fade-up">
           <p className="overline text-teal">Our Culture</p>
           <h2 className="heading-primary mt-2">Life at Brandvakt</h2>
-          
+
           <div className="life-grid-cr mt-8">
             <div className="life-pillar glass-panel" style={{borderTop: '2px solid var(--color-teal)'}}>
               <div className="icon-cr mb-4 text-teal"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
@@ -136,77 +291,25 @@ const Careers = () => {
             <h2 className="heading-primary mt-2 mb-8">Current opportunities</h2>
 
             <div className="positions-list flex-col gap-4">
-               <div className="position-card glass-panel">
-                  <div className="pos-info">
-                     <div className="flex gap-2 mb-2">
-                        <span className="pos-dept">Security Operations</span>
-                        <span className="pos-type">Full-time</span>
-                     </div>
-                     <h3 className="heading-secondary mb-1">SOC Analyst</h3>
-                     <p className="pos-loc text-xs text-muted mb-2">&middot; Multiple Offices &middot; Remote</p>
-                     <p className="text-sm text-muted mb-4 max-w-xl">Monitor, detect and respond to security incidents in our 24/7 operations center. Work with SIEM platforms, threat intelligence feeds, and our proprietary detection playbooks.</p>
-                     <ul className="pos-reqs text-xs text-muted">
-                        <li>2+ years security monitoring experience</li>
-                        <li>SIEM proficiency (Splunk, QRadar, or similar)</li>
-                        <li>Security certifications (CompTIA Security+, CEH preferred)</li>
-                     </ul>
-                  </div>
-                  <a href="mailto:careers@brandvakt.com?subject=Application: SOC Analyst" className="btn btn-primary btn-sm pos-apply">Apply &rarr;</a>
-               </div>
-
-               <div className="position-card glass-panel">
-                  <div className="pos-info">
-                     <div className="flex gap-2 mb-2">
-                        <span className="pos-dept">GRC</span>
-                        <span className="pos-type">Full-time</span>
-                     </div>
-                     <h3 className="heading-secondary mb-1">GRC Consultant</h3>
-                     <p className="pos-loc text-xs text-muted mb-2">&middot; Europe &middot; LATAM &middot; Remote</p>
-                     <p className="text-sm text-muted mb-4 max-w-xl">Help clients navigate complex regulatory landscapes across GDPR, DORA, NIS2, and industry-specific frameworks. Deliver assessments, gap analyses, and remediation roadmaps.</p>
-                     <ul className="pos-reqs text-xs text-muted">
-                        <li>3+ years GRC or compliance experience</li>
-                        <li>Knowledge of ISO 27001, NIST, or similar</li>
-                        <li>Fluency in English + French or Portuguese preferred</li>
-                     </ul>
-                  </div>
-                  <a href="mailto:careers@brandvakt.com?subject=Application: GRC Consultant" className="btn btn-primary btn-sm pos-apply">Apply &rarr;</a>
-               </div>
-
-               <div className="position-card glass-panel">
-                  <div className="pos-info">
-                     <div className="flex gap-2 mb-2">
-                        <span className="pos-dept">Offensive Security</span>
-                        <span className="pos-type">Full-time</span>
-                     </div>
-                     <h3 className="heading-secondary mb-1">Penetration Tester</h3>
-                     <p className="pos-loc text-xs text-muted mb-2">&middot; Remote &middot; Client Sites</p>
-                     <p className="text-sm text-muted mb-4 max-w-xl">Conduct authorized offensive security testing for enterprise clients. Red team exercises, web application testing, social engineering assessments, and vulnerability research.</p>
-                     <ul className="pos-reqs text-xs text-muted">
-                        <li>2+ years offensive security experience</li>
-                        <li>OSCP or equivalent certification</li>
-                        <li>Experience with Kali Linux, Metasploit, Burp Suite</li>
-                     </ul>
-                  </div>
-                  <a href="mailto:careers@brandvakt.com?subject=Application: Penetration Tester" className="btn btn-primary btn-sm pos-apply">Apply &rarr;</a>
-               </div>
-
-               <div className="position-card glass-panel">
-                  <div className="pos-info">
-                     <div className="flex gap-2 mb-2">
-                        <span className="pos-dept">Sales</span>
-                        <span className="pos-type">Full-time</span>
-                     </div>
-                     <h3 className="heading-secondary mb-1">Business Development Manager</h3>
-                     <p className="pos-loc text-xs text-muted mb-2">&middot; São Paulo &middot; Abidjan &middot; Kinshasa</p>
-                     <p className="text-sm text-muted mb-4 max-w-xl">Drive revenue growth across African and LATAM markets. Build C-suite relationships, identify security requirements, and position Brandvakt's full portfolio.</p>
-                     <ul className="pos-reqs text-xs text-muted">
-                        <li>3+ years B2B sales (cybersecurity preferred)</li>
-                        <li>Existing network in Financial Services or Telecom</li>
-                        <li>Portuguese or French fluency a plus</li>
-                     </ul>
-                  </div>
-                  <a href="mailto:careers@brandvakt.com?subject=Application: Business Development Manager" className="btn btn-primary btn-sm pos-apply">Apply &rarr;</a>
-               </div>
+               {POSITIONS.map((pos) => (
+                 <div key={pos.title} className="position-card glass-panel">
+                    <div className="pos-info">
+                       <div className="flex gap-2 mb-2">
+                          <span className="pos-dept">{pos.dept}</span>
+                          <span className="pos-type">{pos.type}</span>
+                       </div>
+                       <h3 className="heading-secondary mb-1">{pos.title}</h3>
+                       <p className="pos-loc text-xs text-muted mb-2">{pos.location}</p>
+                       <p className="text-sm text-muted mb-4 max-w-xl">{pos.description}</p>
+                       <ul className="pos-reqs text-xs text-muted">
+                          {pos.requirements.map((r) => <li key={r}>{r}</li>)}
+                       </ul>
+                    </div>
+                    <button type="button" className="btn btn-primary btn-sm pos-apply" onClick={() => openModal(pos)}>
+                      Apply &rarr;
+                    </button>
+                 </div>
+               ))}
             </div>
          </div>
       </section>
@@ -217,10 +320,78 @@ const Careers = () => {
             <p className="overline text-teal mb-2">Open Application</p>
             <h2 className="heading-primary mb-4">Don't see the right role?</h2>
             <p className="body-large text-muted mx-auto mb-6" style={{maxWidth: '600px'}}>Send us your CV and a brief note about your security expertise. We're always looking for talented people.</p>
-            <a href="mailto:careers@brandvakt.com" className="btn btn-primary">Send your application &rarr;</a>
+            <button type="button" className="btn btn-primary" onClick={() => openModal(OPEN_APPLICATION)}>
+              Send your application &rarr;
+            </button>
          </div>
       </section>
-      
+
+      {/* Application modal */}
+      {selected && (
+        <div
+          className="apply-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Apply: ${selected.title}`}
+          onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}
+        >
+          <div className="apply-modal glass-panel">
+            <button type="button" className="apply-close" aria-label="Close" onClick={closeModal}>✕</button>
+
+            {status === 'success' ? (
+              <div className="apply-success">
+                <h3 className="heading-secondary mb-2">Application received.</h3>
+                <p className="text-muted">Thanks — we received your application for <strong>{selected.title}</strong> and will be in touch.</p>
+                <button type="button" className="btn btn-primary mt-4" onClick={closeModal}>Close</button>
+              </div>
+            ) : (
+              <>
+                <p className="overline text-teal mb-1">Apply</p>
+                <h3 className="heading-secondary mb-2">{selected.title}</h3>
+                <p className="text-sm text-muted mb-5 apply-desc">{selected.description}</p>
+
+                <form onSubmit={handleSubmit} className="apply-form">
+                  <div className="apply-field">
+                    <label htmlFor="apply-email">Your Email</label>
+                    <input
+                      id="apply-email"
+                      type="email"
+                      required
+                      autoComplete="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="apply-field">
+                    <label htmlFor="apply-cv">CV (PDF, max 2.5MB)</label>
+                    <input
+                      id="apply-cv"
+                      type="file"
+                      accept="application/pdf"
+                      required
+                      onChange={onFileChange}
+                    />
+                    {file && <p className="apply-filename">{file.name}</p>}
+                    {fileErr && <p className="apply-error">{fileErr}</p>}
+                  </div>
+
+                  {status === 'error' && (
+                    <p className="apply-error">
+                      Something went wrong sending your application. Please try again or email us at{' '}
+                      <a href="mailto:info@brandvakt.com">info@brandvakt.com</a>.
+                    </p>
+                  )}
+
+                  <button type="submit" className="btn btn-primary apply-submit" disabled={status === 'sending'}>
+                    {status === 'sending' ? 'Sending…' : 'Submit Application'}
+                  </button>
+                </form>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

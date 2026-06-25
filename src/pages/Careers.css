@@ -159,3 +159,120 @@
   .values-grid-cr { grid-template-columns: 1fr; }
   .perks-grid-cr { grid-template-columns: 1fr; }
 }
+
+/* ── Application modal ─────────────────────────────────────── */
+.apply-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(5, 7, 10, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  overflow-y: auto;
+}
+
+.apply-modal {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  padding: 2rem;
+  border-radius: var(--radius-md, 16px);
+}
+
+.apply-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.apply-close:hover {
+  color: var(--color-text-primary);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.apply-desc {
+  line-height: 1.6;
+}
+
+.apply-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.apply-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.apply-field label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.apply-field input[type='email'] {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 0.7rem 0.9rem;
+  outline: none;
+}
+
+.apply-field input[type='email']:focus {
+  border-color: var(--color-teal);
+}
+
+.apply-field input[type='file'] {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.apply-filename {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--color-teal);
+}
+
+.apply-error {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #E5352A;
+}
+
+.apply-error a {
+  color: #E5352A;
+  text-decoration: underline;
+}
+
+.apply-submit {
+  align-self: flex-start;
+  margin-top: 0.25rem;
+}
+
+.apply-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
