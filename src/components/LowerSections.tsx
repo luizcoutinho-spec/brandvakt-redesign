@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import type { LucideIcon } from 'lucide-react';
 import {
   Activity,
@@ -25,102 +26,66 @@ import './LowerSections.css';
 
 interface Capability {
   icon: LucideIcon;
-  title: string;
-  desc: string;
+  titleKey: string;
+  descKey: string;
 }
 
 const CAPABILITIES: Capability[] = [
-  {
-    icon: ClipboardCheck,
-    title: 'Maturity Assessment',
-    desc: 'Gap analysis and risk scoring against recognized frameworks — ISO 27001, NIST CSF, CIS Controls.',
-  },
-  {
-    icon: Network,
-    title: 'Network Security',
-    desc: 'Monitor and harden networks transmitting protected data across distributed operations.',
-  },
-  {
-    icon: SearchCheck,
-    title: 'Vulnerability Management',
-    desc: 'Continuous assessment, prioritized by risk exposure, with precise remediation guidance.',
-  },
-  {
-    icon: Fingerprint,
-    title: 'Digital Identity',
-    desc: 'Identities are the new perimeter. Protecting workforce access and consumer credentials.',
-  },
-  {
-    icon: Laptop,
-    title: 'Endpoint Security',
-    desc: 'Advanced protection for employee devices against an evolving and adversarial threat surface.',
-  },
-  {
-    icon: Target,
-    title: 'Penetration Testing',
-    desc: 'Simulated ethical attacks to find vulnerabilities before adversaries can exploit them.',
-  },
-  {
-    icon: GraduationCap,
-    title: 'Cyber Awareness',
-    desc: 'Training programs that address the human factor — your ultimate line of defence.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Governance, Risk & Compliance',
-    desc: 'Navigate SWIFT, PCI DSS, LGPD, and DORA with executable security and data frameworks.',
-  },
-  {
-    icon: Cloud,
-    title: 'Cloud Security',
-    desc: 'Secure cloud perimeters across AWS, Azure, Google, or complex multi-tenant environments.',
-  },
+  { icon: ClipboardCheck, titleKey: 'capabilities.assessment_title', descKey: 'capabilities.assessment_desc' },
+  { icon: Network,        titleKey: 'capabilities.network_title',    descKey: 'capabilities.network_desc' },
+  { icon: SearchCheck,    titleKey: 'capabilities.vuln_title',       descKey: 'capabilities.vuln_desc' },
+  { icon: Fingerprint,    titleKey: 'capabilities.identity_title',   descKey: 'capabilities.identity_desc' },
+  { icon: Laptop,         titleKey: 'capabilities.endpoint_title',   descKey: 'capabilities.endpoint_desc' },
+  { icon: Target,         titleKey: 'capabilities.pentest_title',    descKey: 'capabilities.pentest_desc' },
+  { icon: GraduationCap,  titleKey: 'capabilities.awareness_title',  descKey: 'capabilities.awareness_desc' },
+  { icon: ShieldCheck,    titleKey: 'capabilities.grc_title',        descKey: 'capabilities.grc_desc' },
+  { icon: Cloud,          titleKey: 'capabilities.cloud_title',      descKey: 'capabilities.cloud_desc' },
 ];
 
-export const CapabilitiesSection = () => (
-  <section className="section caps-section">
-    <div className="container">
-      <p className="overline">How we protect you</p>
-      <h2 className="heading-primary caps-heading">Our Capabilities</h2>
-      <div className="caps-grid">
-        {CAPABILITIES.map((cap) => {
-          const CapIcon = cap.icon;
-          return (
-            <div key={cap.title} className="cap-card">
-              <div className="cap-card-icon">
-                <CapIcon aria-hidden="true" />
+export const CapabilitiesSection = () => {
+  const { t } = useTranslation('home');
+  return (
+    <section className="section caps-section">
+      <div className="container">
+        <p className="overline">{t('capabilities.overline')}</p>
+        <h2 className="heading-primary caps-heading">{t('capabilities.heading')}</h2>
+        <div className="caps-grid">
+          {CAPABILITIES.map((cap) => {
+            const CapIcon = cap.icon;
+            return (
+              <div key={cap.titleKey} className="cap-card">
+                <div className="cap-card-icon">
+                  <CapIcon aria-hidden="true" />
+                </div>
+                <h3 className="cap-card-title">{t(cap.titleKey)}</h3>
+                <p className="cap-card-desc">{t(cap.descKey)}</p>
               </div>
-              <h3 className="cap-card-title">{cap.title}</h3>
-              <p className="cap-card-desc">{cap.desc}</p>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 // ---- SOC ----
 
 interface SocMetric {
   value: string;
-  label: string;
+  labelKey: string;
   barWidth: string;
 }
 
 const SOC_METRICS: SocMetric[] = [
-  { value: '$4.24M', label: 'Average breach cost', barWidth: '82%' },
-  { value: '287',    label: 'Days avg. to detect',  barWidth: '65%' },
-  { value: '650+',   label: 'Threat groups tracked', barWidth: '75%' },
+  { value: '$4.24M', labelKey: 'soc.metric_breach',  barWidth: '82%' },
+  { value: '287',    labelKey: 'soc.metric_detect',  barWidth: '65%' },
+  { value: '650+',   labelKey: 'soc.metric_threats', barWidth: '75%' },
 ];
 
-const SOC_CHECKPOINTS = [
-  '24/7 threat detection and incident response',
-  'Outsourced, managed, or collaborative SOC models',
-  'SIEM-powered event correlation and triage',
-];
+const SOC_CHECKPOINTS = ['soc.check1', 'soc.check2', 'soc.check3'];
 
 export const SOCSection = () => {
+  const { t } = useTranslation('home');
   const barRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
@@ -147,15 +112,15 @@ export const SOCSection = () => {
       <div className="container soc-cols">
         <div className="soc-panel">
           <div className="soc-panel-header">
-            <span>Threat Landscape</span>
-            <span><Activity aria-hidden="true" /> Live telemetry</span>
+            <span>{t('soc.panel_title')}</span>
+            <span><Activity aria-hidden="true" /> {t('soc.panel_live')}</span>
           </div>
           <div className="soc-panel-body">
             {SOC_METRICS.map((m, i) => (
-              <div key={m.label} className="soc-metric">
+              <div key={m.labelKey} className="soc-metric">
                 <div className="soc-metric-row">
                   <span className="soc-metric-val">{m.value}</span>
-                  <span className="soc-metric-lbl">{m.label}</span>
+                  <span className="soc-metric-lbl">{t(m.labelKey)}</span>
                 </div>
                 <div className="soc-bar-track">
                   <div
@@ -170,24 +135,23 @@ export const SOCSection = () => {
         </div>
 
         <div className="soc-text">
-          <p className="overline">Security Operations Center</p>
+          <p className="overline">{t('soc.overline')}</p>
           <h2 className="heading-primary soc-heading">
-            Always hunting.<br />Always responding.
+            {t('soc.heading_l1')}<br />{t('soc.heading_l2')}
           </h2>
           <p className="body-large soc-desc">
-            Continuous monitoring of endpoints, networks, and user activity for
-            high-fidelity indicators of compromise — before damage is done.
+            {t('soc.desc')}
           </p>
           <ul className="soc-checkpoints">
-            {SOC_CHECKPOINTS.map((pt) => (
-              <li key={pt} className="soc-checkpoint">
+            {SOC_CHECKPOINTS.map((key) => (
+              <li key={key} className="soc-checkpoint">
                 <CheckCircle2 aria-hidden="true" />
-                {pt}
+                {t(key)}
               </li>
             ))}
           </ul>
           <Link to="/soc" className="button-secondary">
-            Explore our SOC
+            {t('soc.cta')}
             <ArrowRight aria-hidden="true" />
           </Link>
         </div>
@@ -200,11 +164,11 @@ export const SOCSection = () => {
 
 interface Product {
   icon: LucideIcon;
-  badge: string;
+  badgeKey: string;
   badgeVariant: 'amber' | 'teal';
   title: string;
-  desc: string;
-  cta: string;
+  descKey: string;
+  ctaKey: string;
   href: string;
   flagship: boolean;
 }
@@ -212,72 +176,76 @@ interface Product {
 const PRODUCTS: Product[] = [
   {
     icon: Sparkles,
-    badge: 'AI Partner',
+    badgeKey: 'products.badge_ai',
     badgeVariant: 'amber',
     title: 'HomoDeus AI',
-    desc: 'Operational AI systems that replace manual workflows, automate decisions, and compound capability over time.',
-    cta: 'Explore Partnership',
+    descKey: 'products.desc_homodeus',
+    ctaKey: 'products.cta_homodeus',
     href: '/homodeus-partnership',
     flagship: true,
   },
   {
     icon: BookOpen,
-    badge: 'Training',
+    badgeKey: 'products.badge_training',
     badgeVariant: 'teal',
     title: 'Academy',
-    desc: 'Recognized cybersecurity training programs built by active industry practitioners, for real-world application.',
-    cta: 'View Academy',
+    descKey: 'products.desc_academy',
+    ctaKey: 'products.cta_academy',
     href: '/academy',
     flagship: false,
   },
   {
     icon: FileText,
-    badge: 'GRC Platform',
+    badgeKey: 'products.badge_grc',
     badgeVariant: 'teal',
     title: 'Docs byGRC',
-    desc: 'AI-powered GRC document intelligence. Centralized access to frameworks, controls, and compliance dashboards.',
-    cta: 'View byGRC',
+    descKey: 'products.desc_bygrc',
+    ctaKey: 'products.cta_bygrc',
     href: '/bygrc',
     flagship: false,
   },
 ];
 
-export const ProductsSection = () => (
-  <section className="section products-section">
-    <div className="container">
-      <p className="overline">Products</p>
-      <h2 className="heading-primary products-heading">Purpose-built platforms</h2>
-      <div className="products-grid">
-        {PRODUCTS.map((p) => {
-          const ProductIcon = p.icon;
-          return (
-            <div key={p.title} className={`product-card glass-panel${p.flagship ? ' product-flagship' : ''}`}>
-              <div className="product-card-top">
-                <span className={`product-badge product-badge--${p.badgeVariant}`}>{p.badge}</span>
-                <ProductIcon aria-hidden="true" />
+export const ProductsSection = () => {
+  const { t } = useTranslation('home');
+  return (
+    <section className="section products-section">
+      <div className="container">
+        <p className="overline">{t('products.overline')}</p>
+        <h2 className="heading-primary products-heading">{t('products.heading')}</h2>
+        <div className="products-grid">
+          {PRODUCTS.map((p) => {
+            const ProductIcon = p.icon;
+            return (
+              <div key={p.title} className={`product-card glass-panel${p.flagship ? ' product-flagship' : ''}`}>
+                <div className="product-card-top">
+                  <span className={`product-badge product-badge--${p.badgeVariant}`}>{t(p.badgeKey)}</span>
+                  <ProductIcon aria-hidden="true" />
+                </div>
+                <h3 className="heading-secondary product-title">{p.title}</h3>
+                <p className="product-desc">{t(p.descKey)}</p>
+                <Link
+                  to={p.href}
+                  className={p.flagship ? 'button-primary product-cta' : 'button-secondary product-cta'}
+                >
+                  {t(p.ctaKey)}
+                  <ArrowRight aria-hidden="true" />
+                </Link>
               </div>
-              <h3 className="heading-secondary product-title">{p.title}</h3>
-              <p className="product-desc">{p.desc}</p>
-              <Link
-                to={p.href}
-                className={p.flagship ? 'button-primary product-cta' : 'button-secondary product-cta'}
-              >
-                {p.cta}
-                <ArrowRight aria-hidden="true" />
-              </Link>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 // ---- CTA / Contact ----
 
 const CONTACT_EMAIL = 'info@brandvakt.com';
 
 export const CTASection = () => {
+  const { t } = useTranslation('home');
   const [sent, setSent] = useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -288,13 +256,14 @@ export const CTASection = () => {
     const region = String(data.get('region') ?? '').trim();
     const message = String(data.get('message') ?? '').trim();
     const body = [
-      `Name: ${name}`,
-      `Email: ${email}`,
-      region ? `Region: ${region}` : null,
+      `${t('cta.mail_label_name')}: ${name}`,
+      `${t('cta.mail_label_email')}: ${email}`,
+      region ? `${t('cta.mail_label_region')}: ${region}` : null,
       '',
       message,
     ].filter(Boolean).join('\n');
-    const href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Enquiry from ${name || 'website'}`)}&body=${encodeURIComponent(body)}`;
+    const subject = t('cta.mail_subject', { name: name || t('cta.mail_website') });
+    const href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = href;
     setSent(true);
   };
@@ -304,45 +273,44 @@ export const CTASection = () => {
       <div className="container">
         <div className="cta-header">
           <h2 className="heading-display">
-            Your digital sentinel,<br />on the right side of the fence.
+            {t('cta.heading_l1')}<br />{t('cta.heading_l2')}
           </h2>
           <p className="body-large cta-sub">
-            Security-minded experts committed to your business continuity.
-            We are the Firewatch.
+            {t('cta.sub')}
           </p>
         </div>
 
         <div className="contact-grid">
           <div className="contact-info">
-            <p className="overline">Get in touch</p>
-            <h3 className="heading-secondary contact-heading">Contact us</h3>
+            <p className="overline">{t('cta.overline')}</p>
+            <h3 className="heading-secondary contact-heading">{t('cta.contact_heading')}</h3>
 
             <div className="contact-field">
-              <span className="contact-field-label">Email</span>
+              <span className="contact-field-label">{t('cta.label_email')}</span>
               <p className="body-large">
                 <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
               </p>
             </div>
 
             <div className="contact-field">
-              <span className="contact-field-label">Regions</span>
+              <span className="contact-field-label">{t('cta.label_regions')}</span>
               <p className="body-large contact-offices">
-                Africa &middot; LATAM &middot; Europe &middot; Middle East
+                {t('cta.value_regions')}
               </p>
             </div>
 
             <div className="contact-field">
-              <span className="contact-field-label">Response time</span>
-              <p className="body-large">Within 24 hours</p>
+              <span className="contact-field-label">{t('cta.label_response')}</span>
+              <p className="body-large">{t('cta.value_response')}</p>
             </div>
           </div>
 
           <div className="contact-form glass-panel">
-            <h3 className="heading-secondary contact-form-title">Send a message</h3>
+            <h3 className="heading-secondary contact-form-title">{t('cta.form_title')}</h3>
             {sent ? (
               <div className="contact-form-success">
                 <p className="body-large">
-                  Thanks — your mail client should be opening. If it didn't, write to{' '}
+                  {t('cta.form_success')}{' '}
                   <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
                 </p>
                 <button
@@ -350,25 +318,25 @@ export const CTASection = () => {
                   className="button-secondary"
                   onClick={() => setSent(false)}
                 >
-                  Send another
+                  {t('cta.form_send_another')}
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
                 <div className="form-field">
-                  <input name="name" type="text" placeholder="Your Name" required />
+                  <input name="name" type="text" placeholder={t('cta.ph_name')} required />
                 </div>
                 <div className="form-field">
-                  <input name="email" type="email" placeholder="Your Email" required />
+                  <input name="email" type="email" placeholder={t('cta.ph_email')} required />
                 </div>
                 <div className="form-field">
-                  <input name="region" type="text" placeholder="Region or Country" />
+                  <input name="region" type="text" placeholder={t('cta.ph_region')} />
                 </div>
                 <div className="form-field">
-                  <textarea name="message" rows={4} placeholder="Tell us about your security needs..." required />
+                  <textarea name="message" rows={4} placeholder={t('cta.ph_message')} required />
                 </div>
                 <button type="submit" className="button-primary form-submit">
-                  Send Enquiry
+                  {t('cta.submit')}
                   <Send aria-hidden="true" />
                 </button>
               </form>

@@ -1,17 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './AboutSection.css';
 
-interface StatItem {
+interface StatDef {
   numericValue: number;
   suffix: string;
-  label: string;
+  labelKey: string;
 }
 
-const STATS: StatItem[] = [
-  { numericValue: 6,  suffix: '',  label: 'Global offices across 4 continents' },
-  { numericValue: 24, suffix: '/7', label: 'SOC operations & threat monitoring' },
-  { numericValue: 9,  suffix: '',  label: 'Core cybersecurity service offerings' },
-  { numericValue: 12, suffix: '+', label: 'Industry verticals served globally' },
+const STATS: StatDef[] = [
+  { numericValue: 6,  suffix: '',  labelKey: 'about.stat_offices' },
+  { numericValue: 24, suffix: '/7', labelKey: 'about.stat_soc' },
+  { numericValue: 9,  suffix: '',  labelKey: 'about.stat_services' },
+  { numericValue: 12, suffix: '+', labelKey: 'about.stat_verticals' },
 ];
 
 const DURATION_MS = 1200;
@@ -44,7 +45,10 @@ function useCountUp(target: number, active: boolean): number {
   return count;
 }
 
-interface StatCellProps extends StatItem {
+interface StatCellProps {
+  numericValue: number;
+  suffix: string;
+  label: string;
   index: number;
   active: boolean;
 }
@@ -67,6 +71,7 @@ const StatCell = ({ numericValue, suffix, label, index, active }: StatCellProps)
 };
 
 export const AboutSection = () => {
+  const { t } = useTranslation('home');
   const statsBarRef = useRef<HTMLDivElement>(null);
   const [statsActive, setStatsActive] = useState(false);
 
@@ -93,28 +98,27 @@ export const AboutSection = () => {
       {/* Part A: What is Brandvakt */}
       <section className="section about-intro-section">
         <div className="about-intro-container container">
-          <span className="overline">What is Brandvakt</span>
+          <span className="overline">{t('about.overline')}</span>
           <h2 className="heading-primary about-intro-heading">
-            The ancient art of the Firewatch,<br />applied to the digital age
+            {t('about.heading_l1')}<br />{t('about.heading_l2')}
           </h2>
 
           <blockquote className="about-blockquote">
-            "The word Brandvakt means 'Firewatch'. We ensure the fire burns smoothly,
-            doesn't spread, contain it if something goes wrong, and ensure the safety of everyone."
+            {t('about.quote')}
           </blockquote>
 
           <ul className="about-bullets">
             <li>
               <span className="about-bullet-accent">✦</span>
-              Assessment · Monitoring · Identity · AI governance
+              {t('about.bullet_focus')}
             </li>
             <li>
               <span className="about-bullet-accent">✦</span>
-              Africa · LATAM · Europe · Middle East
+              {t('cta.value_regions')}
             </li>
             <li>
               <span className="about-bullet-accent">✦</span>
-              Security as critical infrastructure
+              {t('about.bullet_infra')}
             </li>
           </ul>
         </div>
@@ -125,8 +129,10 @@ export const AboutSection = () => {
         <div className="stats-bar-inner">
           {STATS.map((stat, i) => (
             <StatCell
-              key={stat.label}
-              {...stat}
+              key={stat.labelKey}
+              numericValue={stat.numericValue}
+              suffix={stat.suffix}
+              label={t(stat.labelKey)}
               index={i}
               active={statsActive}
             />
