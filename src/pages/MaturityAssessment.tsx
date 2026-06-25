@@ -1,7 +1,9 @@
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ArrowRight, RotateCcw, Printer, ExternalLink } from 'lucide-react';
 import { useMeta } from '../lib/useMeta';
+import { isLang } from '../i18n';
 
 /* ═══════════════════════════════════════════════════════════
    DESIGN TOKENS — zinc/black/teal palette
@@ -86,14 +88,9 @@ const SCALE = [
   { v: 5, n: '5', l: 'Optimized' },
 ] as const;
 
-const LOADER_MSGS = [
-  'Cross-referencing 18 controls against NIST · CIS · ISO 27001...',
-  'Computing maturity score for each security domain...',
-  'Identifying critical gaps and risk exposure...',
-  'Generating executive diagnosis...',
-  'Building your 12-month remediation roadmap...',
-  'Drafting tailored commercial proposal...',
-];
+// UI-only loader message keys (resolved via t() at render). Count drives the
+// loader sequence timing in runLoader().
+const LOADER_KEYS = ['loader_0', 'loader_1', 'loader_2', 'loader_3', 'loader_4', 'loader_5'] as const;
 
 /* ═══════════════════════════════════════════════════════════
    TYPES
@@ -121,10 +118,12 @@ function matLevel(p: number): { l: string; c: string } {
   return { l: 'Optimized', c: '#3B82F6' };
 }
 function getGaps(answers: Answers) {
-  const g: { score: number; text: string; fw: readonly string[]; domain: string }[] = [];
+  // `text`/`domain` stay in English — they feed the AI prompts (Lote 5b).
+  // `domainId`/`qi` are added so the UI can resolve the translated question text.
+  const g: { score: number; text: string; fw: readonly string[]; domain: string; domainId: string; qi: number }[] = [];
   DOMAINS.forEach(d => d.questions.forEach((q, qi) => {
     const v = answers[`${d.id}_${qi}`] ?? 0;
-    if (v <= 2) g.push({ score: v, text: q.t, fw: q.fw, domain: d.name });
+    if (v <= 2) g.push({ score: v, text: q.t, fw: q.fw, domain: d.name, domainId: d.id, qi });
   }));
   return g.sort((a, b) => a.score - b.score).slice(0, 6);
 }
@@ -255,10 +254,21 @@ async function streamToState(
 /* ═══════════════════════════════════════════════════════════
    MAIN COMPONENT
 ═══════════════════════════════════════════════════════════ */
+/* Display-only map: English maturity level (kept for AI prompts / report) → i18n key. */
+const LEVEL_KEY: Record<string, string> = {
+  Initial: 'level_initial', Repeatable: 'level_repeatable', Defined: 'level_defined',
+  Managed: 'level_managed', Optimized: 'level_optimized',
+};
+const DATE_LOCALE: Record<string, string> = { en: 'en-GB', pt: 'pt-BR', fr: 'fr-FR' };
+
 export default function MaturityAssessment() {
+  const { t, i18n } = useTranslation('csma');
+  const lang = isLang(i18n.language) ? i18n.language : 'en';
+  const tLevel = (en: string) => t(LEVEL_KEY[en] ?? 'level_initial');
+
   useMeta({
     title: 'Cybersecurity Maturity Assessment',
-    description: 'Free AI-generated cybersecurity maturity assessment — answer 18 questions across NIST CSF, CIS Controls and ISO 27001 and receive an executive diagnosis, gap analysis, and a 12-month remediation roadmap.',
+    description: t('meta_desc'),
   });
 
   const [phase,         setPhase]         = useState<Phase>('hero');
@@ -343,7 +353,7 @@ export default function MaturityAssessment() {
   function handleCaptureSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!leadData.firstName || !leadData.email || !leadData.company) {
-      setCaptureErr('Please fill in name, email, and company.');
+      setCaptureErr(t('cap_err'));
       return;
     }
     setCaptureErr('');
@@ -359,7 +369,7 @@ export default function MaturityAssessment() {
     const interval = setInterval(() => {
       setLoaderStep(step);
       step++;
-      if (step >= LOADER_MSGS.length) {
+      if (step >= LOADER_KEYS.length) {
         clearInterval(interval);
         setTimeout(() => { setPhase('results'); scrollTop(); runAI(); }, 700);
       }
@@ -439,27 +449,27 @@ export default function MaturityAssessment() {
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 24, fontSize: 11, fontWeight: 700, letterSpacing: '0.10em', textTransform: 'uppercase', color: C.red }}>
             <span style={{ width: 20, height: 1, background: C.red, display: 'inline-block' }} />
-            Free Enterprise Assessment
+            {t('hero_badge')}
           </div>
 
           <h1 style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(30px,5.5vw,58px)', fontWeight: 800, lineHeight: 1.05, letterSpacing: '-0.04em', color: C.white, marginBottom: 18, maxWidth: 760 }}>
-            How mature is your organization&apos;s{' '}
-            <span style={{ color: C.red }}>security posture?</span>
+            {t('hero_title_a')}{' '}
+            <span style={{ color: C.red }}>{t('hero_title_em')}</span>{t('hero_title_b')}
           </h1>
 
           <p style={{ fontSize: 16, color: C.muted, lineHeight: 1.7, maxWidth: 540, marginBottom: 32, fontWeight: 300 }}>
-            Answer 18 questions and receive an AI-generated executive diagnosis — complete with gap analysis, commercial proposal, and a 12-month remediation roadmap. In under 5 minutes.
+            {t('hero_sub')}
           </p>
 
           {/* Pills */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 36 }}>
             {[
-              { label: 'NIST CSF 2.0',        red: true },
-              { label: 'CIS Controls v8',      red: true },
-              { label: 'ISO 27001:2022',       red: true },
-              { label: '18 controls evaluated',red: false },
-              { label: '~5 minutes',           red: false },
-              { label: 'Free · No credit card',red: false },
+              { label: 'NIST CSF 2.0',          red: true },
+              { label: 'CIS Controls v8',        red: true },
+              { label: 'ISO 27001:2022',         red: true },
+              { label: t('pill_controls'),       red: false },
+              { label: t('pill_time'),           red: false },
+              { label: t('pill_free'),           red: false },
             ].map(p => (
               <span key={p.label} style={{
                 fontSize: 11, fontWeight: 500, letterSpacing: '0.05em',
@@ -473,9 +483,9 @@ export default function MaturityAssessment() {
           {/* Stats */}
           <div style={{ display: 'flex', flexWrap: 'wrap', width: 'fit-content', borderRadius: 12, overflow: 'hidden', border: `1px solid ${C.border}` }}>
             {[
-              { num: '5',  lbl: 'Security domains' },
-              { num: '3',  lbl: 'Frameworks mapped' },
-              { num: 'AI', lbl: 'Executive report' },
+              { num: '5',  lbl: t('stat1_lbl') },
+              { num: '3',  lbl: t('stat2_lbl') },
+              { num: 'AI', lbl: t('stat3_lbl') },
             ].map((s, i) => (
               <div key={s.num} style={{
                 padding: '18px 28px', textAlign: 'center',
@@ -499,7 +509,7 @@ export default function MaturityAssessment() {
                 padding: '13px 28px', borderRadius: 8, cursor: 'pointer',
               }}
             >
-              Start Free Assessment <ArrowRight size={16} />
+              {t('hero_cta')} <ArrowRight size={16} />
             </button>
           )}
         </section>
@@ -539,7 +549,7 @@ export default function MaturityAssessment() {
                   }}>
                     {done && !active ? '✓' : i + 1}
                   </div>
-                  <span style={{ fontSize: 13, fontWeight: 500, color: active || done ? C.white : C.muted2, whiteSpace: 'nowrap' }}>{d.short}</span>
+                  <span style={{ fontSize: 13, fontWeight: 500, color: active || done ? C.white : C.muted2, whiteSpace: 'nowrap' }}>{t(`dom_${d.id}_short`)}</span>
                 </button>
               );
             })}
@@ -548,8 +558,8 @@ export default function MaturityAssessment() {
           {/* Progress */}
           <div style={{ marginBottom: 32 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: C.muted, marginBottom: 8 }}>
-              <span>Domain {currentDomain + 1} of {DOMAINS.length}</span>
-              <span>{progPct}% complete</span>
+              <span>{t('domain_counter', { n: currentDomain + 1, total: DOMAINS.length })}</span>
+              <span>{t('progress_complete', { pct: progPct })}</span>
             </div>
             <div style={{ height: 2, background: C.bg4, borderRadius: 2, overflow: 'hidden' }}>
               <div style={{ height: '100%', width: `${progPct}%`, background: C.red, borderRadius: 2, transition: 'width 0.5s cubic-bezier(0.4,0,0.2,1)' }} />
@@ -559,11 +569,11 @@ export default function MaturityAssessment() {
           {/* Domain header */}
           <div style={{ marginBottom: 28 }}>
             <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: C.red, marginBottom: 10, display: 'flex', alignItems: 'center', gap: 8 }}>
-              Domain {currentDomain + 1} of {DOMAINS.length} · NIST {domain.nist}
+              {t('domain_counter', { n: currentDomain + 1, total: DOMAINS.length })} · NIST {domain.nist}
               <span style={{ flex: 1, height: 1, background: C.border, display: 'block' }} />
             </div>
-            <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: 26, fontWeight: 700, letterSpacing: '-0.03em', color: C.white, marginBottom: 6 }}>{domain.name}</h2>
-            <p style={{ fontSize: 13, color: C.muted, maxWidth: 520 }}>{domain.desc}</p>
+            <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: 26, fontWeight: 700, letterSpacing: '-0.03em', color: C.white, marginBottom: 6 }}>{t(`dom_${domain.id}_name`)}</h2>
+            <p style={{ fontSize: 13, color: C.muted, maxWidth: 520 }}>{t(`dom_${domain.id}_desc`)}</p>
           </div>
 
           {/* Questions */}
@@ -586,7 +596,7 @@ export default function MaturityAssessment() {
                   ))}
                 </div>
 
-                <div style={{ fontSize: 15, lineHeight: 1.65, color: C.white, marginBottom: 20 }}>{q.t}</div>
+                <div style={{ fontSize: 15, lineHeight: 1.65, color: C.white, marginBottom: 20 }}>{t(`q_${domain.id}_${qi}`)}</div>
 
                 {/* CMMI Scale */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: 6 }}>
@@ -605,7 +615,7 @@ export default function MaturityAssessment() {
                         }}
                       >
                         <span style={{ fontFamily: 'var(--font-sans)', fontSize: 20, fontWeight: 700, color: selected ? C.red : C.muted, lineHeight: 1 }}>{s.n}</span>
-                        <span style={{ fontSize: 9, letterSpacing: '0.04em', textTransform: 'uppercase', color: selected ? 'rgba(79,230,210,0.7)' : C.muted2, textAlign: 'center', lineHeight: 1.2 }}>{s.l}</span>
+                        <span style={{ fontSize: 9, letterSpacing: '0.04em', textTransform: 'uppercase', color: selected ? 'rgba(79,230,210,0.7)' : C.muted2, textAlign: 'center', lineHeight: 1.2 }}>{t(`scale_${s.v}`)}</span>
                       </button>
                     );
                   })}
@@ -626,7 +636,7 @@ export default function MaturityAssessment() {
                 opacity: currentDomain === 0 ? 0.4 : 1, transition: 'all 0.2s',
               }}
             >
-              ← Previous
+              ← {t('nav_prev')}
             </button>
             <button
               onClick={handleNext}
@@ -637,7 +647,7 @@ export default function MaturityAssessment() {
                 display: 'flex', alignItems: 'center', gap: 8, transition: 'all 0.2s',
               }}
             >
-              {isLast ? 'Get my report' : 'Next'} →
+              {isLast ? t('nav_getreport') : t('nav_next')} →
             </button>
           </div>
         </div>
@@ -647,9 +657,9 @@ export default function MaturityAssessment() {
       {phase === 'capture' && (
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '48px clamp(18px,4vw,48px) 80px' }}>
           <div style={{ maxWidth: 520, margin: '0 auto', background: C.bg2, border: `1px solid ${C.border}`, borderRadius: 16, padding: 40 }}>
-            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: C.red, marginBottom: 16 }}>Almost there</div>
-            <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: 24, fontWeight: 700, letterSpacing: '-0.03em', color: C.white, marginBottom: 10 }}>Where should we send your report?</h2>
-            <p style={{ fontSize: 14, color: C.muted, marginBottom: 28, lineHeight: 1.6 }}>Your AI-generated security diagnosis, gap analysis, and commercial proposal will be tailored to your organization. No spam — just your report.</p>
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: C.red, marginBottom: 16 }}>{t('cap_badge')}</div>
+            <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: 24, fontWeight: 700, letterSpacing: '-0.03em', color: C.white, marginBottom: 10 }}>{t('cap_title')}</h2>
+            <p style={{ fontSize: 14, color: C.muted, marginBottom: 28, lineHeight: 1.6 }}>{t('cap_sub')}</p>
 
             {captureErr && (
               <div style={{ background: 'rgba(79,230,210,0.08)', border: `1px solid rgba(79,230,210,0.2)`, borderRadius: 8, padding: '10px 14px', marginBottom: 16, fontSize: 13, color: C.red }}>
@@ -659,39 +669,50 @@ export default function MaturityAssessment() {
 
             <form onSubmit={handleCaptureSubmit}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
-                <Field label="First name *" value={leadData.firstName} onChange={v => setLeadData(p => ({ ...p, firstName: v }))} placeholder="João" />
-                <Field label="Last name *"  value={leadData.lastName}  onChange={v => setLeadData(p => ({ ...p, lastName: v }))}  placeholder="Silva" />
+                <Field label={t('f_first')} value={leadData.firstName} onChange={v => setLeadData(p => ({ ...p, firstName: v }))} placeholder={t('ph_first')} />
+                <Field label={t('f_last')}  value={leadData.lastName}  onChange={v => setLeadData(p => ({ ...p, lastName: v }))}  placeholder={t('ph_last')} />
               </div>
-              <Field label="Corporate email *" type="email" value={leadData.email}   onChange={v => setLeadData(p => ({ ...p, email: v }))}   placeholder="joao@company.com" mb={12} />
-              <Field label="Company *"         value={leadData.company} onChange={v => setLeadData(p => ({ ...p, company: v }))} placeholder="Acme Corp · Brazil" mb={12} />
+              <Field label={t('f_email')} type="email" value={leadData.email}   onChange={v => setLeadData(p => ({ ...p, email: v }))}   placeholder={t('ph_email')} mb={12} />
+              <Field label={t('f_company')}         value={leadData.company} onChange={v => setLeadData(p => ({ ...p, company: v }))} placeholder={t('ph_company')} mb={12} />
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 12 }}>
-                <label style={{ fontSize: 12, fontWeight: 500, color: C.muted, letterSpacing: '0.03em' }}>Role</label>
+                <label style={{ fontSize: 12, fontWeight: 500, color: C.muted, letterSpacing: '0.03em' }}>{t('f_role')}</label>
                 <select value={leadData.role} onChange={e => setLeadData(p => ({ ...p, role: e.target.value }))}
                   style={{ background: C.bg3, border: `1px solid ${C.border2}`, borderRadius: 8, color: leadData.role ? C.white : C.muted2, fontFamily: 'inherit', fontSize: 14, padding: '10px 14px', outline: 'none', appearance: 'none', cursor: 'pointer' }}>
-                  <option value="">Select your role</option>
-                  {['CISO / CSO','CTO / CIO','CEO / Managing Director','IT Manager / IT Director','Risk & Compliance Manager','Security Analyst','Consultant','Other'].map(r => <option key={r}>{r}</option>)}
+                  <option value="">{t('role_select')}</option>
+                  {/* value stays English (feeds /api/lead + AI prompt); label is translated */}
+                  {[
+                    ['CISO / CSO', 'role_ciso'], ['CTO / CIO', 'role_cto'],
+                    ['CEO / Managing Director', 'role_ceo'], ['IT Manager / IT Director', 'role_itmgr'],
+                    ['Risk & Compliance Manager', 'role_risk'], ['Security Analyst', 'role_analyst'],
+                    ['Consultant', 'role_consultant'], ['Other', 'role_other'],
+                  ].map(([v, k]) => <option key={v} value={v}>{t(k)}</option>)}
                 </select>
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 20 }}>
-                <label style={{ fontSize: 12, fontWeight: 500, color: C.muted, letterSpacing: '0.03em' }}>Number of employees</label>
+                <label style={{ fontSize: 12, fontWeight: 500, color: C.muted, letterSpacing: '0.03em' }}>{t('f_size')}</label>
                 <select value={leadData.size} onChange={e => setLeadData(p => ({ ...p, size: e.target.value }))}
                   style={{ background: C.bg3, border: `1px solid ${C.border2}`, borderRadius: 8, color: leadData.size ? C.white : C.muted2, fontFamily: 'inherit', fontSize: 14, padding: '10px 14px', outline: 'none', appearance: 'none', cursor: 'pointer' }}>
-                  <option value="">Select range</option>
-                  {['1 – 50 employees','50 – 200 employees','200 – 500 employees','500 – 2,000 employees','2,000 – 10,000 employees','10,000+ employees'].map(s => <option key={s}>{s}</option>)}
+                  <option value="">{t('size_select')}</option>
+                  {/* value stays English (feeds /api/lead + AI prompt); label is translated */}
+                  {[
+                    ['1 – 50 employees', 'size_1'], ['50 – 200 employees', 'size_2'],
+                    ['200 – 500 employees', 'size_3'], ['500 – 2,000 employees', 'size_4'],
+                    ['2,000 – 10,000 employees', 'size_5'], ['10,000+ employees', 'size_6'],
+                  ].map(([v, k]) => <option key={v} value={v}>{t(k)}</option>)}
                 </select>
               </div>
 
               <button type="submit"
                 style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, fontFamily: 'inherit', fontSize: 14, fontWeight: 600, color: '#000', background: C.red, border: `1px solid ${C.red}`, padding: '13px 28px', borderRadius: 8, cursor: 'pointer' }}>
-                Generate my report →
+                {t('cap_submit')} →
               </button>
             </form>
 
             <p style={{ fontSize: 11, color: C.muted2, marginTop: 14, lineHeight: 1.6 }}>
-              By submitting, you agree to be contacted by a Brandvakt specialist about your results and to your data being processed in line with our{' '}
-              <Link to="/privacy" style={{ color: C.muted, textDecoration: 'underline' }}>Privacy Policy</Link>.
+              {t('cap_consent')}{' '}
+              <Link to="/privacy" style={{ color: C.muted, textDecoration: 'underline' }}>{t('cap_privacy_link')}</Link>.
             </p>
           </div>
         </div>
@@ -704,21 +725,21 @@ export default function MaturityAssessment() {
           <div style={{ width: 48, height: 48, border: `2px solid ${C.border2}`, borderTopColor: C.red, borderRadius: '50%', margin: '0 auto 28px', animation: 'csmaSpin 0.75s linear infinite' }} />
 
           <div style={{ fontFamily: 'var(--font-sans)', fontSize: 22, fontWeight: 700, color: C.white, marginBottom: 8, letterSpacing: '-0.02em' }}>
-            Generating your executive report
+            {t('loading_title')}
           </div>
           <div style={{ fontSize: 14, color: C.muted, marginBottom: 36 }}>
-            Our AI is analyzing your security posture across all 5 domains
+            {t('loading_sub')}
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center' }}>
-            {LOADER_MSGS.map((msg, i) => (
+            {LOADER_KEYS.map((k, i) => (
               <div key={i} style={{
                 fontSize: 13, color: C.muted, display: 'flex', alignItems: 'center', gap: 10,
                 opacity: i <= loaderStep ? 1 : 0.1,
                 transition: 'opacity 0.4s ease',
               }}>
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: i <= loaderStep ? C.red : C.muted2, flexShrink: 0 }} />
-                {msg}
+                {t(k)}
               </div>
             ))}
           </div>
@@ -734,24 +755,24 @@ export default function MaturityAssessment() {
           {/* Result hero */}
           <div style={{ background: C.bg2, border: `1px solid ${C.border}`, borderRadius: 16, padding: 32, marginBottom: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 24 }}>
             <div>
-              <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: 22, fontWeight: 700, color: C.white, letterSpacing: '-0.02em', marginBottom: 4 }}>{leadData.company || 'Your Organization'}</h2>
+              <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: 22, fontWeight: 700, color: C.white, letterSpacing: '-0.02em', marginBottom: 4 }}>{leadData.company || t('res_org_fallback')}</h2>
               <p style={{ fontSize: 13, color: C.muted }}>
-                {leadData.firstName} {leadData.lastName}{leadData.role ? ` · ${leadData.role}` : ''} · Generated {new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })}
+                {leadData.firstName} {leadData.lastName}{leadData.role ? ` · ${leadData.role}` : ''} · {t('res_generated_prefix')} {new Date().toLocaleDateString(DATE_LOCALE[lang], { day: '2-digit', month: 'long', year: 'numeric' })}
               </p>
             </div>
             <div style={{ textAlign: 'right' }}>
               <div style={{ fontFamily: 'var(--font-sans)', fontSize: 52, fontWeight: 800, letterSpacing: '-0.05em', lineHeight: 1, color: mat.c }}>{pct}%</div>
-              <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: mat.c, marginTop: 4 }}>{mat.l}</div>
+              <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: mat.c, marginTop: 4 }}>{tLevel(mat.l)}</div>
             </div>
           </div>
 
           {/* KPI grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(140px,1fr))', gap: 12, marginBottom: 20 }}>
             {[
-              { label: 'Overall maturity',   val: `${pct}%`,                    sub: `${mat.l} level`,      c: mat.c },
-              { label: 'Controls evaluated', val: String(totalQ()),              sub: 'NIST · CIS · ISO',    c: C.white },
-              { label: 'Critical gaps',       val: String(gaps.filter(g=>g.score<=1).length), sub: 'Score 0–1 of 5', c: C.red },
-              { label: 'Priority gaps',       val: String(gaps.length),          sub: 'Score 0–2 of 5',      c: C.amber },
+              { label: t('kpi_overall'),   val: `${pct}%`,                    sub: t('kpi_overall_sub', { level: tLevel(mat.l) }), c: mat.c },
+              { label: t('kpi_controls'),  val: String(totalQ()),              sub: 'NIST · CIS · ISO',    c: C.white },
+              { label: t('kpi_critical'),  val: String(gaps.filter(g=>g.score<=1).length), sub: t('kpi_critical_sub'), c: C.red },
+              { label: t('kpi_priority'),  val: String(gaps.length),          sub: t('kpi_priority_sub'), c: C.amber },
             ].map(k => (
               <div key={k.label} style={{ background: C.bg2, border: `1px solid ${C.border}`, borderRadius: 12, padding: '16px 18px' }}>
                 <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: C.muted, marginBottom: 8 }}>{k.label}</div>
@@ -765,14 +786,14 @@ export default function MaturityAssessment() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 20, marginBottom: 20 }}>
             {/* Domain scores */}
             <div style={{ background: C.bg2, border: `1px solid ${C.border}`, borderRadius: 16, padding: 28 }}>
-              <div style={{ fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 600, color: C.white, marginBottom: 18 }}>Score by domain</div>
+              <div style={{ fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 600, color: C.white, marginBottom: 18 }}>{t('score_by_domain')}</div>
               {DOMAINS.map(d => {
                 const sc = domainScore(d.id, answers);
                 const p  = Math.round(sc / 5 * 100);
                 const c  = p < 40 ? C.red : p < 70 ? C.amber : C.green;
                 return (
                   <div key={d.id} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '10px 0', borderBottom: `1px solid ${C.border}` }}>
-                    <div style={{ fontSize: 13, fontWeight: 500, color: C.white, width: 80, flexShrink: 0 }}>{d.name}</div>
+                    <div style={{ fontSize: 13, fontWeight: 500, color: C.white, width: 80, flexShrink: 0 }}>{t(`dom_${d.id}_name`)}</div>
                     <div style={{ flex: 1, height: 4, background: C.bg4, borderRadius: 2, overflow: 'hidden' }}>
                       <div style={{ height: '100%', width: `${p}%`, background: c, borderRadius: 2, transition: 'width 1s cubic-bezier(0.4,0,0.2,1)' }} />
                     </div>
@@ -785,10 +806,10 @@ export default function MaturityAssessment() {
             {/* Gaps */}
             <div style={{ background: C.bg2, border: `1px solid ${C.border}`, borderRadius: 16, padding: 28 }}>
               <div style={{ fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 600, color: C.white, marginBottom: 18 }}>
-                {gaps.length === 0 ? 'No critical gaps found' : `${gaps.length} priority gaps identified`}
+                {gaps.length === 0 ? t('gaps_none') : t('gaps_count', { n: gaps.length })}
               </div>
               {gaps.length === 0 ? (
-                <p style={{ fontSize: 14, color: C.muted, padding: '8px 0' }}>Strong posture across all domains.</p>
+                <p style={{ fontSize: 14, color: C.muted, padding: '8px 0' }}>{t('gaps_none_desc')}</p>
               ) : gaps.map((g, i) => (
                 <div key={i} style={{ display: 'flex', gap: 12, padding: 12, borderRadius: 8, marginBottom: 8, background: C.bg3, border: `1px solid ${C.border}` }}>
                   <div style={{
@@ -799,8 +820,8 @@ export default function MaturityAssessment() {
                     color: g.score <= 1 ? C.red : C.amber,
                   }}>{g.score}</div>
                   <div>
-                    <div style={{ fontSize: 13, fontWeight: 500, color: C.white, lineHeight: 1.4, marginBottom: 3 }}>{g.text.substring(0, 70)}...</div>
-                    <div style={{ fontSize: 11, color: C.muted }}>{g.fw[0]} · Score {g.score}/5</div>
+                    <div style={{ fontSize: 13, fontWeight: 500, color: C.white, lineHeight: 1.4, marginBottom: 3 }}>{t(`q_${g.domainId}_${g.qi}`).substring(0, 70)}...</div>
+                    <div style={{ fontSize: 11, color: C.muted }}>{g.fw[0]} · {t('gap_score', { score: g.score })}</div>
                   </div>
                 </div>
               ))}
@@ -808,16 +829,16 @@ export default function MaturityAssessment() {
           </div>
 
           {/* Executive Diagnosis */}
-          <AIBlock title="Brandvakt AI · Executive Diagnosis" subtitle="NIST · CIS · ISO 27001 · Real-time analysis" text={aiDiagnosis} streaming={streaming && !aiDiagnosis} />
+          <AIBlock title={`Brandvakt AI · ${t('diag_title')}`} subtitle={t('diag_subtitle')} text={aiDiagnosis} streaming={streaming && !aiDiagnosis} />
 
           {/* Roadmap */}
           <div style={{ fontFamily: 'var(--font-sans)', fontSize: 16, fontWeight: 600, color: C.white, marginBottom: 14, letterSpacing: '-0.01em' }}>
-            12-month remediation roadmap
+            {t('roadmap_title')}
           </div>
           {[
-            { cls: C.red,   label: 'Phase 1', period: 'Months 1–3 · Immediate',   title: 'Critical gap remediation',              idx: 0 },
-            { cls: C.amber, label: 'Phase 2', period: 'Months 4–8 · Short-term',  title: 'Process formalization & monitoring',     idx: 1 },
-            { cls: C.green, label: 'Phase 3', period: 'Months 9–12 · Strategic',  title: 'Optimization & certification readiness', idx: 2 },
+            { cls: C.red,   label: t('phase1_label'), period: t('phase1_period'), title: t('phase1_title'), idx: 0 },
+            { cls: C.amber, label: t('phase2_label'), period: t('phase2_period'), title: t('phase2_title'), idx: 1 },
+            { cls: C.green, label: t('phase3_label'), period: t('phase3_period'), title: t('phase3_title'), idx: 2 },
           ].map(ph => (
             <div key={ph.idx} style={{ background: C.bg2, border: `1px solid ${C.border}`, borderRadius: 16, overflow: 'hidden', marginBottom: 10 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 24px', borderBottom: `1px solid ${C.border}`, background: C.bg3 }}>
@@ -833,11 +854,11 @@ export default function MaturityAssessment() {
 
           {/* Commercial proposal */}
           <div style={{ fontFamily: 'var(--font-sans)', fontSize: 16, fontWeight: 600, color: C.white, margin: '24px 0 14px', letterSpacing: '-0.01em' }}>
-            Commercial proposal · Brandvakt Academy
+            {t('proposal_title')}
           </div>
           <div style={{ background: 'linear-gradient(135deg, #111113 0%, rgba(79,230,210,0.04) 100%)', border: '1px solid rgba(79,230,210,0.2)', borderRadius: 16, overflow: 'hidden', marginBottom: 24 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 24px', borderBottom: '1px solid rgba(79,230,210,0.15)', background: 'rgba(79,230,210,0.06)' }}>
-              <PulseDot /><span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: C.red }}>Brandvakt AI · Tailored Proposal</span>
+              <PulseDot /><span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: C.red }}>Brandvakt AI · {t('proposal_badge')}</span>
             </div>
             <div style={{ padding: 28, fontSize: 14, lineHeight: 1.9, color: aiProposal ? C.white : C.muted2, whiteSpace: 'pre-wrap', minHeight: 120 }}>
               {aiProposal || <BlinkCursor />}
@@ -847,30 +868,30 @@ export default function MaturityAssessment() {
           {/* CTA */}
           <div style={{ background: C.white, borderRadius: 16, padding: '36px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 24, flexWrap: 'wrap', marginBottom: 20 }}>
             <div>
-              <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: 22, fontWeight: 700, color: C.bg, letterSpacing: '-0.02em', marginBottom: 6 }}>Ready to close these gaps?</h3>
-              <p style={{ fontSize: 14, color: '#52525B' }}>Our specialists turn your diagnosis into an executable security roadmap.</p>
+              <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: 22, fontWeight: 700, color: C.bg, letterSpacing: '-0.02em', marginBottom: 6 }}>{t('cta_title')}</h3>
+              <p style={{ fontSize: 14, color: '#52525B' }}>{t('cta_sub')}</p>
             </div>
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', flexShrink: 0 }}>
               {!streaming && aiDiagnosis && (
                 <button onClick={sendReport} disabled={reportStatus === 'sending'}
                   style={{ fontFamily: 'inherit', fontSize: 14, fontWeight: 600, background: C.red, color: '#000', border: 'none', padding: '13px 24px', borderRadius: 8, cursor: reportStatus === 'sending' ? 'not-allowed' : 'pointer', opacity: reportStatus === 'sending' ? 0.7 : 1, display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-                  {reportStatus === 'sending' ? 'Sending…'
-                    : reportStatus === 'sent' ? `✓ Report sent to ${leadData.email}`
-                    : reportStatus === 'error' ? "Couldn't send — retry"
-                    : 'Email me this report'}
+                  {reportStatus === 'sending' ? t('btn_email_sending')
+                    : reportStatus === 'sent' ? t('btn_email_sent', { email: leadData.email })
+                    : reportStatus === 'error' ? t('btn_email_error')
+                    : t('btn_email_idle')}
                 </button>
               )}
               <Link to="/contact"
                 style={{ fontFamily: 'inherit', fontSize: 14, fontWeight: 600, background: C.red, color: '#000', border: 'none', padding: '13px 24px', borderRadius: 8, cursor: 'pointer', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-                Talk to a specialist <ExternalLink size={14} />
+                {t('btn_specialist')} <ExternalLink size={14} />
               </Link>
               <button onClick={() => window.print()}
                 style={{ fontFamily: 'inherit', fontSize: 14, fontWeight: 600, background: C.bg, color: '#fff', border: 'none', padding: '13px 24px', borderRadius: 8, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}>
-                <Printer size={14} /> Export report
+                <Printer size={14} /> {t('btn_export')}
               </button>
               <Link to="/partners"
                 style={{ fontFamily: 'inherit', fontSize: 14, fontWeight: 500, background: 'none', color: '#52525B', border: '1px solid #D4D4D8', padding: '13px 20px', borderRadius: 8, cursor: 'pointer', textDecoration: 'none', display: 'inline-block' }}>
-                Partner program
+                {t('btn_partner')}
               </Link>
             </div>
           </div>
@@ -878,7 +899,7 @@ export default function MaturityAssessment() {
           {/* Restart */}
           <div style={{ textAlign: 'center', marginTop: 16 }}>
             <button onClick={restart} style={{ fontSize: 13, color: C.muted, background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline', fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 5 }}>
-              <RotateCcw size={12} /> Restart assessment
+              <RotateCcw size={12} /> {t('btn_restart')}
             </button>
           </div>
         </div>
@@ -887,7 +908,7 @@ export default function MaturityAssessment() {
       {/* Footer */}
       <footer style={{ borderTop: `1px solid ${C.border}`, padding: '20px clamp(18px,4vw,48px)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
         <p style={{ fontSize: 12, color: C.muted }}>
-          © {new Date().getFullYear()} <Link to="/" style={{ color: C.muted, textDecoration: 'none' }}>Brandvakt Academy</Link> · Enterprise Platform
+          © {new Date().getFullYear()} <Link to="/" style={{ color: C.muted, textDecoration: 'none' }}>Brandvakt Academy</Link> · {t('footer_platform')}
         </p>
         <p style={{ fontSize: 12, color: C.muted }}>NIST CSF 2.0 · CIS Controls v8 · ISO/IEC 27001:2022</p>
       </footer>
