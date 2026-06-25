@@ -45,6 +45,8 @@
     }
   },
   "home": {
+    "meta_title": "Confiança Digital e Governança de IA",
+    "meta_desc": "A antiga arte do Firewatch aplicada à era digital. Frameworks de confiança digital e governança de IA para organizações que navegam a tecnologia corporativa globalmente.",
     "hero": {
       "badge": "Confiança Digital e Governança de IA",
       "tagline": "Resiliência cibernética na era da IA.",
@@ -264,6 +266,7 @@
       "powered_by": "Com tecnologia"
     },
     "services": {
+      "meta_title": "Serviços",
       "meta_desc": "Serviços de cibersegurança ponta a ponta — avaliação, SOC, identidade, gestão de vulnerabilidades, teste de intrusão, GRC e segurança em nuvem na África, LATAM e Oriente Médio.",
       "overline": "Capacidades Completas",
       "h1": "A Matriz de Resiliência Cibernética",
@@ -347,6 +350,7 @@
       "cta_btn": "Inicie uma conversa"
     },
     "soc": {
+      "meta_title": "Centro de Operações de Segurança",
       "meta_desc": "Detecção de ameaças e resposta a incidentes 24/7. Modelos de SOC terceirizado, gerenciado ou colaborativo, com correlação e triagem de eventos via SIEM.",
       "overline": "Centro de Operações de Segurança 24/7",
       "h1": "Comando e Controle",
@@ -487,6 +491,7 @@
       "cta_sub": "O byGRC cuida da inteligência regulatória. Sua equipe foca na implementação."
     },
     "about": {
+      "meta_title": "Sobre",
       "meta_desc": "Fundada na crise, construída para a resiliência. Brandvakt — as sentinelas digitais da nossa era. Escritórios na África e na LATAM; parcerias em quatro continentes.",
       "overline": "Sobre a Brandvakt",
       "h1_a": "As",
@@ -569,6 +574,8 @@
       "region_hub_prefix": "Hub principal ·"
     },
     "partners": {
+      "meta_title": "Parceiros",
+      "meta_desc": "O ecossistema de parceiros de tecnologia da Brandvakt — KnowBe4, Tenable, CrowdStrike e mais de 40 alianças em serviços financeiros, telecomunicações e infraestrutura crítica.",
       "hero_overline": "Ecossistema de Parceiros",
       "hero_h1_a": "A confiança de quem",
       "hero_h1_em": "não pode se dar ao luxo",
@@ -756,6 +763,7 @@
       "enroll_btn_ent": "Matrícula corporativa"
     },
     "contact": {
+      "meta_title": "Contato",
       "meta_desc": "Conecte-se com a Brandvakt para discutir sua postura de segurança, requisitos e desafios de conformidade. Regiões na África, LATAM, Europa e Oriente Médio.",
       "overline": "Inicie o Engajamento",
       "h1": "Proteja suas Defesas",
@@ -777,6 +785,8 @@
       "btn_submit": "Enviar Comunicação"
     },
     "careers": {
+      "meta_title": "Carreiras",
+      "meta_desc": "Junte-se à Brandvakt — carreiras em cibersegurança em SOC, GRC, segurança ofensiva e vendas, com escritórios globais e uma cultura security-first.",
       "hero_overline": "Carreiras",
       "hero_h1_a": "Garanta seu",
       "hero_h1_em": "futuro",
@@ -872,6 +882,7 @@
     }
   },
   "csma": {
+    "meta_title": "Avaliação de Maturidade em Cibersegurança",
     "meta_desc": "Avaliação gratuita de maturidade em cibersegurança gerada por IA — responda 18 perguntas sobre NIST CSF, CIS Controls e ISO 27001 e receba um diagnóstico executivo, análise de lacunas e um roadmap de remediação de 12 meses.",
     "hero_badge": "Avaliação Enterprise Gratuita",
     "hero_title_a": "Quão madura é a",

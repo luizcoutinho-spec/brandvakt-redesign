@@ -1,6 +1,12 @@
 import './Legal.css';
+import { useMeta } from '../lib/useMeta';
 
 const Privacy = () => {
+  // Meta kept EN-only for now — page body is still English (translated in a later lote).
+  useMeta({
+    title: 'Privacy Policy',
+    description: "Brandvakt's privacy policy — how we collect, use, and protect personal data in line with GDPR and LGPD.",
+  });
   return (
     <div className="page-wrapper legal-page">
       <section className="hero-legal animate-fade-up">

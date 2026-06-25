@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './Careers.css';
+import { useMeta } from '../lib/useMeta';
 
 interface Position {
   apiTitle: string;   // stable English title sent to /api/apply (internal email stays EN)
@@ -72,6 +73,10 @@ function fileToBase64(file: File): Promise<string> {
 
 const Careers = () => {
   const { t } = useTranslation('pages');
+  useMeta({
+    title: t('careers.meta_title'),
+    description: t('careers.meta_desc'),
+  });
   const [selected, setSelected] = useState<Position | null>(null);
   const [email, setEmail] = useState('');
   const [file, setFile] = useState<File | null>(null);

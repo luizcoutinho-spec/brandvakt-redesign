@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
+import { useMeta } from '../lib/useMeta';
 
 const NotFound = () => {
+  // Meta kept EN-only for now — page body is still English (translated in a later lote).
+  useMeta({
+    title: 'Page Not Found',
+    description: 'The page you are looking for does not exist. Return to the Brandvakt homepage.',
+  });
   return (
     <div className="page-wrapper" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 'calc(100vh - 300px)' }}>
       <div style={{ textAlign: 'center' }}>

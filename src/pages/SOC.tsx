@@ -6,7 +6,7 @@ import { useMeta } from '../lib/useMeta';
 const SOC = () => {
   const { t } = useTranslation('institutional');
   useMeta({
-    title: 'Security Operations Center',
+    title: t('soc.meta_title'),
     description: t('soc.meta_desc'),
   });
   return (

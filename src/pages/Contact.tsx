@@ -11,7 +11,7 @@ type Status = 'idle' | 'sending' | 'success' | 'error';
 const Contact = () => {
   const { t } = useTranslation('pages');
   useMeta({
-    title: 'Contact',
+    title: t('contact.meta_title'),
     description: t('contact.meta_desc'),
   });
   const [status, setStatus] = useState<Status>('idle');

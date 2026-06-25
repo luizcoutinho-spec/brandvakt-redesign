@@ -45,6 +45,8 @@
     }
   },
   "home": {
+    "meta_title": "Digital Trust & AI Governance",
+    "meta_desc": "The ancient art of the Firewatch applied to the digital age. Digital trust frameworks and AI governance for organizations navigating enterprise technology globally.",
     "hero": {
       "badge": "Digital Trust & AI Governance",
       "tagline": "Cyber resilience in the age of AI.",
@@ -264,6 +266,7 @@
       "powered_by": "Powered by"
     },
     "services": {
+      "meta_title": "Services",
       "meta_desc": "End-to-end cybersecurity services — assessment, SOC, identity, vulnerability management, penetration testing, GRC, and cloud security across Africa, LATAM, and the Middle East.",
       "overline": "Complete Capabilities",
       "h1": "The Cyber Resilience Matrix",
@@ -347,6 +350,7 @@
       "cta_btn": "Start a conversation"
     },
     "soc": {
+      "meta_title": "Security Operations Center",
       "meta_desc": "24/7 threat detection and incident response. Outsourced, managed, or collaborative SOC models with SIEM-powered event correlation and triage.",
       "overline": "24/7 Security Operations Center",
       "h1": "Command & Control",
@@ -487,6 +491,7 @@
       "cta_sub": "byGRC handles the regulatory intelligence. Your team focuses on implementation."
     },
     "about": {
+      "meta_title": "About",
       "meta_desc": "Founded in crisis, built for resilience. Brandvakt — the digital sentinels of our age. Offices across Africa and LATAM; partnerships across four continents.",
       "overline": "About Brandvakt",
       "h1_a": "The digital",
@@ -569,6 +574,8 @@
       "region_hub_prefix": "Primary hub ·"
     },
     "partners": {
+      "meta_title": "Partners",
+      "meta_desc": "Brandvakt's technology partner ecosystem — KnowBe4, Tenable, CrowdStrike and 40+ alliances across financial services, telecommunications, and critical infrastructure.",
       "hero_overline": "Partner Ecosystem",
       "hero_h1_a": "Trusted by those who",
       "hero_h1_em": "cannot afford",
@@ -756,6 +763,7 @@
       "enroll_btn_ent": "Enterprise enrollment"
     },
     "contact": {
+      "meta_title": "Contact",
       "meta_desc": "Connect with Brandvakt to discuss your security posture, requirements, and compliance challenges. Regions across Africa, LATAM, Europe and the Middle East.",
       "overline": "Initiate Engagement",
       "h1": "Secure Your Defenses",
@@ -777,6 +785,8 @@
       "btn_submit": "Submit Communication"
     },
     "careers": {
+      "meta_title": "Careers",
+      "meta_desc": "Join Brandvakt — cybersecurity careers across SOC, GRC, offensive security, and sales, with global offices and a security-first culture.",
       "hero_overline": "Careers",
       "hero_h1_a": "Secure your",
       "hero_h1_em": "future",
@@ -872,6 +882,7 @@
     }
   },
   "csma": {
+    "meta_title": "Cybersecurity Maturity Assessment",
     "meta_desc": "Free AI-generated cybersecurity maturity assessment — answer 18 questions across NIST CSF, CIS Controls and ISO 27001 and receive an executive diagnosis, gap analysis, and a 12-month remediation roadmap.",
     "hero_badge": "Free Enterprise Assessment",
     "hero_title_a": "How mature is your organization's",

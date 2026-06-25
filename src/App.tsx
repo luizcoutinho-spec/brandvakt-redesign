@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, useParams, useLocation } from 'react-router-dom'
 import i18n, { isLang } from './i18n'
+import { useSeoLinks } from './lib/useSeoLinks'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import SOC from './pages/SOC'
@@ -27,8 +28,14 @@ function LocalizedApp() {
   const location = useLocation()
   const valid = isLang(lang)
 
+  // hreflang + canonical for the current route (depends only on lang + path).
+  useSeoLinks(valid && lang ? lang : 'en')
+
   useEffect(() => {
-    if (valid && i18n.language !== lang) i18n.changeLanguage(lang)
+    if (valid && lang) {
+      if (i18n.language !== lang) i18n.changeLanguage(lang)
+      document.documentElement.lang = lang
+    }
   }, [lang, valid])
 
   // Invalid first segment (e.g. an old absolute "/about" link, or a typo):

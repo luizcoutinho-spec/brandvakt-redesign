@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import './Home.css';
 import { HeroSection } from '../components/HeroSection';
 import { TrustBar } from '../components/TrustBar';
@@ -6,9 +7,10 @@ import { CapabilitiesSection, SOCSection, ProductsSection, CTASection } from '..
 import { useMeta } from '../lib/useMeta';
 
 const Home = () => {
+  const { t } = useTranslation('home');
   useMeta({
-    title: 'Digital Trust & AI Governance',
-    description: 'The ancient art of the Firewatch applied to the digital age. Digital trust frameworks and AI governance for organizations navigating enterprise technology globally.'
+    title: t('meta_title'),
+    description: t('meta_desc'),
   });
   return (
     <div className="home">

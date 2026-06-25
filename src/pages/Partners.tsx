@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './Partners.css';
+import { useMeta } from '../lib/useMeta';
 
 const partnersData = [
   "AWS", "Brainwave GRC", "Citrix", "CyberArk", "F5", "Forcepoint", "Fortinet", "IBM", "Illumio",
@@ -12,6 +13,10 @@ const partnersData = [
 
 const Partners = () => {
   const { t } = useTranslation('institutional');
+  useMeta({
+    title: t('partners.meta_title'),
+    description: t('partners.meta_desc'),
+  });
   return (
     <div className="page-wrapper partners-page">
       {/* Hero */}

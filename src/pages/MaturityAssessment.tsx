@@ -255,7 +255,7 @@ export default function MaturityAssessment() {
   const tLevel = (en: string) => t(LEVEL_KEY[en] ?? 'level_initial');
 
   useMeta({
-    title: 'Cybersecurity Maturity Assessment',
+    title: t('meta_title'),
     description: t('meta_desc'),
   });
 

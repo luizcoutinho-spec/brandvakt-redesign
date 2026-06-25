@@ -19,7 +19,7 @@ const TIMEZONES: Record<string, string> = {
 const About = () => {
   const { t } = useTranslation('institutional');
   useMeta({
-    title: 'About',
+    title: t('about.meta_title'),
     description: t('about.meta_desc'),
   });
   const [times, setTimes] = useState<Record<string, string>>({});

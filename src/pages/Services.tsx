@@ -6,7 +6,7 @@ import { useMeta } from '../lib/useMeta';
 const Services = () => {
   const { t } = useTranslation('institutional');
   useMeta({
-    title: 'Services',
+    title: t('services.meta_title'),
     description: t('services.meta_desc'),
   });
   return (

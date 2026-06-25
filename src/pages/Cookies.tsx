@@ -1,6 +1,12 @@
 import './Legal.css';
+import { useMeta } from '../lib/useMeta';
 
 const Cookies = () => {
+  // Meta kept EN-only for now — page body is still English (translated in a later lote).
+  useMeta({
+    title: 'Cookie Policy',
+    description: "Brandvakt's cookie policy — how we use cookies and similar technologies on our website.",
+  });
   return (
     <div className="page-wrapper legal-page">
       <section className="hero-legal animate-fade-up">
