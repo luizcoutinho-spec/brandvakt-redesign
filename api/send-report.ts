@@ -28,7 +28,60 @@ interface ReportPayload {
   diagnosis?: string;
   roadmap?: string[];
   proposal?: string;
+  lang?: string;
 }
+
+// ── Email chrome (labels) per language. Report content itself already arrives
+// in the lead's language from the client. Defaults to English when lang is
+// missing/unknown (backward compatible). ──
+type Lng = 'en' | 'pt' | 'fr';
+function pickLang(l?: string): Lng {
+  return l === 'pt' || l === 'fr' ? l : 'en';
+}
+
+const LABELS: Record<Lng, {
+  subject: string; eyebrow: string; overall: string;
+  diagnosis: string; roadmap: string; proposal: string;
+  phases: [string, string, string]; org: string;
+}> = {
+  en: {
+    subject: 'Your Brandvakt Security Maturity Report',
+    eyebrow: 'Brandvakt · Security Maturity Report',
+    overall: 'Overall maturity:',
+    diagnosis: 'Executive Diagnosis',
+    roadmap: '12-Month Remediation Roadmap',
+    proposal: 'Commercial Proposal · Brandvakt Academy',
+    phases: ['Phase 1 · Months 1–3 · Immediate', 'Phase 2 · Months 4–8 · Short-term', 'Phase 3 · Months 9–12 · Strategic'],
+    org: 'Your Organization',
+  },
+  pt: {
+    subject: 'Seu Relatório de Maturidade em Segurança da Brandvakt',
+    eyebrow: 'Brandvakt · Relatório de Maturidade em Segurança',
+    overall: 'Maturidade geral:',
+    diagnosis: 'Diagnóstico Executivo',
+    roadmap: 'Roadmap de Remediação de 12 Meses',
+    proposal: 'Proposta Comercial · Brandvakt Academy',
+    phases: ['Fase 1 · Meses 1–3 · Imediato', 'Fase 2 · Meses 4–8 · Curto prazo', 'Fase 3 · Meses 9–12 · Estratégico'],
+    org: 'Sua Organização',
+  },
+  fr: {
+    subject: 'Votre rapport de maturité en sécurité Brandvakt',
+    eyebrow: 'Brandvakt · Rapport de maturité en sécurité',
+    overall: 'Maturité globale :',
+    diagnosis: 'Diagnostic exécutif',
+    roadmap: 'Feuille de route de remédiation sur 12 mois',
+    proposal: 'Proposition commerciale · Brandvakt Academy',
+    phases: ['Phase 1 · Mois 1–3 · Immédiat', 'Phase 2 · Mois 4–8 · Court terme', 'Phase 3 · Mois 9–12 · Stratégique'],
+    org: 'Votre organisation',
+  },
+};
+
+// Maturity level word (arrives in English in the payload) → localized display.
+const LEVELS: Record<Lng, Record<string, string>> = {
+  en: {},
+  pt: { Initial: 'Inicial', Repeatable: 'Repetível', Defined: 'Definido', Managed: 'Gerenciado', Optimized: 'Otimizado' },
+  fr: { Initial: 'Initial', Repeatable: 'Reproductible', Defined: 'Défini', Managed: 'Géré', Optimized: 'Optimisé' },
+};
 
 // ── Rate limit: fixed window, 12 requests / IP / minute ──
 const RATE_LIMIT = 12;
@@ -87,12 +140,15 @@ function sectionTitle(text: string): string {
 }
 
 function buildHtml(p: ReportPayload): string {
-  const company = escapeHtml(p.company || 'Your Organization');
+  const lng = pickLang(p.lang);
+  const L = LABELS[lng];
+  const company = escapeHtml(p.company || L.org);
   const name = escapeHtml(`${p.firstName ?? ''} ${p.lastName ?? ''}`.trim());
   const score = typeof p.maturityScore === 'number' ? `${p.maturityScore}%` : '—';
-  const level = escapeHtml(p.maturityLevel || '—');
+  const levelRaw = p.maturityLevel ? (LEVELS[lng][p.maturityLevel] ?? p.maturityLevel) : '—';
+  const level = escapeHtml(levelRaw);
   const roadmap = Array.isArray(p.roadmap) ? p.roadmap : [];
-  const phaseLabels = ['Phase 1 · Months 1–3 · Immediate', 'Phase 2 · Months 4–8 · Short-term', 'Phase 3 · Months 9–12 · Strategic'];
+  const phaseLabels = L.phases;
 
   const roadmapHtml = roadmap
     .map((phase, i) =>
@@ -112,17 +168,17 @@ function buildHtml(p: ReportPayload): string {
     `<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e4e4e7;">` +
     // Header
     `<tr><td style="padding:28px 32px;background:#09090B;">` +
-    `<div style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4fe6d2;">Brandvakt · Security Maturity Report</div>` +
+    `<div style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#4fe6d2;">${escapeHtml(L.eyebrow)}</div>` +
     `<div style="font-size:22px;font-weight:800;color:#ffffff;margin-top:8px;">${company}</div>` +
-    `<div style="font-size:13px;color:#a1a1aa;margin-top:4px;">${name ? name + ' · ' : ''}Overall maturity: <strong style="color:#4fe6d2;">${score}</strong> · ${level}</div>` +
+    `<div style="font-size:13px;color:#a1a1aa;margin-top:4px;">${name ? name + ' · ' : ''}${escapeHtml(L.overall)} <strong style="color:#4fe6d2;">${score}</strong> · ${level}</div>` +
     `</td></tr>` +
     // Body
     `<tr><td style="padding:8px 32px 32px;">` +
-    sectionTitle('Executive Diagnosis') +
+    sectionTitle(L.diagnosis) +
     (toParagraphs(p.diagnosis || '') || '<p style="color:#71717a;">—</p>') +
-    sectionTitle('12-Month Remediation Roadmap') +
+    sectionTitle(L.roadmap) +
     (roadmapHtml || '<p style="color:#71717a;">—</p>') +
-    sectionTitle('Commercial Proposal · Brandvakt Academy') +
+    sectionTitle(L.proposal) +
     (toParagraphs(p.proposal || '') || '<p style="color:#71717a;">—</p>') +
     `</td></tr>` +
     // Footer
@@ -137,7 +193,8 @@ async function resendSend(p: ReportPayload): Promise<void> {
   const key = process.env.RESEND_API_KEY;
   const from = process.env.LEAD_FROM_EMAIL;
   if (!key || !from) throw new Error('Resend env not configured');
-  const company = p.company || 'Your Organization';
+  const L = LABELS[pickLang(p.lang)];
+  const company = p.company || L.org;
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
@@ -145,7 +202,7 @@ async function resendSend(p: ReportPayload): Promise<void> {
       from,
       to: [p.email],
       bcc: ['luiz.coutinho@brandvakt.com', 'info@brandvakt.com'],
-      subject: `Your Brandvakt Security Maturity Report — ${company}`,
+      subject: `${L.subject} — ${company}`,
       html: buildHtml(p),
     }),
   });

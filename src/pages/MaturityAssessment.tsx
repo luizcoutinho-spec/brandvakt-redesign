@@ -133,66 +133,53 @@ function answeredCount(answers: Answers): number { return Object.keys(answers).l
 /* ═══════════════════════════════════════════════════════════
    AI PROMPTS
 ═══════════════════════════════════════════════════════════ */
-function sysPrompt() {
+// Target-language names for the model's output-language directive.
+const LANG_NAME: Record<string, string> = { en: 'English', pt: 'Brazilian Portuguese', fr: 'French' };
+
+function sysPrompt(lang = 'en') {
   return `You are a senior cybersecurity consultant at Brandvakt Academy — a specialist firm in GRC, security awareness training, phishing simulation, and compliance, operating internationally.
 
 Your role is to generate precise, executive-grade security assessments. Your output must be:
 - Analytically rigorous, not generic
-- Written in formal English, executive tone
+- Written in a formal, executive tone
 - Dense with insight, devoid of filler phrases
 - Specific to the data provided
 - Commercially aware — connect technical gaps to business risk and Brandvakt's service portfolio
 
-Never use bullet lists. Write in dense, structured paragraphs.`;
+Never use bullet lists. Write in dense, structured paragraphs.
+
+Write the ENTIRE response in ${LANG_NAME[lang] ?? 'English'}. Technical security terms, framework names and acronyms (NIST, CIS, ISO 27001, MFA, SIEM, LGPD, GDPR, RTO/RPO) may stay in English where standard.`;
 }
 
-function diagnosisPrompt(pct: number, matLabel: string, gaps: ReturnType<typeof getGaps>, answers: Answers, lead: LeadData): string {
+function diagnosisPrompt(pct: number, matLabel: string, gaps: ReturnType<typeof getGaps>, answers: Answers, lead: LeadData, lang: string, tDomain: (id: string) => string): string {
   const domainData = DOMAINS.map(d => {
     const p = Math.round(domainScore(d.id, answers) / 5 * 100);
     const scores = d.questions.map((q, qi) => `[${answers[`${d.id}_${qi}`] ?? 0}/5] ${q.t.substring(0, 55)}...`);
-    return `${d.name} (${p}%): ${scores.join(' | ')}`;
+    return `${tDomain(d.id)} (${p}%): ${scores.join(' | ')}`;
   }).join('\n');
   const gapData = gaps.map(g => `[${g.score}/5] ${g.text.substring(0, 80)}... — ${g.fw[0]}`).join('\n');
-  return `${sysPrompt()}\n\n---\n\nASSESSMENT DATA — ${lead.company || 'Client Organization'}\nContact: ${lead.firstName} ${lead.lastName}, ${lead.role || 'Security stakeholder'}\nCompany size: ${lead.size || 'Not specified'}\n\nOVERALL MATURITY SCORE: ${pct}% — ${matLabel} level (CMMI-based, 0–5 scale per control)\n\nDOMAIN SCORES:\n${domainData}\n\nCRITICAL AND PRIORITY GAPS (score ≤ 2/5):\n${gapData.length > 0 ? gapData : 'No critical gaps identified.'}\n\n---\n\nWrite a 4-paragraph executive security diagnosis (200–260 words total, NO bullet points, NO headers):\n\nParagraph 1 — MATURITY PROFILE: What this score pattern reveals about the organization's actual security posture.\nParagraph 2 — PRIMARY RISK EXPOSURE: Regulatory, operational, or reputational risk from the gaps. Reference LGPD/GDPR exposure, audit failure risk, incident probability.\nParagraph 3 — HIGHEST-LEVERAGE ACTIONS: The 2–3 specific controls that would produce the greatest maturity improvement. Be prescriptive.\nParagraph 4 — STRATEGIC OPPORTUNITY: How resolving these gaps creates measurable business value.`;
+  return `${sysPrompt(lang)}\n\n---\n\nASSESSMENT DATA — ${lead.company || 'Client Organization'}\nContact: ${lead.firstName} ${lead.lastName}, ${lead.role || 'Security stakeholder'}\nCompany size: ${lead.size || 'Not specified'}\n\nOVERALL MATURITY SCORE: ${pct}% — ${matLabel} level (CMMI-based, 0–5 scale per control)\n\nDOMAIN SCORES:\n${domainData}\n\nCRITICAL AND PRIORITY GAPS (score ≤ 2/5):\n${gapData.length > 0 ? gapData : 'No critical gaps identified.'}\n\n---\n\nWrite a 4-paragraph executive security diagnosis (200–260 words total, NO bullet points, NO headers):\n\nParagraph 1 — MATURITY PROFILE: What this score pattern reveals about the organization's actual security posture.\nParagraph 2 — PRIMARY RISK EXPOSURE: Regulatory, operational, or reputational risk from the gaps. Reference LGPD/GDPR exposure, audit failure risk, incident probability.\nParagraph 3 — HIGHEST-LEVERAGE ACTIONS: The 2–3 specific controls that would produce the greatest maturity improvement. Be prescriptive.\nParagraph 4 — STRATEGIC OPPORTUNITY: How resolving these gaps creates measurable business value.`;
 }
 
-function roadmapPrompt(phase: number, pct: number, gaps: ReturnType<typeof getGaps>, lead: LeadData): string {
+function roadmapPrompt(phase: number, pct: number, gaps: ReturnType<typeof getGaps>, lead: LeadData, lang: string): string {
   const gapSummary = gaps.map(g => `[${g.score}/5] ${g.fw[0]}: ${g.text.substring(0, 70)}...`).join('\n');
   const instructions = [
     'Phase 1 (Months 1-3): Write 3-4 dense sentences on IMMEDIATE actions. Focus on critical gaps (score 0-1). Name specific controls from NIST/CIS/ISO. Be prescriptive.',
     'Phase 2 (Months 4-8): Write 3-4 dense sentences on FORMALIZATION and MONITORING. Focus on gaps scored 2-3. Address process documentation, testing, tool implementation, and governance. Connect to ISO 27001 readiness.',
     'Phase 3 (Months 9-12): Write 3-4 dense sentences on OPTIMIZATION and CERTIFICATION READINESS. Describe how the organization achieves Managed or Optimized posture. Reference ISO 27001 certification and measurable metrics.',
   ];
-  return `${sysPrompt()}\n\nCompany: ${lead.company || 'Client'} · Overall maturity: ${pct}% · Gaps: ${gaps.length} priority controls\n\nGaps:\n${gapSummary}\n\n${instructions[phase]}\n\nWrite ONLY the paragraph. No preamble, no labels, no bullet points.`;
+  return `${sysPrompt(lang)}\n\nCompany: ${lead.company || 'Client'} · Overall maturity: ${pct}% · Gaps: ${gaps.length} priority controls\n\nGaps:\n${gapSummary}\n\n${instructions[phase]}\n\nWrite ONLY the paragraph. No preamble, no labels, no bullet points.`;
 }
 
-function proposalPrompt(pct: number, gaps: ReturnType<typeof getGaps>, lead: LeadData): string {
-  return `${sysPrompt()}\n\nCompany: ${lead.company || 'Client'}\nContact: ${lead.firstName} ${lead.lastName}, ${lead.role || 'Stakeholder'}\nSize: ${lead.size || 'Not specified'}\nOverall maturity: ${pct}% · ${gaps.length} priority gaps · ${gaps.filter(g => g.score <= 1).length} critical\n\nWrite a tailored 4-paragraph commercial proposal (180-220 words, NO bullet points, NO headers) from Brandvakt Academy:\n\nParagraph 1 — SITUATION ACKNOWLEDGMENT: Acknowledge the client's maturity position and business risk.\nParagraph 2 — RECOMMENDED SOLUTION: Propose specific Brandvakt products (Security Awareness Training, PhishER, Compliance Suite) connecting each to specific gaps.\nParagraph 3 — EXPECTED OUTCOMES: What the client achieves 12 months after engaging Brandvakt Academy.\nParagraph 4 — NEXT STEP: A confident invitation to schedule a 30-minute architecture review call.`;
+function proposalPrompt(pct: number, gaps: ReturnType<typeof getGaps>, lead: LeadData, lang: string): string {
+  return `${sysPrompt(lang)}\n\nCompany: ${lead.company || 'Client'}\nContact: ${lead.firstName} ${lead.lastName}, ${lead.role || 'Stakeholder'}\nSize: ${lead.size || 'Not specified'}\nOverall maturity: ${pct}% · ${gaps.length} priority gaps · ${gaps.filter(g => g.score <= 1).length} critical\n\nWrite a tailored 4-paragraph commercial proposal (180-220 words, NO bullet points, NO headers) from Brandvakt Academy:\n\nParagraph 1 — SITUATION ACKNOWLEDGMENT: Acknowledge the client's maturity position and business risk.\nParagraph 2 — RECOMMENDED SOLUTION: Propose specific Brandvakt products (Security Awareness Training, PhishER, Compliance Suite) connecting each to specific gaps.\nParagraph 3 — EXPECTED OUTCOMES: What the client achieves 12 months after engaging Brandvakt Academy.\nParagraph 4 — NEXT STEP: A confident invitation to schedule a 30-minute architecture review call.`;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   SMART FALLBACKS (no API needed)
+   SMART FALLBACKS — text now lives in the csma i18n namespace
+   (fb_diagnosis / fb_phase0 / fb_phase1 / fb_phase2 / fb_proposal),
+   built per-language in the component via t(). See runAI().
 ═══════════════════════════════════════════════════════════ */
-function fallback(type: 'diagnosis' | 'phase0' | 'phase1' | 'phase2' | 'proposal', pct: number, gaps: ReturnType<typeof getGaps>, answers: Answers, lead: LeadData): string {
-  const mat = matLevel(pct);
-  const worst = [...DOMAINS].sort((a, b) => domainScore(a.id, answers) - domainScore(b.id, answers))[0];
-  const critCount = gaps.filter(g => g.score <= 1).length;
-
-  if (type === 'phase0') {
-    return `The immediate priority is to address the ${critCount} controls currently at score 0–1. Begin with formalizing the asset inventory (CIS Control 1-2), implementing MFA across all administrative and remote access (CIS 6.3 / ISO A.8.5), and establishing a documented incident response procedure (NIST RS.RP). These three actions alone materially reduce the probability of a successful attack and are prerequisites for any subsequent compliance work.`;
-  }
-  if (type === 'phase1') {
-    return `Months 4 through 8 should focus on elevating scores in the ${worst.name} domain from their current baseline to a minimum Defined level (3/5). This requires documented procedures with owner accountability, quarterly review cycles, and implementation of centralized logging with defined retention periods. Security awareness training must shift from ad-hoc to structured — scheduled, tracked, and tied to role-based risk profiles.`;
-  }
-  if (type === 'phase2') {
-    return `The final quarter positions the organization for ISO 27001 certification readiness and a sustainable Managed maturity posture. This includes a formal management review cycle, internal audit capability, supplier risk assessment integration, and continuous improvement metrics tracked at the executive level. Achieving this state eliminates most due diligence objections in enterprise sales cycles and M&A processes.`;
-  }
-  if (type === 'proposal') {
-    return `Your current security posture at ${pct}% reflects a transitional organization — one that has made initial investments in security but has not yet systematized its controls into a defensible, auditable framework. The ${gaps.length} priority gaps identified represent both operational risk and a missed opportunity to differentiate in regulated markets.\n\nBrandvakt Academy's Compliance Suite directly addresses your governance and framework gaps, providing automated controls mapping against ISO 27001, LGPD, and GDPR. Where human risk is a factor, our Security Awareness platform delivers role-specific training in 80+ languages with measurable behavioral change tracking. For organizations with phishing exposure, PhishER closes the loop between simulation and automated remediation training.\n\nOrganizations that complete a structured remediation cycle with Brandvakt Academy typically achieve a 25–40 percentage point maturity improvement within 12 months. This translates directly to ISO 27001 pre-audit readiness, LGPD compliance evidence packages, and the Human Risk Score documentation demanded by enterprise procurement and cyber insurers.\n\nOur next step is a 30-minute architecture review call — no sales pressure, just a Brandvakt specialist arriving with a pre-mapped remediation plan for your specific control profile. This call is complimentary and actionable regardless of whether you engage further.`;
-  }
-  // diagnosis
-  return `With an overall score of ${pct}% (${mat.l} level), ${lead.company || 'this organization'} presents a security posture that reflects uneven control maturity across the five NIST CSF domains. The ${worst.name} domain — scoring lowest in this assessment — represents the most acute point of operational exposure, where informal or absent controls create systemic vulnerability to both opportunistic and targeted threats.\n\nThe ${critCount} critical gaps (score 0–1) represent immediate regulatory and operational risk. In jurisdictions subject to LGPD or GDPR, the absence of documented controls in these areas constitutes a compliance deficit that audit bodies can act upon without a triggering incident. The reputational and financial exposure in a breach scenario is compounded by the absence of a tested incident response capability.\n\nThe highest-leverage immediate actions are: formalizing the asset inventory and classification scheme, implementing MFA universally (the single highest-return security control per CISA and CIS data), and testing the incident response plan against a tabletop scenario. These three actions, executed within 90 days, would elevate the overall score by an estimated 8–12 percentage points.\n\nResolving the identified control gaps positions the organization not merely to reduce risk, but to compete for enterprise contracts, pass vendor security questionnaires, and qualify for preferred cyber insurance terms. For organizations pursuing ISO 27001 certification, this assessment represents the gap analysis that typically costs $15,000–$40,000 from a Big-4 advisory firm.`;
-}
 
 /* ═══════════════════════════════════════════════════════════
    STREAMING HELPER
@@ -200,7 +187,8 @@ function fallback(type: 'diagnosis' | 'phase0' | 'phase1' | 'phase2' | 'proposal
 async function streamToState(
   prompt: string,
   onChunk: (text: string) => void,
-  fallbackText: string
+  fallbackText: string,
+  lang: string
 ): Promise<void> {
   try {
     const res = await fetch('/api/claude', {
@@ -210,7 +198,7 @@ async function streamToState(
         model: 'claude-sonnet-4-6',
         max_tokens: 700,
         stream: true,
-        system: sysPrompt(),
+        system: sysPrompt(lang),
         messages: [{ role: 'user', content: prompt }],
       }),
     });
@@ -304,6 +292,7 @@ export default function MaturityAssessment() {
           diagnosis: aiDiagnosis,
           roadmap: roadmapPhases,
           proposal: aiProposal,
+          lang,
         }),
       });
       if (!res.ok) throw new Error('request failed');
@@ -383,32 +372,46 @@ export default function MaturityAssessment() {
     const pct  = overallPct(answers);
     const mat  = matLevel(pct);
     const gaps = getGaps(answers);
+    const worst = [...DOMAINS].sort((a, b) => domainScore(a.id, answers) - domainScore(b.id, answers))[0];
+    const tDomain = (id: string) => t(`dom_${id}_name`);
+
+    // Language-aware static fallbacks (shown only if the API call fails/returns empty).
+    const fb = (type: string) => t(`fb_${type}`, {
+      pct,
+      level: tLevel(mat.l),
+      company: leadData.company || t('fb_company'),
+      worst: tDomain(worst.id),
+      crit: gaps.filter(g => g.score <= 1).length,
+      gaps: gaps.length,
+    });
 
     /* Diagnosis */
     await streamToState(
-      diagnosisPrompt(pct, mat.l, gaps, answers, leadData),
+      diagnosisPrompt(pct, mat.l, gaps, answers, leadData, lang, tDomain),
       text => setAiDiagnosis(text),
-      fallback('diagnosis', pct, gaps, answers, leadData)
+      fb('diagnosis'),
+      lang
     );
 
     /* Roadmap phases (sequential) */
     const phases: ['phase0', 'phase1', 'phase2'] = ['phase0', 'phase1', 'phase2'];
     for (let i = 0; i < 3; i++) {
       await new Promise(r => setTimeout(r, 300));
-      const fb = fallback(phases[i], pct, gaps, answers, leadData);
       await streamToState(
-        roadmapPrompt(i, pct, gaps, leadData),
+        roadmapPrompt(i, pct, gaps, leadData, lang),
         text => setRoadmapPhases(prev => { const next = [...prev]; next[i] = text; return next; }),
-        fb
+        fb(phases[i]),
+        lang
       );
     }
 
     /* Proposal */
     await new Promise(r => setTimeout(r, 300));
     await streamToState(
-      proposalPrompt(pct, gaps, leadData),
+      proposalPrompt(pct, gaps, leadData, lang),
       text => setAiProposal(text),
-      fallback('proposal', pct, gaps, answers, leadData)
+      fb('proposal'),
+      lang
     );
 
     setStreaming(false);
