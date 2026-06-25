@@ -465,7 +465,7 @@ export default function MaturityAssessment() {
               style={{
                 marginTop: 36, display: 'inline-flex', alignItems: 'center', gap: 8,
                 fontFamily: 'var(--font-sans)', fontSize: 14, fontWeight: 600,
-                color: '#fff', background: C.red, border: `1px solid ${C.red}`,
+                color: '#000', background: C.red, border: `1px solid ${C.red}`,
                 padding: '13px 28px', borderRadius: 8, cursor: 'pointer',
               }}
             >
