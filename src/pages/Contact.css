@@ -7,37 +7,33 @@
   padding: 2rem;
 }
 
-.contact-hub-list {
-  list-style: none;
-  margin-top: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+.contact-info-block {
+  margin-top: 1.75rem;
 }
 
-.contact-hub-city {
-  color: var(--color-teal);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  display: block;
+.contact-info-block .overline {
+  margin-bottom: 0.5rem;
 }
 
-.contact-hub-role {
-  margin-top: 0.4rem;
-  font-size: 0.95rem;
-  color: var(--color-text-secondary);
-}
-
-.contact-email-block {
-  margin-top: 2rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+.contact-info-value {
+  font-size: 1rem;
+  color: var(--color-text-primary);
 }
 
 .contact-email-link {
   color: var(--color-text-primary);
   font-size: 1rem;
+}
+
+.contact-error {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #E5352A;
+}
+
+.contact-error a {
+  color: #E5352A;
+  text-decoration: underline;
 }
 
 .contact-form-col { min-width: 0; }

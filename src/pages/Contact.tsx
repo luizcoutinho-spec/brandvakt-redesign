@@ -5,42 +5,36 @@ import { useMeta } from '../lib/useMeta';
 
 const CONTACT_EMAIL = 'info@brandvakt.com';
 
-interface GlobalHub {
-  city: string;
-  country: string;
-  role: string;
-}
-
-const GLOBAL_HUBS: GlobalHub[] = [
-  { city: 'Kinshasa',  country: 'DR Congo',    role: 'Africa Headquarters' },
-  { city: 'Luanda',    country: 'Angola',      role: 'Africa Operations' },
-  { city: 'Abidjan',   country: 'Ivory Coast', role: 'West Africa Hub' },
-  { city: 'Bamako',    country: 'Mali',        role: 'West Africa Hub' },
-  { city: 'São Paulo', country: 'Brazil',      role: 'LATAM Operations' },
-];
+type Status = 'idle' | 'sending' | 'success' | 'error';
 
 const Contact = () => {
   useMeta({
     title: 'Contact',
-    description: 'Connect with Brandvakt to discuss your security posture, requirements, and compliance challenges. Global hubs across Africa and LATAM.'
+    description: 'Connect with Brandvakt to discuss your security posture, requirements, and compliance challenges. Regions across Africa, LATAM, Europe and the Middle East.'
   });
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>('idle');
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const first = String(data.get('first') ?? '').trim();
-    const last = String(data.get('last') ?? '').trim();
-    const email = String(data.get('email') ?? '').trim();
-    const details = String(data.get('details') ?? '').trim();
-    const body = [
-      `Name: ${first} ${last}`,
-      `Email: ${email}`,
-      '',
-      details,
-    ].join('\n');
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Enquiry from ${first || 'website'}`)}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    const payload = {
+      first: String(data.get('first') ?? '').trim(),
+      last: String(data.get('last') ?? '').trim(),
+      email: String(data.get('email') ?? '').trim(),
+      details: String(data.get('details') ?? '').trim(),
+    };
+    setStatus('sending');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('request failed');
+      setStatus('success');
+    } catch {
+      setStatus('error');
+    }
   };
 
   return (
@@ -58,32 +52,34 @@ const Contact = () => {
       <section className="section container">
         <div className="glass-panel contact-shell">
           <div>
-            <h2 className="heading-secondary">Global Hubs</h2>
-            <ul className="contact-hub-list">
-              {GLOBAL_HUBS.map((hub) => (
-                <li key={hub.city}>
-                  <strong className="contact-hub-city">{hub.city}, {hub.country}</strong>
-                  <div className="contact-hub-role">{hub.role}</div>
-                </li>
-              ))}
-            </ul>
-            <div className="contact-email-block">
-              <strong className="contact-hub-city">Email</strong>
-              <div className="contact-email-link" style={{ marginTop: '0.4rem' }}>
+            <h2 className="heading-secondary">Contact us</h2>
+
+            <div className="contact-info-block">
+              <span className="overline text-teal">Email</span>
+              <div className="contact-email-link">
                 <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
               </div>
+            </div>
+
+            <div className="contact-info-block">
+              <span className="overline text-teal">Regions</span>
+              <div className="contact-info-value">Africa · LATAM · Europe · Middle East</div>
+            </div>
+
+            <div className="contact-info-block">
+              <span className="overline text-teal">Response Time</span>
+              <div className="contact-info-value">Within 24 hours</div>
             </div>
           </div>
 
           <div className="contact-form-col">
-            {sent ? (
+            {status === 'success' ? (
               <div className="contact-success">
-                <h3 className="heading-secondary">Thanks — we'll be in touch.</h3>
+                <h3 className="heading-secondary">Thanks — message received.</h3>
                 <p className="body-large">
-                  Your mail client should be opening. If it didn't, write to{' '}
-                  <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+                  We received your message and will reply within 24 hours.
                 </p>
-                <button type="button" className="button-secondary" onClick={() => setSent(false)}>
+                <button type="button" className="button-secondary" onClick={() => setStatus('idle')}>
                   Send another
                 </button>
               </div>
@@ -107,7 +103,17 @@ const Contact = () => {
                   <label htmlFor="contact-details">Inquiry Details</label>
                   <textarea id="contact-details" name="details" rows={5} required />
                 </div>
-                <button type="submit" className="button-primary contact-submit">Submit Communication</button>
+
+                {status === 'error' && (
+                  <p className="contact-error">
+                    Something went wrong sending your message. Please email us directly at{' '}
+                    <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+                  </p>
+                )}
+
+                <button type="submit" className="button-primary contact-submit" disabled={status === 'sending'}>
+                  {status === 'sending' ? 'Sending…' : 'Submit Communication'}
+                </button>
               </form>
             )}
           </div>
