@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './HomodeusPartnership.css';
 import { useMeta } from '../lib/useMeta';
 
 const HomodeusPartnership = () => {
+  const { t } = useTranslation('institutional');
   useMeta({
     title: 'Brandvakt × HomoDeus',
-    description: 'Autonomous defense intelligence at operational scale. Operational AI systems that replace manual workflows, automate decisions, and compound capability over time.'
+    description: t('homodeus.meta_desc'),
   });
   return (
     <div className="page-wrapper homodeus-page">
@@ -24,20 +26,20 @@ const HomodeusPartnership = () => {
         </div>
 
         <div className="container hero-content-hd" style={{position: 'relative', zIndex: 2}}>
-          <p className="overline text-teal">Strategic Partnership</p>
+          <p className="overline text-teal">{t('homodeus.hero_overline')}</p>
           <div className="hero-logos hd-flex">
             <h2 className="heading-secondary" style={{color: 'var(--color-text-primary)'}}>Brandvakt</h2>
             <span className="logos-sep">×</span>
             <h2 className="heading-secondary" style={{color: 'var(--color-warm-white)'}}>HomoDeus</h2>
           </div>
           <div className="logos-hr"></div>
-          <h1 className="heading-display">Autonomous Defense<br/>Intelligence</h1>
+          <h1 className="heading-display">{t('homodeus.hero_h1_l1')}<br/>{t('homodeus.hero_h1_l2')}</h1>
           <p className="body-large header-subtitle mt-4 mx-0" style={{maxWidth: '600px'}}>
-            Brandvakt's cybersecurity expertise fused with HomoDeus AI.
+            {t('homodeus.hero_sub')}
           </p>
           <div className="hd-actions mt-6">
-            <a href="https://homodeus.me" target="_blank" rel="noopener noreferrer" className="btn btn-primary">Explore the Platform &rarr;</a>
-            <Link to="/services" className="btn" style={{border: '1px solid rgba(255,255,255,0.2)'}}>Our Cybersecurity Services</Link>
+            <a href="https://homodeus.me" target="_blank" rel="noopener noreferrer" className="btn btn-primary">{t('homodeus.hero_btn_platform')} &rarr;</a>
+            <Link to="/services" className="btn" style={{border: '1px solid rgba(255,255,255,0.2)'}}>{t('homodeus.hero_btn_services')}</Link>
           </div>
         </div>
       </section>
@@ -46,25 +48,25 @@ const HomodeusPartnership = () => {
       <section className="section bg-midnight">
         <div className="container">
           <div className="text-center animate-fade-up" style={{marginBottom: '4rem'}}>
-            <p className="overline text-teal">Why We Built This Together</p>
-            <h2 className="heading-primary">Cybersecurity expertise.<br/>AI at operational scale.</h2>
+            <p className="overline text-teal">{t('homodeus.story_overline')}</p>
+            <h2 className="heading-primary">{t('homodeus.story_l1')}<br/>{t('homodeus.story_l2')}</h2>
           </div>
-          
+
           <div className="partnership-grid animate-fade-up" style={{animationDelay: '0.2s'}}>
             <div className="partner-card card-brandvakt glass-panel">
-              <div className="partner-subtitle">Cybersecurity</div>
+              <div className="partner-subtitle">{t('homodeus.pc_bv_sub')}</div>
               <h3 className="heading-secondary">Brandvakt</h3>
               <div className="divider-hd"></div>
-              <p>Cybersecurity consulting and security operations. Trusted by enterprises across Africa, LATAM, and Europe.</p>
+              <p>{t('homodeus.pc_bv_d')}</p>
             </div>
-            
+
             <div className="p-sep">×</div>
-            
+
             <div className="partner-card card-homodeus glass-panel">
-              <div className="partner-subtitle text-teal">AI Lab</div>
+              <div className="partner-subtitle text-teal">{t('homodeus.pc_hd_sub')}</div>
               <h3 className="heading-secondary text-teal">HomoDeus</h3>
               <div className="divider-hd hd-teal"></div>
-              <p>Operational AI systems for enterprises. 95% success rate. 20+ clients in production. Miami, Lisbon, Rio.</p>
+              <p>{t('homodeus.pc_hd_d')}</p>
             </div>
           </div>
         </div>
@@ -74,30 +76,30 @@ const HomodeusPartnership = () => {
       <section className="section bg-surface">
         <div className="container">
           <div className="animate-fade-up" style={{marginBottom: '4rem'}}>
-            <p className="overline text-teal">The Value We Create Together</p>
-            <h2 className="heading-primary">Intelligence-led cybersecurity,<br/>powered by AI</h2>
+            <p className="overline text-teal">{t('homodeus.caps_overline')}</p>
+            <h2 className="heading-primary">{t('homodeus.caps_l1')}<br/>{t('homodeus.caps_l2')}</h2>
           </div>
-          
+
           <div className="capabilities-grid-hd animate-fade-up">
             <div className="cap-card glass-panel">
               <div className="cap-num">01</div>
-              <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>AI Threat Intelligence</h4>
-              <p>AI agents correlate indicators of compromise and surface actionable intelligence. SOC analysts act on it in real time.</p>
+              <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>{t('homodeus.cap1_t')}</h4>
+              <p>{t('homodeus.cap1_d')}</p>
             </div>
             <div className="cap-card glass-panel">
               <div className="cap-num">02</div>
-              <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>Autonomous Incident Response</h4>
-              <p>AI-powered playbooks execute first response in seconds — before a human reads the alert.</p>
+              <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>{t('homodeus.cap2_t')}</h4>
+              <p>{t('homodeus.cap2_d')}</p>
             </div>
             <div className="cap-card glass-panel">
               <div className="cap-num">03</div>
-              <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>Predictive Risk Analysis</h4>
-              <p>AI models trained on your environment identify risk trajectories weeks before they become incidents.</p>
+              <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>{t('homodeus.cap3_t')}</h4>
+              <p>{t('homodeus.cap3_d')}</p>
             </div>
             <div className="cap-card glass-panel">
               <div className="cap-num">04</div>
-              <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>Continuous Compliance</h4>
-              <p>LGPD, DORA, ISO 27001, PCI DSS — mapped and monitored automatically.</p>
+              <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>{t('homodeus.cap4_t')}</h4>
+              <p>{t('homodeus.cap4_d')}</p>
             </div>
           </div>
         </div>
@@ -106,8 +108,8 @@ const HomodeusPartnership = () => {
       {/* Manifesto */}
       <section className="manifesto-hd">
          <div className="container animate-fade-up">
-           <h2 className="manifesto-text">We don't sell AI.<br/><em className="text-teal">We sell outcomes.</em></h2>
-           <p className="manifesto-sub">Brandvakt × HomoDeus — Autonomous Defense Intelligence</p>
+           <h2 className="manifesto-text">{t('homodeus.manifesto_a')}<br/><em className="text-teal">{t('homodeus.manifesto_em')}</em></h2>
+           <p className="manifesto-sub">{t('homodeus.manifesto_sub')}</p>
          </div>
       </section>
 
@@ -116,31 +118,31 @@ const HomodeusPartnership = () => {
          <div className="platform-glow-hd"></div>
          <div className="container position-relative z-1 animate-fade-up">
             <div className="flex flex-col items-start gap-2">
-               <div className="hd-badge">★ Strategic Partner</div>
-               <p className="overline text-teal mx-0">The Collaboration</p>
+               <div className="hd-badge">★ {t('homodeus.platform_badge')}</div>
+               <p className="overline text-teal mx-0">{t('homodeus.platform_overline')}</p>
             </div>
-            <h2 className="heading-primary" style={{marginBottom: '2rem'}}>HomoDeus AI — Operational AI<br/>for the Enterprise</h2>
+            <h2 className="heading-primary" style={{marginBottom: '2rem'}}>{t('homodeus.platform_l1')}<br/>{t('homodeus.platform_l2')}</h2>
             <p className="body-large text-muted italic" style={{maxWidth: '720px', marginBottom: '4rem'}}>
-              HomoDeus AI builds and deploys operational AI systems that replace manual workflows, automate decisions, and compound over time.
+              {t('homodeus.platform_desc')}
             </p>
 
             <div className="platform-pillars">
                <div className="pillar-hd">
-                  <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>AI Strategy & Consulting</h4>
-                  <p>Baseline where you are. Qualify which use cases move the needle. Design a prioritized roadmap.</p>
+                  <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>{t('homodeus.pillar1_t')}</h4>
+                  <p>{t('homodeus.pillar1_d')}</p>
                </div>
                <div className="pillar-hd">
-                  <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>AI Development</h4>
-                  <p>Tailored AI systems targeting the value levers that matter most. Validated against real operations.</p>
+                  <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>{t('homodeus.pillar2_t')}</h4>
+                  <p>{t('homodeus.pillar2_d')}</p>
                </div>
                <div className="pillar-hd">
-                  <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>Production Grade</h4>
-                  <p>AI that ships. HomoDeus maintains a 95% project success rate and 90-day ROI target.</p>
+                  <h4 className="heading-secondary" style={{marginBottom: '1rem'}}>{t('homodeus.pillar3_t')}</h4>
+                  <p>{t('homodeus.pillar3_d')}</p>
                </div>
             </div>
 
             <div className="text-center mt-6">
-               <a href="https://homodeus.me" target="_blank" rel="noopener noreferrer" className="btn btn-amber">Explore HomoDeus AI &rarr;</a>
+               <a href="https://homodeus.me" target="_blank" rel="noopener noreferrer" className="btn btn-amber">{t('homodeus.platform_btn')} &rarr;</a>
             </div>
          </div>
       </section>
@@ -149,27 +151,27 @@ const HomodeusPartnership = () => {
       <section className="section bg-midnight">
          <div className="container animate-fade-up">
             <div className="text-center" style={{marginBottom: '4rem'}}>
-               <p className="overline text-teal">How It Works</p>
-               <h2 className="heading-primary">From assessment to<br/>autonomous defense</h2>
+               <p className="overline text-teal">{t('homodeus.how_overline')}</p>
+               <h2 className="heading-primary">{t('homodeus.how_l1')}<br/>{t('homodeus.how_l2')}</h2>
             </div>
-            
+
             <div className="how-steps">
                <div className="how-step">
                   <div className="how-num">01</div>
-                  <h4 className="how-title">Assess</h4>
-                  <p>Security experts map your threat surface across endpoints, identity, cloud, and OT. Output: a prioritized risk profile.</p>
+                  <h4 className="how-title">{t('homodeus.how1_t')}</h4>
+                  <p>{t('homodeus.how1_d')}</p>
                </div>
                <div className="how-connector">— —</div>
                <div className="how-step">
                   <div className="how-num">02</div>
-                  <h4 className="how-title">Deploy</h4>
-                  <p>AI agents calibrated to your threat profile. Integrated into your existing stack within days.</p>
+                  <h4 className="how-title">{t('homodeus.how2_t')}</h4>
+                  <p>{t('homodeus.how2_d')}</p>
                </div>
                <div className="how-connector">— —</div>
                <div className="how-step">
                   <div className="how-num">03</div>
-                  <h4 className="how-title">Monitor</h4>
-                  <p>Agents detect and respond around the clock. Brandvakt analysts escalate when human judgment is required.</p>
+                  <h4 className="how-title">{t('homodeus.how3_t')}</h4>
+                  <p>{t('homodeus.how3_d')}</p>
                </div>
             </div>
          </div>
@@ -179,26 +181,26 @@ const HomodeusPartnership = () => {
       <section className="section stats-hd">
          <div className="container animate-fade-up">
             <div className="text-center" style={{marginBottom: '4rem'}}>
-               <p className="overline text-teal">By the numbers</p>
-               <h2 className="heading-primary">The numbers behind the partnership</h2>
+               <p className="overline text-teal">{t('homodeus.numbers_overline')}</p>
+               <h2 className="heading-primary">{t('homodeus.numbers_title')}</h2>
             </div>
-            
+
             <div className="stats-grid-hd">
                <div className="stat-hd">
                   <div className="stat-num text-teal">95%</div>
-                  <div className="stat-label">Threat Detection<br/>Accuracy</div>
+                  <div className="stat-label">{t('homodeus.stat1_l')}</div>
                </div>
                <div className="stat-hd">
                   <div className="stat-num text-teal">{"<"}4m</div>
-                  <div className="stat-label">Mean Time<br/>to Respond</div>
+                  <div className="stat-label">{t('homodeus.stat2_l')}</div>
                </div>
                <div className="stat-hd">
                   <div className="stat-num text-teal" style={{fontSize: '3.5rem'}}>0-Day</div>
-                  <div className="stat-label">Threat<br/>Intelligence</div>
+                  <div className="stat-label">{t('homodeus.stat3_l')}</div>
                </div>
                <div className="stat-hd">
                   <div className="stat-num text-teal">24/7</div>
-                  <div className="stat-label">Autonomous<br/>Monitoring</div>
+                  <div className="stat-label">{t('homodeus.stat4_l')}</div>
                </div>
             </div>
          </div>
@@ -208,34 +210,34 @@ const HomodeusPartnership = () => {
       <section className="section bg-midnight outcomes-section">
          <div className="container animate-fade-up">
             <div className="text-center" style={{marginBottom: '4rem'}}>
-               <p className="overline text-teal">Measured Impact</p>
-               <h2 className="heading-primary">Results that speak<br/><em className="text-teal">for themselves</em></h2>
+               <p className="overline text-teal">{t('homodeus.impact_overline')}</p>
+               <h2 className="heading-primary">{t('homodeus.impact_l1')}<br/><em className="text-teal">{t('homodeus.impact_em')}</em></h2>
             </div>
 
             <div className="outcomes-grid">
                <div className="outcome-card-hd oc-financial glass-panel">
-                  <span className="oc-sector text-teal">Financial Services</span>
-                  <div className="oc-headline">Fraud rings dismantled in real-time before exfiltration occurs across transaction flows</div>
+                  <span className="oc-sector text-teal">{t('homodeus.oc1_sector')}</span>
+                  <div className="oc-headline">{t('homodeus.oc1_head')}</div>
                   <div className="oc-metric text-warm-white">0</div>
-                  <div className="oc-unit">Undetected breaches in 12 months</div>
+                  <div className="oc-unit">{t('homodeus.oc1_unit')}</div>
                </div>
                <div className="outcome-card-hd oc-telecom glass-panel">
-                  <span className="oc-sector text-teal">Telecommunications</span>
-                  <div className="oc-headline">SS7 attacks detected and contained before network infrastructure is compromised</div>
+                  <span className="oc-sector text-teal">{t('homodeus.oc2_sector')}</span>
+                  <div className="oc-headline">{t('homodeus.oc2_head')}</div>
                   <div className="oc-metric text-warm-white">{"<"} 4 min</div>
-                  <div className="oc-unit">Mean autonomous containment time</div>
+                  <div className="oc-unit">{t('homodeus.oc2_unit')}</div>
                </div>
                <div className="outcome-card-hd oc-energy glass-panel">
-                  <span className="oc-sector text-copper">Energy & Critical Infrastructure</span>
-                  <div className="oc-headline">ICS and OT environments continuously protected without disrupting operational continuity</div>
+                  <span className="oc-sector text-copper">{t('homodeus.oc3_sector')}</span>
+                  <div className="oc-headline">{t('homodeus.oc3_head')}</div>
                   <div className="oc-metric text-warm-white">100%</div>
-                  <div className="oc-unit">Operational uptime maintained under monitoring</div>
+                  <div className="oc-unit">{t('homodeus.oc3_unit')}</div>
                </div>
                <div className="outcome-card-hd oc-banking glass-panel">
-                  <span className="oc-sector text-teal">Banking</span>
-                  <div className="oc-headline">Legacy SIEM replaced with autonomous AI defense layer across 200+ threat scenarios</div>
+                  <span className="oc-sector text-teal">{t('homodeus.oc4_sector')}</span>
+                  <div className="oc-headline">{t('homodeus.oc4_head')}</div>
                   <div className="oc-metric text-warm-white">67%</div>
-                  <div className="oc-unit">Reduction in analyst alert fatigue</div>
+                  <div className="oc-unit">{t('homodeus.oc4_unit')}</div>
                </div>
             </div>
          </div>
@@ -244,12 +246,12 @@ const HomodeusPartnership = () => {
       {/* CTA Layer */}
       <section className="section text-center" style={{ background: 'var(--color-obsidian)', padding: '6rem 0' }}>
         <div className="container animate-fade-up">
-           <p className="overline text-teal mb-2">Engage with us</p>
-           <h2 className="heading-primary text-warm-white mb-4">Ready to explore Autonomous Defense Intelligence?</h2>
-           <p className="body-large mx-auto mb-8" style={{ color: 'rgba(255,255,255,0.6)', maxWidth: '500px' }}>Contact the Brandvakt team to schedule a technical deep dive into the HomoDeus platform or request an initial threat assessment.</p>
+           <p className="overline text-teal mb-2">{t('homodeus.cta_overline')}</p>
+           <h2 className="heading-primary text-warm-white mb-4">{t('homodeus.cta_title')}</h2>
+           <p className="body-large mx-auto mb-8" style={{ color: 'rgba(255,255,255,0.6)', maxWidth: '500px' }}>{t('homodeus.cta_sub')}</p>
            <div className="flex justify-center gap-4">
-              <Link to="/contact" className="btn btn-primary">Schedule a consultation</Link>
-              <a href="https://homodeus.me" target="_blank" rel="noopener noreferrer" className="btn btn-ghost" style={{border: '1px solid rgba(255,255,255,0.2)'}}>View documentation &rarr;</a>
+              <Link to="/contact" className="btn btn-primary">{t('homodeus.cta_btn1')}</Link>
+              <a href="https://homodeus.me" target="_blank" rel="noopener noreferrer" className="btn btn-ghost" style={{border: '1px solid rgba(255,255,255,0.2)'}}>{t('homodeus.cta_btn2')} &rarr;</a>
            </div>
         </div>
       </section>
