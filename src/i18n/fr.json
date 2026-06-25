@@ -1,0 +1,65 @@
+{
+  "common": {
+    "nav": {
+      "company": "Entreprise",
+      "products": "Nos produits",
+      "services": "Services",
+      "soc": "SOC",
+      "bygrc": "byGRC",
+      "homodeus": "Brandvakt × HomoDeus",
+      "academy": "Academy",
+      "about": "À propos",
+      "partners": "Partenaires",
+      "careers": "Carrières",
+      "contact": "Contact",
+      "openMenu": "Ouvrir le menu",
+      "closeMenu": "Fermer le menu",
+      "free": "GRATUIT",
+      "phisher": "PhishER",
+      "phisher_sub": "Simulation de phishing et gestion du risque humain",
+      "awareness": "Security Awareness",
+      "awareness_sub": "Formation d'entreprise multilingue",
+      "compliance": "Compliance Suite",
+      "compliance_sub": "Intelligence réglementaire et reporting",
+      "csma": "CSMA",
+      "csma_sub": "Évaluation de la maturité en cybersécurité",
+      "demo": "Demander une démo",
+      "demo_sub": "Parlez à un spécialiste entreprise"
+    },
+    "footer": {
+      "tagline": "Confiance numérique à l'ère de l'IA.",
+      "platform": "Plateforme",
+      "company": "Entreprise",
+      "legal": "Légal",
+      "services": "Services",
+      "soc": "SOC",
+      "bygrc": "byGRC",
+      "academy": "Academy",
+      "homodeus": "Brandvakt × HomoDeus",
+      "about": "À propos",
+      "careers": "Carrières",
+      "partners": "Partenaires",
+      "contact": "Contact",
+      "privacy": "Politique de confidentialité",
+      "cookies": "Politique de cookies"
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "Confiance numérique & gouvernance de l'IA",
+      "tagline": "Cyber-résilience à l'ère de l'IA.",
+      "subtitle": "Nous combinons les opérations de sécurité, l'ingénierie de conformité et la gouvernance de l'IA pour les organisations évoluant sur des frontières numériques complexes.",
+      "cta1": "Démarrer une conversation",
+      "cta2": "Nos services",
+      "sig_gov": "Gouvernance",
+      "sig_gov_v": "ISO, NIST, DORA",
+      "sig_ops": "Opérations",
+      "sig_ops_v": "Réponse SOC 24/7",
+      "sig_reg": "Régions",
+      "sig_reg_v": "4 continents"
+    },
+    "trustbar": {
+      "label": "Référentiels reconnus"
+    }
+  }
+}

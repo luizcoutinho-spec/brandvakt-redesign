@@ -1,0 +1,65 @@
+{
+  "common": {
+    "nav": {
+      "company": "Empresa",
+      "products": "Produtos",
+      "services": "Serviços",
+      "soc": "SOC",
+      "bygrc": "byGRC",
+      "homodeus": "Brandvakt × HomoDeus",
+      "academy": "Academy",
+      "about": "Sobre",
+      "partners": "Parceiros",
+      "careers": "Carreiras",
+      "contact": "Contato",
+      "openMenu": "Abrir menu",
+      "closeMenu": "Fechar menu",
+      "free": "GRÁTIS",
+      "phisher": "PhishER",
+      "phisher_sub": "Simulação de phishing e gestão do risco humano",
+      "awareness": "Security Awareness",
+      "awareness_sub": "Formação corporativa multi-idioma",
+      "compliance": "Compliance Suite",
+      "compliance_sub": "Inteligência regulatória e relatórios",
+      "csma": "CSMA",
+      "csma_sub": "Avaliação de Maturidade em Cibersegurança",
+      "demo": "Solicitar Demo",
+      "demo_sub": "Fale com um especialista enterprise"
+    },
+    "footer": {
+      "tagline": "Confiança Digital na Era da IA.",
+      "platform": "Plataforma",
+      "company": "Empresa",
+      "legal": "Jurídico",
+      "services": "Serviços",
+      "soc": "SOC",
+      "bygrc": "byGRC",
+      "academy": "Academy",
+      "homodeus": "Brandvakt × HomoDeus",
+      "about": "Sobre Nós",
+      "careers": "Carreiras",
+      "partners": "Parceiros",
+      "contact": "Contato",
+      "privacy": "Política de Privacidade",
+      "cookies": "Política de Cookies"
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "Confiança Digital e Governança de IA",
+      "tagline": "Resiliência cibernética na era da IA.",
+      "subtitle": "Combinamos operações de segurança, engenharia de conformidade e governança de IA para organizações que operam em fronteiras digitais complexas.",
+      "cta1": "Inicie uma conversa",
+      "cta2": "Nossos serviços",
+      "sig_gov": "Governança",
+      "sig_gov_v": "ISO, NIST, DORA",
+      "sig_ops": "Operações",
+      "sig_ops_v": "Resposta SOC 24/7",
+      "sig_reg": "Regiões",
+      "sig_reg_v": "4 continentes"
+    },
+    "trustbar": {
+      "label": "Frameworks reconhecidos"
+    }
+  }
+}

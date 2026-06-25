@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Activity, ArrowRight, Globe2, Radar, ShieldCheck } from 'lucide-react';
 import { asset } from '../lib/asset';
+import { isLang } from '../i18n';
 import './HeroSection.css';
 
 const HERO_VIDEOS = [
@@ -14,13 +16,14 @@ const HERO_VIDEOS = [
 
 const CYCLE_MS = 6000;
 
-const HERO_SIGNALS = [
-  { icon: ShieldCheck, label: 'Governance', value: 'ISO, NIST, DORA' },
-  { icon: Radar, label: 'Operations', value: '24/7 SOC response' },
-  { icon: Globe2, label: 'Regions', value: '4 continents' },
-];
-
 export const HeroSection = () => {
+  const { t, i18n } = useTranslation('home');
+  const lang = isLang(i18n.language) ? i18n.language : 'en';
+  const signals = [
+    { icon: ShieldCheck, label: t('hero.sig_gov'), value: t('hero.sig_gov_v') },
+    { icon: Radar,       label: t('hero.sig_ops'), value: t('hero.sig_ops_v') },
+    { icon: Globe2,      label: t('hero.sig_reg'), value: t('hero.sig_reg_v') },
+  ];
   const [activeIndex, setActiveIndex] = useState(0);
   // Track which videos have ever been active - they stay mounted so the
   // crossfade works. New ones mount lazily so we don't download all five on load.
@@ -68,7 +71,7 @@ export const HeroSection = () => {
       <div className="container hero-content">
         <span className="hero-badge">
           <Activity aria-hidden="true" />
-          Digital Trust &amp; AI Governance
+          {t('hero.badge')}
         </span>
 
         <h1 className="heading-display hero-title">
@@ -76,27 +79,26 @@ export const HeroSection = () => {
         </h1>
 
         <p className="hero-tagline">
-          Cyber resilience in the age of AI.
+          {t('hero.tagline')}
         </p>
 
         <p className="body-large hero-subtitle">
-          We combine security operations, compliance engineering, and AI governance
-          for organizations operating across complex digital frontiers.
+          {t('hero.subtitle')}
         </p>
 
         <div className="hero-actions">
           <a href="#contact" className="button-primary">
-            Start a conversation
+            {t('hero.cta1')}
             <ArrowRight aria-hidden="true" />
           </a>
-          <Link to="/services" className="button-secondary">
+          <Link to={`/${lang}/services`} className="button-secondary">
             <ShieldCheck aria-hidden="true" />
-            Our services
+            {t('hero.cta2')}
           </Link>
         </div>
 
         <div className="hero-signals" aria-label="Brandvakt operating signals">
-          {HERO_SIGNALS.map((signal) => {
+          {signals.map((signal) => {
             const Icon = signal.icon;
             return (
               <div className="hero-signal" key={signal.label}>

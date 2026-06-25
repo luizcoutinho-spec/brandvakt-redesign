@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import './HeroSection.css';
 
 const FRAMEWORKS = [
@@ -10,10 +11,12 @@ const FRAMEWORKS = [
   'DORA',
 ];
 
-export const TrustBar = () => (
+export const TrustBar = () => {
+  const { t } = useTranslation('home');
+  return (
   <div className="trust-bar">
     <div className="container trust-bar-inner">
-      <span className="trust-bar-label">Trusted frameworks</span>
+      <span className="trust-bar-label">{t('trustbar.label')}</span>
       <div className="trust-bar-divider" />
       <div className="trust-bar-logos">
         {FRAMEWORKS.map((name) => (
@@ -22,4 +25,5 @@ export const TrustBar = () => (
       </div>
     </div>
   </div>
-);
+  );
+};

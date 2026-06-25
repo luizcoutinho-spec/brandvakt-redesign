@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { asset } from '../lib/asset';
+import { SUPPORTED_LANGS, isLang, type Lang } from '../i18n';
 import './Navbar.css';
 
-interface NavLinkDef {
+interface DropItem {
   to?: string;
-  label: string;
-  subtitle?: string;
-  badge?: string;
+  key: string;       // i18n key under common.nav.*
+  hasSub?: boolean;  // renders common.nav.{key}_sub
+  badge?: 'free';
   calendly?: string; // if set, the item opens a Calendly popup instead of navigating
 }
 
@@ -56,39 +58,40 @@ async function openCalendly(url: string): Promise<void> {
 }
 
 type NavItem =
-  | { kind: 'link'; to: string; label: string }
-  | { kind: 'menu'; id: string; label: string; items: NavLinkDef[] };
+  | { kind: 'link'; to: string; key: string }
+  | { kind: 'menu'; id: string; key: string; items: DropItem[] };
 
-// "Company" dropdown — replaces the standalone About link; groups About,
-// Partners and Careers under it.
-const COMPANY_LINKS: NavLinkDef[] = [
-  { to: '/about',    label: 'About' },
-  { to: '/partners', label: 'Partners' },
-  { to: '/careers',  label: 'Careers' },
+const COMPANY_LINKS: DropItem[] = [
+  { to: '/about',    key: 'about' },
+  { to: '/partners', key: 'partners' },
+  { to: '/careers',  key: 'careers' },
 ];
 
-// "Our Products" dropdown — label + descriptive subtitle, with a FREE badge on
-// the CSMA assessment and a final "Request a Demo" entry (-> /contact).
-const PRODUCT_LINKS: NavLinkDef[] = [
-  { to: '/enterprise/phisher',             label: 'PhishER',            subtitle: 'Phishing simulation & human risk management' },
-  { to: '/enterprise/conscientizacao',     label: 'Security Awareness', subtitle: 'Multi-language corporate training' },
-  { to: '/enterprise/compliance',          label: 'Compliance Suite',   subtitle: 'Regulatory intelligence & reporting' },
-  { to: '/enterprise/maturity-assessment', label: 'CSMA',               subtitle: 'Cybersecurity Maturity Assessment', badge: 'FREE' },
-  { label: 'Request a Demo', subtitle: 'Talk to an enterprise specialist', calendly: 'https://calendly.com/luiz-coutinho-brandvakt-group/30min' },
+const PRODUCT_LINKS: DropItem[] = [
+  { to: '/enterprise/phisher',             key: 'phisher',    hasSub: true },
+  { to: '/enterprise/conscientizacao',     key: 'awareness',  hasSub: true },
+  { to: '/enterprise/compliance',          key: 'compliance', hasSub: true },
+  { to: '/enterprise/maturity-assessment', key: 'csma',       hasSub: true, badge: 'free' },
+  { key: 'demo', hasSub: true, calendly: 'https://calendly.com/luiz-coutinho-brandvakt-group/30min' },
 ];
 
 const NAV_ITEMS: NavItem[] = [
-  { kind: 'menu', id: 'company',          label: 'Company',               items: COMPANY_LINKS },
-  { kind: 'link', to: '/services',        label: 'Services' },
-  { kind: 'link', to: '/soc',             label: 'SOC' },
-  { kind: 'link', to: '/bygrc',           label: 'byGRC' },
-  { kind: 'link', to: '/homodeus-partnership', label: 'Brandvakt × HomoDeus' },
-  { kind: 'link', to: '/academy',         label: 'Academy' },
-  { kind: 'menu', id: 'products',         label: 'Our Products',          items: PRODUCT_LINKS },
+  { kind: 'menu', id: 'company',  key: 'company',  items: COMPANY_LINKS },
+  { kind: 'link', to: '/services', key: 'services' },
+  { kind: 'link', to: '/soc',      key: 'soc' },
+  { kind: 'link', to: '/bygrc',    key: 'bygrc' },
+  { kind: 'link', to: '/homodeus-partnership', key: 'homodeus' },
+  { kind: 'link', to: '/academy',  key: 'academy' },
+  { kind: 'menu', id: 'products', key: 'products', items: PRODUCT_LINKS },
 ];
 
 export const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { t, i18n } = useTranslation('common');
+  const lang: Lang = isLang(i18n.language) ? i18n.language : 'en';
+  const lp = (p: string) => `/${lang}${p}`;
+
   const [open, setOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
 
@@ -99,19 +102,25 @@ export const Navbar = () => {
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 
-  const contactActive = location.pathname === '/contact';
+  function switchLang(next: Lang) {
+    const rest = location.pathname.replace(/^\/(en|fr|pt)(?=\/|$)/, '');
+    i18n.changeLanguage(next);
+    navigate(`/${next}${rest}${location.search}`);
+  }
+
+  const contactActive = location.pathname === lp('/contact');
 
   return (
     <nav className={`nav${open ? ' nav-open' : ''}`}>
       <div className="container nav-inner">
-        <Link to="/" className="nav-logo" onClick={() => setOpen(false)}>
+        <Link to={`/${lang}`} className="nav-logo" onClick={() => setOpen(false)}>
           <img src={asset('assets/logo-white.png')} alt="Brandvakt" />
         </Link>
 
         <button
           type="button"
           className={`nav-toggle${open ? ' nav-toggle-open' : ''}`}
-          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-label={open ? t('nav.closeMenu') : t('nav.openMenu')}
           aria-expanded={open}
           onClick={() => setOpen(v => !v)}
         >
@@ -125,16 +134,16 @@ export const Navbar = () => {
                 return (
                   <Link
                     key={item.to}
-                    to={item.to}
-                    className={location.pathname === item.to ? 'active' : ''}
+                    to={lp(item.to)}
+                    className={location.pathname === lp(item.to) ? 'active' : ''}
                   >
-                    {item.label}
+                    {t(`nav.${item.key}`)}
                   </Link>
                 );
               }
 
               const isOpen = openMenu === item.id;
-              const isActive = item.items.some((l) => location.pathname === l.to);
+              const isActive = item.items.some((l) => l.to && location.pathname === lp(l.to));
               return (
                 <div
                   key={item.id}
@@ -149,7 +158,7 @@ export const Navbar = () => {
                     aria-expanded={isOpen}
                     onClick={() => setOpenMenu((v) => (v === item.id ? null : item.id))}
                   >
-                    {item.label}
+                    {t(`nav.${item.key}`)}
                     <span className="nav-dropdown-caret" aria-hidden="true">▾</span>
                   </button>
                   <div className="nav-dropdown-panel">
@@ -157,17 +166,17 @@ export const Navbar = () => {
                       const inner = (
                         <>
                           <span className="nav-dd-row">
-                            <span className="nav-dd-label">{p.label}</span>
-                            {p.badge && <span className="nav-dd-badge">{p.badge}</span>}
+                            <span className="nav-dd-label">{t(`nav.${p.key}`)}</span>
+                            {p.badge && <span className="nav-dd-badge">{t(`nav.${p.badge}`)}</span>}
                           </span>
-                          {p.subtitle && <span className="nav-dd-sub">{p.subtitle}</span>}
+                          {p.hasSub && <span className="nav-dd-sub">{t(`nav.${p.key}_sub`)}</span>}
                         </>
                       );
 
                       if (p.calendly) {
                         return (
                           <button
-                            key={p.label}
+                            key={p.key}
                             type="button"
                             onClick={() => {
                               setOpen(false);
@@ -183,8 +192,8 @@ export const Navbar = () => {
                       return (
                         <Link
                           key={p.to}
-                          to={p.to!}
-                          className={location.pathname === p.to ? 'active' : ''}
+                          to={lp(p.to!)}
+                          className={location.pathname === lp(p.to!) ? 'active' : ''}
                         >
                           {inner}
                         </Link>
@@ -195,11 +204,26 @@ export const Navbar = () => {
               );
             })}
           </div>
+
+          <div className="nav-lang" role="group" aria-label="Language">
+            {SUPPORTED_LANGS.map((l) => (
+              <button
+                key={l}
+                type="button"
+                className={`nav-lang-btn${l === lang ? ' active' : ''}`}
+                aria-current={l === lang}
+                onClick={() => switchLang(l)}
+              >
+                {l.toUpperCase()}
+              </button>
+            ))}
+          </div>
+
           <Link
-            to="/contact"
+            to={lp('/contact')}
             className={`button-primary nav-cta${contactActive ? ' active' : ''}`}
           >
-            Contact
+            {t('nav.contact')}
           </Link>
         </div>
       </div>
@@ -208,32 +232,36 @@ export const Navbar = () => {
 };
 
 export const Footer = () => {
+  const { t, i18n } = useTranslation('common');
+  const lang: Lang = isLang(i18n.language) ? i18n.language : 'en';
+  const lp = (p: string) => `/${lang}${p}`;
+
   return (
     <footer className="footer section">
       <div className="container footer-grid">
         <div className="footer-brand">
           <h2 className="heading-secondary">BRANDVAKT</h2>
-          <p className="body-large footer-tagline">Digital Trust in the Age of AI.</p>
+          <p className="body-large footer-tagline">{t('footer.tagline')}</p>
         </div>
         <div className="footer-links">
-          <strong>Platform</strong>
-          <Link to="/services">Services</Link>
-          <Link to="/soc">SOC</Link>
-          <Link to="/bygrc">byGRC</Link>
-          <Link to="/academy">Academy</Link>
-          <Link to="/homodeus-partnership">Brandvakt × HomoDeus</Link>
+          <strong>{t('footer.platform')}</strong>
+          <Link to={lp('/services')}>{t('footer.services')}</Link>
+          <Link to={lp('/soc')}>{t('footer.soc')}</Link>
+          <Link to={lp('/bygrc')}>{t('footer.bygrc')}</Link>
+          <Link to={lp('/academy')}>{t('footer.academy')}</Link>
+          <Link to={lp('/homodeus-partnership')}>{t('footer.homodeus')}</Link>
         </div>
         <div className="footer-links">
-          <strong>Company</strong>
-          <Link to="/about">About Us</Link>
-          <Link to="/careers">Careers</Link>
-          <Link to="/partners">Partners</Link>
-          <Link to="/contact">Contact</Link>
+          <strong>{t('footer.company')}</strong>
+          <Link to={lp('/about')}>{t('footer.about')}</Link>
+          <Link to={lp('/careers')}>{t('footer.careers')}</Link>
+          <Link to={lp('/partners')}>{t('footer.partners')}</Link>
+          <Link to={lp('/contact')}>{t('footer.contact')}</Link>
         </div>
         <div className="footer-links">
-          <strong>Legal</strong>
-          <Link to="/privacy">Privacy Policy</Link>
-          <Link to="/cookies">Cookies Policy</Link>
+          <strong>{t('footer.legal')}</strong>
+          <Link to={lp('/privacy')}>{t('footer.privacy')}</Link>
+          <Link to={lp('/cookies')}>{t('footer.cookies')}</Link>
         </div>
       </div>
     </footer>

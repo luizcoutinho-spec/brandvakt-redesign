@@ -1,0 +1,65 @@
+{
+  "common": {
+    "nav": {
+      "company": "Company",
+      "products": "Our Products",
+      "services": "Services",
+      "soc": "SOC",
+      "bygrc": "byGRC",
+      "homodeus": "Brandvakt × HomoDeus",
+      "academy": "Academy",
+      "about": "About",
+      "partners": "Partners",
+      "careers": "Careers",
+      "contact": "Contact",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu",
+      "free": "FREE",
+      "phisher": "PhishER",
+      "phisher_sub": "Phishing simulation & human risk management",
+      "awareness": "Security Awareness",
+      "awareness_sub": "Multi-language corporate training",
+      "compliance": "Compliance Suite",
+      "compliance_sub": "Regulatory intelligence & reporting",
+      "csma": "CSMA",
+      "csma_sub": "Cybersecurity Maturity Assessment",
+      "demo": "Request a Demo",
+      "demo_sub": "Talk to an enterprise specialist"
+    },
+    "footer": {
+      "tagline": "Digital Trust in the Age of AI.",
+      "platform": "Platform",
+      "company": "Company",
+      "legal": "Legal",
+      "services": "Services",
+      "soc": "SOC",
+      "bygrc": "byGRC",
+      "academy": "Academy",
+      "homodeus": "Brandvakt × HomoDeus",
+      "about": "About Us",
+      "careers": "Careers",
+      "partners": "Partners",
+      "contact": "Contact",
+      "privacy": "Privacy Policy",
+      "cookies": "Cookies Policy"
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "Digital Trust & AI Governance",
+      "tagline": "Cyber resilience in the age of AI.",
+      "subtitle": "We combine security operations, compliance engineering, and AI governance for organizations operating across complex digital frontiers.",
+      "cta1": "Start a conversation",
+      "cta2": "Our services",
+      "sig_gov": "Governance",
+      "sig_gov_v": "ISO, NIST, DORA",
+      "sig_ops": "Operations",
+      "sig_ops_v": "24/7 SOC response",
+      "sig_reg": "Regions",
+      "sig_reg_v": "4 continents"
+    },
+    "trustbar": {
+      "label": "Trusted frameworks"
+    }
+  }
+}

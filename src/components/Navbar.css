@@ -133,6 +133,38 @@
   outline-offset: 2px;
 }
 
+/* ── Language selector (EN · FR · PT) ─────────────────────── */
+.nav-lang {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-top: 0.35rem;
+}
+
+.nav-lang-btn {
+  padding: 0.4rem 0.55rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+  opacity: 0.6;
+  transition: color 0.18s ease, opacity 0.18s ease;
+}
+
+.nav-lang-btn:hover {
+  opacity: 1;
+  color: var(--color-text-primary);
+}
+
+.nav-lang-btn.active {
+  opacity: 1;
+  color: var(--color-teal);
+}
+
 @media (min-width: 960px) {
   .nav {
     --nav-height: 72px;
