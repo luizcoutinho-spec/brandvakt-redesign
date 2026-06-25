@@ -1,73 +1,58 @@
 import { FormEvent, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './Careers.css';
 
 interface Position {
-  title: string;
-  dept: string;
-  type: string;
-  location: string;
-  description: string;
-  requirements: string[];
+  apiTitle: string;   // stable English title sent to /api/apply (internal email stays EN)
+  titleKey: string;
+  deptKey: string;
+  locKey: string;
+  descKey: string;
+  reqKeys: string[];
 }
 
 const POSITIONS: Position[] = [
   {
-    title: 'SOC Analyst',
-    dept: 'Security Operations',
-    type: 'Full-time',
-    location: '· Multiple Offices · Remote',
-    description: 'Monitor, detect and respond to security incidents in our 24/7 operations center. Work with SIEM platforms, threat intelligence feeds, and our proprietary detection playbooks.',
-    requirements: [
-      '2+ years security monitoring experience',
-      'SIEM proficiency (Splunk, QRadar, or similar)',
-      'Security certifications (CompTIA Security+, CEH preferred)',
-    ],
+    apiTitle: 'SOC Analyst',
+    titleKey: 'careers.p1_title',
+    deptKey: 'careers.p1_dept',
+    locKey: 'careers.p1_loc',
+    descKey: 'careers.p1_desc',
+    reqKeys: ['careers.p1_req1', 'careers.p1_req2', 'careers.p1_req3'],
   },
   {
-    title: 'GRC Consultant',
-    dept: 'GRC',
-    type: 'Full-time',
-    location: '· Europe · LATAM · Remote',
-    description: 'Help clients navigate complex regulatory landscapes across GDPR, DORA, NIS2, and industry-specific frameworks. Deliver assessments, gap analyses, and remediation roadmaps.',
-    requirements: [
-      '3+ years GRC or compliance experience',
-      'Knowledge of ISO 27001, NIST, or similar',
-      'Fluency in English + French or Portuguese preferred',
-    ],
+    apiTitle: 'GRC Consultant',
+    titleKey: 'careers.p2_title',
+    deptKey: 'careers.p2_dept',
+    locKey: 'careers.p2_loc',
+    descKey: 'careers.p2_desc',
+    reqKeys: ['careers.p2_req1', 'careers.p2_req2', 'careers.p2_req3'],
   },
   {
-    title: 'Penetration Tester',
-    dept: 'Offensive Security',
-    type: 'Full-time',
-    location: '· Remote · Client Sites',
-    description: 'Conduct authorized offensive security testing for enterprise clients. Red team exercises, web application testing, social engineering assessments, and vulnerability research.',
-    requirements: [
-      '2+ years offensive security experience',
-      'OSCP or equivalent certification',
-      'Experience with Kali Linux, Metasploit, Burp Suite',
-    ],
+    apiTitle: 'Penetration Tester',
+    titleKey: 'careers.p3_title',
+    deptKey: 'careers.p3_dept',
+    locKey: 'careers.p3_loc',
+    descKey: 'careers.p3_desc',
+    reqKeys: ['careers.p3_req1', 'careers.p3_req2', 'careers.p3_req3'],
   },
   {
-    title: 'Business Development Manager',
-    dept: 'Sales',
-    type: 'Full-time',
-    location: '· São Paulo · Abidjan · Kinshasa',
-    description: "Drive revenue growth across African and LATAM markets. Build C-suite relationships, identify security requirements, and position Brandvakt's full portfolio.",
-    requirements: [
-      '3+ years B2B sales (cybersecurity preferred)',
-      'Existing network in Financial Services or Telecom',
-      'Portuguese or French fluency a plus',
-    ],
+    apiTitle: 'Business Development Manager',
+    titleKey: 'careers.p4_title',
+    deptKey: 'careers.p4_dept',
+    locKey: 'careers.p4_loc',
+    descKey: 'careers.p4_desc',
+    reqKeys: ['careers.p4_req1', 'careers.p4_req2', 'careers.p4_req3'],
   },
 ];
 
 const OPEN_APPLICATION: Position = {
-  title: 'Open Application',
-  dept: '',
-  type: '',
-  location: '',
-  description: "Don't see the right role? Send us your CV and a brief note about your security expertise — we're always looking for talented people.",
-  requirements: [],
+  apiTitle: 'Open Application',
+  titleKey: 'careers.open_app_title',
+  deptKey: '',
+  locKey: '',
+  descKey: 'careers.open_app_desc',
+  reqKeys: [],
 };
 
 const MAX_BYTES = 2.5 * 1024 * 1024; // 2.5 MB
@@ -86,6 +71,7 @@ function fileToBase64(file: File): Promise<string> {
 }
 
 const Careers = () => {
+  const { t } = useTranslation('pages');
   const [selected, setSelected] = useState<Position | null>(null);
   const [email, setEmail] = useState('');
   const [file, setFile] = useState<File | null>(null);
@@ -120,12 +106,12 @@ const Careers = () => {
     if (!f) { setFile(null); setFileErr(''); return; }
     if (f.type !== 'application/pdf' || !/\.pdf$/i.test(f.name)) {
       setFile(null);
-      setFileErr('Please upload a PDF file.');
+      setFileErr(t('careers.err_pdf'));
       return;
     }
     if (f.size > MAX_BYTES) {
       setFile(null);
-      setFileErr('File exceeds the 2.5MB limit.');
+      setFileErr(t('careers.err_size'));
       return;
     }
     setFileErr('');
@@ -134,7 +120,7 @@ const Careers = () => {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!file) { setFileErr('Please attach your CV (PDF).'); return; }
+    if (!file) { setFileErr(t('careers.err_attach')); return; }
     if (!selected) return;
     setStatus('sending');
     try {
@@ -143,7 +129,7 @@ const Careers = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          positionTitle: selected.title,
+          positionTitle: selected.apiTitle,
           email,
           cvBase64,
           cvFilename: file.name,
@@ -161,17 +147,17 @@ const Careers = () => {
       {/* Hero */}
       <section className="hero-careers animate-fade-up">
         <div className="container" style={{position: 'relative', zIndex: 2}}>
-          <p className="overline text-copper" style={{marginBottom: '1rem'}}>Careers</p>
+          <p className="overline text-copper" style={{marginBottom: '1rem'}}>{t('careers.hero_overline')}</p>
           <h1 className="heading-display text-warm-white">
-            Secure your<br /><em className="text-copper">future</em> here
+            {t('careers.hero_h1_a')}<br /><em className="text-copper">{t('careers.hero_h1_em')}</em>{t('careers.hero_h1_b')}
           </h1>
           <p className="body-large text-muted mt-4" style={{maxWidth: '600px'}}>
-            Join a team protecting businesses across financial services, telecommunications, and critical infrastructure.
+            {t('careers.hero_sub')}
           </p>
           <div className="chips-container mt-6">
-            <span className="career-chip">&middot; 6 Global Offices</span>
-            <span className="career-chip">&middot; Security-First Culture</span>
-            <span className="career-chip">&middot; Growing Team</span>
+            <span className="career-chip">&middot; {t('careers.chip1')}</span>
+            <span className="career-chip">&middot; {t('careers.chip2')}</span>
+            <span className="career-chip">&middot; {t('careers.chip3')}</span>
           </div>
         </div>
       </section>
@@ -180,38 +166,38 @@ const Careers = () => {
       <section className="section bg-surface">
         <div className="container culture-grid-cr animate-fade-up">
           <div className="culture-text-cr">
-            <p className="overline text-copper" style={{marginBottom: '1rem'}}>Who We Are</p>
-            <h2 className="heading-primary" style={{marginBottom: '1.5rem'}}>Security-minded people on the right side of the fence</h2>
-            <p className="body-large text-muted">Security-minded people protecting client continuity across financial services, telecommunications, and critical infrastructure.</p>
+            <p className="overline text-copper" style={{marginBottom: '1rem'}}>{t('careers.culture_overline')}</p>
+            <h2 className="heading-primary" style={{marginBottom: '1.5rem'}}>{t('careers.culture_title')}</h2>
+            <p className="body-large text-muted">{t('careers.culture_p')}</p>
           </div>
           <div className="values-grid-cr">
             <div className="value-card-cr glass-panel" style={{borderTop: '3px solid var(--color-copper)'}}>
               <div className="icon-cr">
                 <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
               </div>
-              <h4 className="heading-secondary">Integrity</h4>
-              <p className="text-muted text-sm mt-1">Honesty and transparency in every engagement.</p>
+              <h4 className="heading-secondary">{t('careers.val1_t')}</h4>
+              <p className="text-muted text-sm mt-1">{t('careers.val1_d')}</p>
             </div>
             <div className="value-card-cr glass-panel" style={{borderTop: '3px solid var(--color-teal)'}}>
               <div className="icon-cr">
                 <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
               </div>
-              <h4 className="heading-secondary">Excellence</h4>
-              <p className="text-muted text-sm mt-1">Highest standards in every assessment and advisory.</p>
+              <h4 className="heading-secondary">{t('careers.val2_t')}</h4>
+              <p className="text-muted text-sm mt-1">{t('careers.val2_d')}</p>
             </div>
             <div className="value-card-cr glass-panel" style={{borderTop: '3px solid var(--color-blue)'}}>
               <div className="icon-cr">
                 <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               </div>
-              <h4 className="heading-secondary">Collaboration</h4>
-              <p className="text-muted text-sm mt-1">We work closely with client teams, not just for them.</p>
+              <h4 className="heading-secondary">{t('careers.val3_t')}</h4>
+              <p className="text-muted text-sm mt-1">{t('careers.val3_d')}</p>
             </div>
             <div className="value-card-cr glass-panel" style={{borderTop: '3px solid var(--color-purple)'}}>
               <div className="icon-cr">
                 <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
               </div>
-              <h4 className="heading-secondary">Inclusion</h4>
-              <p className="text-muted text-sm mt-1">Diverse teams and partnerships across every region we operate.</p>
+              <h4 className="heading-secondary">{t('careers.val4_t')}</h4>
+              <p className="text-muted text-sm mt-1">{t('careers.val4_d')}</p>
             </div>
           </div>
         </div>
@@ -220,24 +206,24 @@ const Careers = () => {
       {/* Life at Brandvakt */}
       <section className="section bg-midnight">
         <div className="container animate-fade-up">
-          <p className="overline text-teal">Our Culture</p>
-          <h2 className="heading-primary mt-2">Life at Brandvakt</h2>
+          <p className="overline text-teal">{t('careers.life_overline')}</p>
+          <h2 className="heading-primary mt-2">{t('careers.life_title')}</h2>
 
           <div className="life-grid-cr mt-8">
             <div className="life-pillar glass-panel" style={{borderTop: '2px solid var(--color-teal)'}}>
               <div className="icon-cr mb-4 text-teal"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-              <h4 className="heading-secondary mb-2">Security-First Culture</h4>
-              <p className="text-muted text-sm">Security embedded in how we work, communicate, and make decisions.</p>
+              <h4 className="heading-secondary mb-2">{t('careers.life1_t')}</h4>
+              <p className="text-muted text-sm">{t('careers.life1_d')}</p>
             </div>
             <div className="life-pillar glass-panel" style={{borderTop: '2px solid var(--color-copper)'}}>
               <div className="icon-cr mb-4 text-teal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-              <h4 className="heading-secondary mb-2">Global Perspective</h4>
-              <p className="text-muted text-sm">Offices across Africa, Latin America, Europe, and the Middle East — regional expertise in every market.</p>
+              <h4 className="heading-secondary mb-2">{t('careers.life2_t')}</h4>
+              <p className="text-muted text-sm">{t('careers.life2_d')}</p>
             </div>
             <div className="life-pillar glass-panel" style={{borderTop: '2px solid var(--color-blue)'}}>
               <div className="icon-cr mb-4 text-teal"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
-              <h4 className="heading-secondary mb-2">Continuous Growth</h4>
-              <p className="text-muted text-sm">Certifications, training, and cross-functional exposure to stay ahead of what's next.</p>
+              <h4 className="heading-secondary mb-2">{t('careers.life3_t')}</h4>
+              <p className="text-muted text-sm">{t('careers.life3_d')}</p>
             </div>
           </div>
         </div>
@@ -246,39 +232,39 @@ const Careers = () => {
       {/* Perks */}
       <section className="section bg-surface" style={{borderTop: '1px solid rgba(255,255,255,0.05)'}}>
          <div className="container animate-fade-up">
-            <p className="overline text-teal">Why Brandvakt</p>
-            <h2 className="heading-primary mt-2">What you get</h2>
+            <p className="overline text-teal">{t('careers.perks_overline')}</p>
+            <h2 className="heading-primary mt-2">{t('careers.perks_title')}</h2>
 
             <div className="perks-grid-cr mt-8">
                <div className="perk-card glass-panel">
                   <div className="perk-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-                  <h4 className="heading-secondary mb-2">Security Certifications</h4>
-                  <p className="text-muted text-sm">Brandvakt sponsors CISSP, CEH, OSCP, CISM, and ISO 27001 Lead Auditor certifications.</p>
+                  <h4 className="heading-secondary mb-2">{t('careers.perk1_t')}</h4>
+                  <p className="text-muted text-sm">{t('careers.perk1_d')}</p>
                </div>
                <div className="perk-card glass-panel">
                   <div className="perk-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-                  <h4 className="heading-secondary mb-2">Remote-Friendly</h4>
-                  <p className="text-muted text-sm">Most roles remote or hybrid, with optional access to offices in London, Abidjan, Kinshasa, Luanda, Dubai, and São Paulo.</p>
+                  <h4 className="heading-secondary mb-2">{t('careers.perk2_t')}</h4>
+                  <p className="text-muted text-sm">{t('careers.perk2_d')}</p>
                </div>
                <div className="perk-card glass-panel">
                   <div className="perk-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
-                  <h4 className="heading-secondary mb-2">Competitive Compensation</h4>
-                  <p className="text-muted text-sm">Global benchmarks, performance bonuses tied to client outcomes.</p>
+                  <h4 className="heading-secondary mb-2">{t('careers.perk3_t')}</h4>
+                  <p className="text-muted text-sm">{t('careers.perk3_d')}</p>
                </div>
                <div className="perk-card glass-panel">
                   <div className="perk-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-                  <h4 className="heading-secondary mb-2">Diverse Global Team</h4>
-                  <p className="text-muted text-sm">15+ nationalities — local market knowledge combined with global threat intelligence.</p>
+                  <h4 className="heading-secondary mb-2">{t('careers.perk4_t')}</h4>
+                  <p className="text-muted text-sm">{t('careers.perk4_d')}</p>
                </div>
                <div className="perk-card glass-panel">
                   <div className="perk-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
-                  <h4 className="heading-secondary mb-2">Continuous Learning</h4>
-                  <p className="text-muted text-sm">Annual budget for training and conferences, plus internal threat briefings and red team exercises.</p>
+                  <h4 className="heading-secondary mb-2">{t('careers.perk5_t')}</h4>
+                  <p className="text-muted text-sm">{t('careers.perk5_d')}</p>
                </div>
                <div className="perk-card glass-panel">
                   <div className="perk-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-                  <h4 className="heading-secondary mb-2">Mission-Driven Work</h4>
-                  <p className="text-muted text-sm">Financial systems, critical infrastructure, and governments in emerging markets.</p>
+                  <h4 className="heading-secondary mb-2">{t('careers.perk6_t')}</h4>
+                  <p className="text-muted text-sm">{t('careers.perk6_d')}</p>
                </div>
             </div>
          </div>
@@ -287,26 +273,26 @@ const Careers = () => {
       {/* Positions */}
       <section className="section bg-midnight">
          <div className="container animate-fade-up">
-            <p className="overline text-copper">Open Positions</p>
-            <h2 className="heading-primary mt-2 mb-8">Current opportunities</h2>
+            <p className="overline text-copper">{t('careers.pos_overline')}</p>
+            <h2 className="heading-primary mt-2 mb-8">{t('careers.pos_title')}</h2>
 
             <div className="positions-list flex-col gap-4">
                {POSITIONS.map((pos) => (
-                 <div key={pos.title} className="position-card glass-panel">
+                 <div key={pos.apiTitle} className="position-card glass-panel">
                     <div className="pos-info">
                        <div className="flex gap-2 mb-2">
-                          <span className="pos-dept">{pos.dept}</span>
-                          <span className="pos-type">{pos.type}</span>
+                          <span className="pos-dept">{t(pos.deptKey)}</span>
+                          <span className="pos-type">{t('careers.type_fulltime')}</span>
                        </div>
-                       <h3 className="heading-secondary mb-1">{pos.title}</h3>
-                       <p className="pos-loc text-xs text-muted mb-2">{pos.location}</p>
-                       <p className="text-sm text-muted mb-4 max-w-xl">{pos.description}</p>
+                       <h3 className="heading-secondary mb-1">{t(pos.titleKey)}</h3>
+                       <p className="pos-loc text-xs text-muted mb-2">{t(pos.locKey)}</p>
+                       <p className="text-sm text-muted mb-4 max-w-xl">{t(pos.descKey)}</p>
                        <ul className="pos-reqs text-xs text-muted">
-                          {pos.requirements.map((r) => <li key={r}>{r}</li>)}
+                          {pos.reqKeys.map((r) => <li key={r}>{t(r)}</li>)}
                        </ul>
                     </div>
                     <button type="button" className="btn btn-primary btn-sm pos-apply" onClick={() => openModal(pos)}>
-                      Apply &rarr;
+                      {t('careers.apply_overline')} &rarr;
                     </button>
                  </div>
                ))}
@@ -317,11 +303,11 @@ const Careers = () => {
       {/* No Role */}
       <section className="section bg-surface text-center">
          <div className="container animate-fade-up">
-            <p className="overline text-teal mb-2">Open Application</p>
-            <h2 className="heading-primary mb-4">Don't see the right role?</h2>
-            <p className="body-large text-muted mx-auto mb-6" style={{maxWidth: '600px'}}>Send us your CV and a brief note about your security expertise. We're always looking for talented people.</p>
+            <p className="overline text-teal mb-2">{t('careers.norole_overline')}</p>
+            <h2 className="heading-primary mb-4">{t('careers.norole_title')}</h2>
+            <p className="body-large text-muted mx-auto mb-6" style={{maxWidth: '600px'}}>{t('careers.norole_sub')}</p>
             <button type="button" className="btn btn-primary" onClick={() => openModal(OPEN_APPLICATION)}>
-              Send your application &rarr;
+              {t('careers.norole_btn')} &rarr;
             </button>
          </div>
       </section>
@@ -332,27 +318,27 @@ const Careers = () => {
           className="apply-overlay"
           role="dialog"
           aria-modal="true"
-          aria-label={`Apply: ${selected.title}`}
+          aria-label={`${t('careers.apply_overline')}: ${t(selected.titleKey)}`}
           onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}
         >
           <div className="apply-modal glass-panel">
-            <button type="button" className="apply-close" aria-label="Close" onClick={closeModal}>✕</button>
+            <button type="button" className="apply-close" aria-label={t('careers.modal_close')} onClick={closeModal}>✕</button>
 
             {status === 'success' ? (
               <div className="apply-success">
-                <h3 className="heading-secondary mb-2">Application received.</h3>
-                <p className="text-muted">Thanks — we received your application for <strong>{selected.title}</strong> and will be in touch.</p>
-                <button type="button" className="btn btn-primary mt-4" onClick={closeModal}>Close</button>
+                <h3 className="heading-secondary mb-2">{t('careers.apply_success_title')}</h3>
+                <p className="text-muted">{t('careers.apply_success_a')} <strong>{t(selected.titleKey)}</strong> {t('careers.apply_success_b')}</p>
+                <button type="button" className="btn btn-primary mt-4" onClick={closeModal}>{t('careers.apply_success_close')}</button>
               </div>
             ) : (
               <>
-                <p className="overline text-teal mb-1">Apply</p>
-                <h3 className="heading-secondary mb-2">{selected.title}</h3>
-                <p className="text-sm text-muted mb-5 apply-desc">{selected.description}</p>
+                <p className="overline text-teal mb-1">{t('careers.apply_overline')}</p>
+                <h3 className="heading-secondary mb-2">{t(selected.titleKey)}</h3>
+                <p className="text-sm text-muted mb-5 apply-desc">{t(selected.descKey)}</p>
 
                 <form onSubmit={handleSubmit} className="apply-form">
                   <div className="apply-field">
-                    <label htmlFor="apply-email">Your Email</label>
+                    <label htmlFor="apply-email">{t('careers.f_email')}</label>
                     <input
                       id="apply-email"
                       type="email"
@@ -364,7 +350,7 @@ const Careers = () => {
                   </div>
 
                   <div className="apply-field">
-                    <label htmlFor="apply-cv">CV (PDF, max 2.5MB)</label>
+                    <label htmlFor="apply-cv">{t('careers.f_cv')}</label>
                     <input
                       id="apply-cv"
                       type="file"
@@ -378,13 +364,13 @@ const Careers = () => {
 
                   {status === 'error' && (
                     <p className="apply-error">
-                      Something went wrong sending your application. Please try again or email us at{' '}
+                      {t('careers.err_submit')}{' '}
                       <a href="mailto:info@brandvakt.com">info@brandvakt.com</a>.
                     </p>
                   )}
 
                   <button type="submit" className="btn btn-primary apply-submit" disabled={status === 'sending'}>
-                    {status === 'sending' ? 'Sending…' : 'Submit Application'}
+                    {status === 'sending' ? t('careers.btn_sending') : t('careers.btn_submit')}
                   </button>
                 </form>
               </>

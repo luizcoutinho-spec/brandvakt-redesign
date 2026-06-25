@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './Services.css';
 import './Contact.css';
 import { useMeta } from '../lib/useMeta';
@@ -8,9 +9,10 @@ const CONTACT_EMAIL = 'info@brandvakt.com';
 type Status = 'idle' | 'sending' | 'success' | 'error';
 
 const Contact = () => {
+  const { t } = useTranslation('pages');
   useMeta({
     title: 'Contact',
-    description: 'Connect with Brandvakt to discuss your security posture, requirements, and compliance challenges. Regions across Africa, LATAM, Europe and the Middle East.'
+    description: t('contact.meta_desc'),
   });
   const [status, setStatus] = useState<Status>('idle');
 
@@ -41,10 +43,10 @@ const Contact = () => {
     <div className="page-wrapper">
       <header className="page-header">
         <div className="container">
-          <span className="overline">Initiate Engagement</span>
-          <h1 className="heading-display">Secure Your Defenses</h1>
+          <span className="overline">{t('contact.overline')}</span>
+          <h1 className="heading-display">{t('contact.h1')}</h1>
           <p className="body-large header-subtitle">
-            Connect with our architecture team to discuss your security posture, requirements, and compliance challenges.
+            {t('contact.subtitle')}
           </p>
         </div>
       </header>
@@ -52,67 +54,67 @@ const Contact = () => {
       <section className="section container">
         <div className="glass-panel contact-shell">
           <div>
-            <h2 className="heading-secondary">Contact us</h2>
+            <h2 className="heading-secondary">{t('contact.contact_us')}</h2>
 
             <div className="contact-info-block">
-              <span className="overline text-teal">Email</span>
+              <span className="overline text-teal">{t('contact.label_email')}</span>
               <div className="contact-email-link">
                 <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
               </div>
             </div>
 
             <div className="contact-info-block">
-              <span className="overline text-teal">Regions</span>
+              <span className="overline text-teal">{t('contact.label_regions')}</span>
               <div className="contact-info-value">Africa · LATAM · Europe · Middle East</div>
             </div>
 
             <div className="contact-info-block">
-              <span className="overline text-teal">Response Time</span>
-              <div className="contact-info-value">Within 24 hours</div>
+              <span className="overline text-teal">{t('contact.label_response')}</span>
+              <div className="contact-info-value">{t('contact.value_response')}</div>
             </div>
           </div>
 
           <div className="contact-form-col">
             {status === 'success' ? (
               <div className="contact-success">
-                <h3 className="heading-secondary">Thanks — message received.</h3>
+                <h3 className="heading-secondary">{t('contact.success_title')}</h3>
                 <p className="body-large">
-                  We received your message and will reply within 24 hours.
+                  {t('contact.success_body')}
                 </p>
                 <button type="button" className="button-secondary" onClick={() => setStatus('idle')}>
-                  Send another
+                  {t('contact.success_btn')}
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="contact-form">
                 <div className="contact-form-row">
                   <div className="contact-field">
-                    <label htmlFor="contact-first">First Name</label>
+                    <label htmlFor="contact-first">{t('contact.f_first')}</label>
                     <input id="contact-first" name="first" type="text" required autoComplete="given-name" />
                   </div>
                   <div className="contact-field">
-                    <label htmlFor="contact-last">Last Name</label>
+                    <label htmlFor="contact-last">{t('contact.f_last')}</label>
                     <input id="contact-last" name="last" type="text" required autoComplete="family-name" />
                   </div>
                 </div>
                 <div className="contact-field">
-                  <label htmlFor="contact-email">Corporate Email</label>
+                  <label htmlFor="contact-email">{t('contact.f_email')}</label>
                   <input id="contact-email" name="email" type="email" required autoComplete="email" />
                 </div>
                 <div className="contact-field">
-                  <label htmlFor="contact-details">Inquiry Details</label>
+                  <label htmlFor="contact-details">{t('contact.f_details')}</label>
                   <textarea id="contact-details" name="details" rows={5} required />
                 </div>
 
                 {status === 'error' && (
                   <p className="contact-error">
-                    Something went wrong sending your message. Please email us directly at{' '}
+                    {t('contact.error_msg')}{' '}
                     <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
                   </p>
                 )}
 
                 <button type="submit" className="button-primary contact-submit" disabled={status === 'sending'}>
-                  {status === 'sending' ? 'Sending…' : 'Submit Communication'}
+                  {status === 'sending' ? t('contact.btn_sending') : t('contact.btn_submit')}
                 </button>
               </form>
             )}
