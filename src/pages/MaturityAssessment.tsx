@@ -271,9 +271,37 @@ export default function MaturityAssessment() {
   const [roadmapPhases, setRoadmapPhases] = useState(['', '', '']);
   const [aiProposal,    setAiProposal]    = useState('');
   const [streaming,     setStreaming]     = useState(false);
+  const [reportStatus,  setReportStatus]  = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const topRef = useRef<HTMLDivElement>(null);
 
   function scrollTop() { topRef.current?.scrollIntoView({ behavior: 'smooth' }); }
+
+  /* ── Email the full report to the lead (BCC Brandvakt). Best-effort. ── */
+  async function sendReport() {
+    setReportStatus('sending');
+    try {
+      const res = await fetch('/api/send-report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: leadData.email,
+          company: leadData.company,
+          firstName: leadData.firstName,
+          lastName: leadData.lastName,
+          role: leadData.role,
+          maturityScore: pct,
+          maturityLevel: mat.l,
+          diagnosis: aiDiagnosis,
+          roadmap: roadmapPhases,
+          proposal: aiProposal,
+        }),
+      });
+      if (!res.ok) throw new Error('request failed');
+      setReportStatus('sent');
+    } catch {
+      setReportStatus('error');
+    }
+  }
 
   /* ── Answers ── */
   function setAns(key: string, val: number) {
@@ -341,6 +369,7 @@ export default function MaturityAssessment() {
   /* ── AI generation ── */
   async function runAI() {
     setStreaming(true);
+    setReportStatus('idle');
     const pct  = overallPct(answers);
     const mat  = matLevel(pct);
     const gaps = getGaps(answers);
@@ -384,6 +413,7 @@ export default function MaturityAssessment() {
     setAiDiagnosis('');
     setRoadmapPhases(['', '', '']);
     setAiProposal('');
+    setReportStatus('idle');
     setStreaming(false);
     setPhase('hero');
     scrollTop();
@@ -821,6 +851,15 @@ export default function MaturityAssessment() {
               <p style={{ fontSize: 14, color: '#52525B' }}>Our specialists turn your diagnosis into an executable security roadmap.</p>
             </div>
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', flexShrink: 0 }}>
+              {!streaming && aiDiagnosis && (
+                <button onClick={sendReport} disabled={reportStatus === 'sending'}
+                  style={{ fontFamily: 'inherit', fontSize: 14, fontWeight: 600, background: C.red, color: '#000', border: 'none', padding: '13px 24px', borderRadius: 8, cursor: reportStatus === 'sending' ? 'not-allowed' : 'pointer', opacity: reportStatus === 'sending' ? 0.7 : 1, display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                  {reportStatus === 'sending' ? 'Sending…'
+                    : reportStatus === 'sent' ? `✓ Report sent to ${leadData.email}`
+                    : reportStatus === 'error' ? "Couldn't send — retry"
+                    : 'Email me this report'}
+                </button>
+              )}
               <Link to="/contact"
                 style={{ fontFamily: 'inherit', fontSize: 14, fontWeight: 600, background: C.red, color: '#000', border: 'none', padding: '13px 24px', borderRadius: 8, cursor: 'pointer', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
                 Talk to a specialist <ExternalLink size={14} />
